@@ -14,6 +14,7 @@ import json
 import logging
 import os
 from pathlib import Path, PurePosixPath
+import re
 import socket
 import subprocess
 import tempfile
@@ -32,8 +33,13 @@ RUNTIME_VERSION = "b11580"
 RUNTIME_FILE = "llama-b11580-bin-win-cpu-x64.zip"
 RUNTIME_BYTES = 19_509_613
 RUNTIME_SHA256 = "430efe5b4f10db617ae0f5732f7e9360fa7be4344d1d97688e09bbd3b5b084da"
+VULKAN_RUNTIME_FILE = "llama-b11580-bin-win-vulkan-x64.zip"
+VULKAN_RUNTIME_BYTES = 32_112_251
+VULKAN_RUNTIME_SHA256 = "6e520f0b8bbc6608b53d70065ed80ee90d33acf1636f886d965e0c87f708dff2"
 INSTRUCTION = "Given a scientific claim, retrieve scientific abstracts that provide evidence about the claim."
 DIMENSION = 1024
+EOS_TOKEN_ID = 151643
+MIN_START_MEMORY_BYTES = 1536 * 1024**2
 
 
 def _sha256(path: Path) -> str:
@@ -112,19 +118,23 @@ def _download_verified(url: str, target: Path, size: int, digest: str) -> Path:
     return target
 
 
-def fetch_assets(cache_dir: Path) -> tuple[Path, Path]:
-    """Fetch official model and official Windows CPU runtime, both pinned."""
+def fetch_assets(cache_dir: Path, backend: str = "cpu") -> tuple[Path, Path]:
+    """Fetch official model and separate official Windows runtimes, all pinned."""
+    if backend not in {"cpu", "vulkan"}:
+        raise ValueError("backend must be cpu or vulkan")
     cache_dir = Path(cache_dir)
     model = _download_verified(
         f"https://huggingface.co/{MODEL_ID}/resolve/{MODEL_REVISION}/{MODEL_FILE}",
         cache_dir / "models" / "qwen3" / MODEL_REVISION / MODEL_FILE,
         MODEL_BYTES, MODEL_SHA256,
     )
+    filename, size, digest = ((RUNTIME_FILE, RUNTIME_BYTES, RUNTIME_SHA256) if backend == "cpu" else
+                              (VULKAN_RUNTIME_FILE, VULKAN_RUNTIME_BYTES, VULKAN_RUNTIME_SHA256))
     archive_path = _download_verified(
-        f"https://github.com/ggml-org/llama.cpp/releases/download/{RUNTIME_VERSION}/{RUNTIME_FILE}",
-        cache_dir / "runtime" / RUNTIME_FILE, RUNTIME_BYTES, RUNTIME_SHA256,
+        f"https://github.com/ggml-org/llama.cpp/releases/download/{RUNTIME_VERSION}/{filename}",
+        cache_dir / "runtime" / filename, size, digest,
     )
-    runtime_dir = (cache_dir / "runtime" / RUNTIME_VERSION).resolve()
+    runtime_dir = (cache_dir / "runtime" / (RUNTIME_VERSION if backend == "cpu" else RUNTIME_VERSION + "-vulkan")).resolve()
     with zipfile.ZipFile(archive_path) as archive:
         for item in archive.infolist():
             name = PurePosixPath(item.filename.replace("\\", "/"))
@@ -197,18 +207,27 @@ class QwenEmbeddingEncoder:
     """Owns one local llama.cpp process and stops only that owned process.
 
     Text is tokenized by the actual GGUF runtime before explicit right truncation.
-    The default follows the official Transformers recipe: last-token pooling,
-    no manually appended EOS. `append_eos=True` is an explicitly recorded variant.
+    The official tokenizer's TemplateProcessing appends endoftext (151643),
+    reflected in this pinned GGUF's add_eos_token=true/add_bos_token=false.
+    We request raw tokens, truncate the body while reserving one position, then
+    append that EOS explicitly before submitting a pretokenized integer array.
+    `append_eos=False` is a non-default ablation, not the official recipe.
     """
 
-    def __init__(self, cache_dir: Path, threads: int = 2, max_tokens: int = 256,
-                 instruction: str = INSTRUCTION, append_eos: bool = False):
+    def __init__(self, cache_dir: Path, threads: int = 2, max_tokens: int = 128,
+                 instruction: str = INSTRUCTION, append_eos: bool = True, backend: str = "cpu",
+                 device: str = "Vulkan0"):
         if threads not in {1, 2}:
             raise ValueError("This CPU experiment permits only one or two threads")
         if not 32 <= max_tokens <= 512:
             raise ValueError("max_tokens must be between 32 and 512")
+        if backend not in {"cpu", "vulkan"}:
+            raise ValueError("backend must be cpu or vulkan")
+        if backend == "vulkan" and not re.fullmatch(r"Vulkan[0-9]+", device):
+            raise ValueError("A single explicitly enumerated Vulkan device is required")
         self.cache_dir = Path(cache_dir)
         self.threads, self.max_tokens = threads, max_tokens
+        self.backend, self.device = backend, device
         self.instruction, self.append_eos = instruction, append_eos
         self.process = self.log_handle = None
         self.port = None
@@ -217,19 +236,28 @@ class QwenEmbeddingEncoder:
             "model_id": MODEL_ID, "model_revision": MODEL_REVISION,
             "model_file": MODEL_FILE, "model_sha256": MODEL_SHA256,
             "model_license": "Apache-2.0", "runtime": "llama.cpp",
-            "runtime_version": RUNTIME_VERSION, "runtime_archive_sha256": RUNTIME_SHA256,
-            "runtime_license": "MIT", "backend": "CPU", "threads": threads,
-            "max_tokens": max_tokens, "truncation": "right, after instruction formatting",
+            "runtime_version": RUNTIME_VERSION,
+            "runtime_archive_sha256": RUNTIME_SHA256 if backend == "cpu" else VULKAN_RUNTIME_SHA256,
+            "runtime_license": "MIT", "backend": backend, "threads": threads,
+            "device": "none" if backend == "cpu" else device,
+            "max_tokens": max_tokens, "truncation": "right after instruction formatting, reserving final EOS position when enabled",
             "pooling": "last", "normalization": "L2", "dimension": DIMENSION,
             "query_instruction": instruction, "document_instruction": None,
-            "append_eos": append_eos, "eos_policy": "manual endoftext only if explicitly enabled",
+            "append_eos": append_eos, "eos_token_id": EOS_TOKEN_ID, "bos_added": False,
+            "gguf_tokenizer_contract": {"add_eos_token": True, "add_bos_token": False, "eos_token_id": EOS_TOKEN_ID},
+            "tokenize_endpoint_add_special": False, "tokenize_endpoint_parse_special": False,
+            "eos_policy": ("explicit EOS after body truncation mirrors official automatic TemplateProcessing"
+                           if append_eos else "EOS omitted: explicit non-default ablation"),
             "model_release": "2025-06-05", "context_size": 512,
         }
 
     def start(self):
         if self.process is not None:
             return self
-        model_path, executable = fetch_assets(self.cache_dir)
+        available = _memory_snapshot().get("available_physical_bytes")
+        if available is not None and available < MIN_START_MEMORY_BYTES:
+            raise MemoryError("Qwen startup requires at least 1.5 GiB free physical memory; resume after other scheduled work finishes")
+        model_path, executable = fetch_assets(self.cache_dir, self.backend)
         self.port = _free_port()
         self.base_url = f"http://127.0.0.1:{self.port}"
         log_dir = self.cache_dir / "modern" / "logs"
@@ -240,8 +268,9 @@ class QwenEmbeddingEncoder:
                    "--embedding", "--pooling", "last", "--ctx-size", "512",
                    "--batch-size", "512", "--ubatch-size", "512", "--parallel", "1",
                    "--threads", str(self.threads), "--threads-batch", str(self.threads),
-                   "--host", "127.0.0.1", "--port", str(self.port), "--n-gpu-layers", "0",
-                   "--no-warmup"]
+                   "--host", "127.0.0.1", "--port", str(self.port), "--no-warmup"]
+        command += (["--device", "none", "--n-gpu-layers", "0", "--no-op-offload"] if self.backend == "cpu"
+                    else ["--device", self.device, "--n-gpu-layers", "all"])
         # A public experiment report needs reproducible flags, not the user's
         # private absolute workspace or home-directory names.
         self.metadata["server_command"] = [executable.name, "--model", MODEL_FILE, *command[3:]]
@@ -282,17 +311,19 @@ class QwenEmbeddingEncoder:
         formatted = f"Instruct: {self.instruction}\nQuery:{text}" if is_query else text
         tokens = self._request("/tokenize", {"content": formatted, "add_special": False,
                                               "parse_special": False})["tokens"]
+        if not isinstance(tokens, list) or any(type(token) is not int or token < 0 for token in tokens):
+            raise ValueError("Tokenizer must return a flat nonnegative integer token list")
+        if not tokens:
+            raise ValueError("Cannot embed empty token sequence")
         original_length = len(tokens)
         reserve = 1 if self.append_eos else 0
         tokens = tokens[:self.max_tokens - reserve]
         if self.append_eos:
-            tokens = tokens + [151643]
-        if not tokens:
-            raise ValueError("Cannot embed empty token sequence")
+            tokens = tokens + [EOS_TOKEN_ID]
         return tokens, original_length > self.max_tokens - reserve, original_length
 
     def encode(self, texts: list[str], batch_size: int = 1, *, is_query: bool = False,
-               use_cache: bool = True):
+               use_cache: bool = True, cache_namespace: str = "shared"):
         """Return [N,1024] vectors; write each completed item as a checkpoint.
 
         Inference remains sequential to respect the two-GB free-memory budget.
@@ -304,11 +335,19 @@ class QwenEmbeddingEncoder:
 
         if batch_size < 1:
             raise ValueError("batch_size must be positive")
+        if not re.fullmatch(r"[a-z][a-z0-9_-]{0,31}", cache_namespace):
+            raise ValueError("cache_namespace must be a simple lowercase identifier")
         signature = {k: v for k, v in self.metadata.items() if k not in {"server_command", "threads"}}
         fingerprint = hashlib.sha256(json.dumps(signature, sort_keys=True).encode()).hexdigest()
-        item_dir = self.cache_dir / "modern" / "embeddings" / fingerprint
+        # The full digest stays in metadata. A checked short directory avoids
+        # Windows MAX_PATH failures in long workspaces and pytest temp roots.
+        item_dir = self.cache_dir / "modern" / "embeddings" / fingerprint[:24] / cache_namespace
         item_dir.mkdir(parents=True, exist_ok=True)
+        manifest_path = item_dir / "manifest.json"
+        if manifest_path.exists() and json.loads(manifest_path.read_text(encoding="utf-8")) != signature:
+            raise ValueError("Embedding cache signature mismatch")
         output, cached, truncated, token_count, latencies = [], 0, 0, 0, []
+        recorded_seconds, record_threads = 0.0, {}
         started = time.perf_counter()
         for text in texts:
             if not isinstance(text, str) or not text.strip():
@@ -322,6 +361,11 @@ class QwenEmbeddingEncoder:
                 # Fully cached teacher outputs can be consumed during student
                 # training without loading a second model into scarce RAM.
                 self.start()
+                if self.process is not None:
+                    available = _memory_snapshot().get("available_physical_bytes")
+                    if available is not None and available < 256 * 1024**2:
+                        self.close()
+                        raise MemoryError("Stopped owned Qwen process after free physical memory fell below 256 MiB; completed checkpoints remain reusable")
                 item_started = time.perf_counter()
                 tokens, was_truncated, original_length = self._tokens(text, is_query)
                 response = self._request("/v1/embeddings", {"input": tokens, "encoding_format": "float"})
@@ -330,7 +374,8 @@ class QwenEmbeddingEncoder:
                     raise RuntimeError("Invalid Qwen embedding output")
                 vector /= np.linalg.norm(vector)
                 record = {"vector": vector.tolist(), "tokens": len(tokens), "original_tokens": original_length,
-                          "truncated": was_truncated, "seconds": time.perf_counter() - item_started}
+                          "truncated": was_truncated, "seconds": time.perf_counter() - item_started,
+                          "threads": self.threads}
                 temp_path = cache_path.with_suffix(".tmp")
                 temp_path.write_text(json.dumps(record), encoding="utf-8")
                 os.replace(temp_path, cache_path)
@@ -341,10 +386,15 @@ class QwenEmbeddingEncoder:
             output.append(vector)
             truncated += int(record["truncated"])
             token_count += int(record["tokens"])
+            recorded_seconds += float(record["seconds"])
+            thread_key = str(record.get("threads", "unknown"))
+            record_threads[thread_key] = record_threads.get(thread_key, 0) + 1
         self.last_stats = {"items": len(texts), "cache_hits": cached, "truncated": truncated,
                            "tokens": token_count, "elapsed_seconds": time.perf_counter() - started,
-                           "uncached_item_seconds": latencies, "embedding_fingerprint": fingerprint}
-        (item_dir / "manifest.json").write_text(json.dumps(signature, indent=2), encoding="utf-8")
+                           "uncached_item_seconds": latencies, "embedding_fingerprint": fingerprint,
+                           "recorded_original_inference_seconds": recorded_seconds,
+                           "recorded_threads_item_counts": record_threads, "cache_namespace": cache_namespace}
+        manifest_path.write_text(json.dumps(signature, indent=2), encoding="utf-8")
         return np.stack(output) if output else np.empty((0, DIMENSION), dtype=np.float32)
 
     def close(self):
@@ -368,29 +418,63 @@ class QwenEmbeddingEncoder:
         self.close()
 
 
-def benchmark(data_dir: Path, cache_dir: Path, output_path: Path, max_tokens: int = 256):
+def benchmark(data_dir: Path, cache_dir: Path, output_path: Path, max_tokens: int = 128,
+              include_vulkan: bool = False, vulkan_device: str = "Vulkan0"):
     """Measure 16 label-free hash-selected corpus documents at 1 and 2 threads."""
     from .data import load_dataset
 
+    if max_tokens < 64:
+        raise ValueError("The published semantic smoke test needs at least a 64-token budget")
     dataset = load_dataset(data_dir)
     selected = sorted(dataset.docs, key=lambda d: hashlib.sha256(("qwen-cpu-benchmark-v1:" + d["_id"]).encode()).hexdigest())[:16]
     texts = [doc["title"] + "\n" + doc["text"] for doc in selected]
-    report = {"scope": "CPU throughput microbenchmark; not a retrieval quality result",
+    report = {"scope": "Local throughput microbenchmark; not a retrieval quality result",
               "selection": "16 corpus IDs with smallest SHA256(qwen-cpu-benchmark-v1:ID), no labels",
               "document_ids": [doc["_id"] for doc in selected], "corpus_sha256": dataset.corpus_hash,
               "memory_before": _memory_snapshot(), "runs": []}
-    for threads in (1, 2):
-        with QwenEmbeddingEncoder(cache_dir, threads=threads, max_tokens=max_tokens) as encoder:
+    configurations = [("cpu", 1), ("cpu", 2)] + ([("vulkan", 2)] if include_vulkan else [])
+    reference = None
+    for backend, threads in configurations:
+        startup_started = time.perf_counter()
+        with QwenEmbeddingEncoder(cache_dir, threads=threads, max_tokens=max_tokens,
+                                  backend=backend, device=vulkan_device) as encoder:
+            startup_seconds = time.perf_counter() - startup_started
+            # The published four-text example checks input/token/pooling
+            # semantics independently of SciFact labels or retrieval scores.
+            # Send the already formatted queries as raw text so this small
+            # check uses the official web-search instruction, not ours.
+            example_vectors = encoder.encode([
+                "Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:What is the capital of China?",
+                "Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:Explain gravity",
+                "The capital of China is Beijing.",
+                "Gravity is a force that attracts two bodies towards each other. It gives weight to physical objects and is responsible for the movement of planets around the sun.",
+            ], use_cache=False, cache_namespace="official_example")
+            import numpy as np
+            example_scores = example_vectors[:2] @ example_vectors[2:].T
+            expected = np.asarray([[0.7645568251609802, 0.14142508804798126],
+                                   [0.13549736142158508, 0.5999549627304077]])
+            example_error = float(np.abs(example_scores - expected).max())
+            if example_error > 0.08:
+                raise RuntimeError(f"Qwen official example differs by {example_error:.3f}; inspect tokenization/pooling before full evaluation")
             encoder.encode(["An example scientific abstract about cellular mechanisms."], use_cache=False)
             vectors = encoder.encode(texts, use_cache=False)
             run = dict(encoder.last_stats, threads=threads, metadata=encoder.metadata,
-                       output_shape=list(vectors.shape), memory=_memory_snapshot(encoder.process))
+                       output_shape=list(vectors.shape), memory=_memory_snapshot(encoder.process),
+                       startup_and_integrity_check_seconds=startup_seconds,
+                       official_example={"scores": example_scores.tolist(), "maximum_absolute_error": example_error,
+                                         "full_precision_reference": expected.tolist(), "tolerance": 0.08,
+                                         "source": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B#transformers-usage"})
+            if reference is None:
+                reference = vectors.copy()
+            else:
+                run["cpu_reference_agreement"] = {"minimum_cosine": float(np.sum(vectors * reference, axis=1).min()),
+                                                  "maximum_absolute_difference": float(np.abs(vectors - reference).max())}
             run["documents_per_second"] = 16 / run["elapsed_seconds"]
             run["estimated_5183_document_seconds"] = 5183 / run["documents_per_second"]
             report["runs"].append(run)
             output_path.parent.mkdir(parents=True, exist_ok=True)
             output_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
-            LOGGER.info("Qwen threads=%s: %.3f docs/sec", threads, run["documents_per_second"])
+            LOGGER.info("Qwen backend=%s threads=%s: %.3f docs/sec", backend, threads, run["documents_per_second"])
     return report
 
 
@@ -400,13 +484,17 @@ def main():
     parser.add_argument("--cache-dir", type=Path, default=Path("cache"))
     parser.add_argument("--data-dir", type=Path, default=Path("data/scifact"))
     parser.add_argument("--output", type=Path, default=Path("artifacts/modern/cpu_benchmark.json"))
-    parser.add_argument("--max-tokens", type=int, default=256)
+    parser.add_argument("--max-tokens", type=int, default=128)
+    parser.add_argument("--backend", choices=("cpu", "vulkan"), default="cpu", help="Runtime to fetch")
+    parser.add_argument("--include-vulkan", action="store_true", help="Add Vulkan benchmark after both CPU arms")
+    parser.add_argument("--vulkan-device", default="Vulkan0")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
     if args.command == "fetch":
-        print("\n".join(map(str, fetch_assets(args.cache_dir))))
+        print("\n".join(map(str, fetch_assets(args.cache_dir, args.backend))))
     else:
-        print(json.dumps(benchmark(args.data_dir, args.cache_dir, args.output, args.max_tokens), indent=2))
+        print(json.dumps(benchmark(args.data_dir, args.cache_dir, args.output, args.max_tokens,
+                                   args.include_vulkan, args.vulkan_device), indent=2))
 
 
 if __name__ == "__main__":
