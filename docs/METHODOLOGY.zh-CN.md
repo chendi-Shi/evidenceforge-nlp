@@ -105,7 +105,7 @@ s_{\text{RRF}}(q,d)=\frac{1}{60+r_{\text{BM25}}(q,d)}+
 所有指标先逐查询计算，再对同一批查询取宏平均。`rel_i` 是 qrels 给出的相关性；本数据为二值相关。
 
 \[
-DCG@k=\sum_{i=1}^k\frac{2^{rel_i}-1}{\log_2(i+1)},\qquad
+DCG@k=\sum_{i=1}^k\frac{rel_i}{\log_2(i+1)},\qquad
 nDCG@k=\frac{DCG@k}{IDCG@k}
 \]
 
@@ -121,6 +121,8 @@ Recall@k(q)=\frac{|\operatorname{top}_k(q)\cap G_q|}{|G_q|}
 \]
 
 主指标为 nDCG@10；同时报告 MRR@10、Recall@10 和 Recall@50。MRR 只关心第一篇相关结果；Recall 检查是否漏掉其他已标注相关文献。
+
+v0.2 起统一采用 TREC/BEIR 的原始相关度线性 gain。v0.1 实现使用指数 gain，但 SciFact 标签为二元，两者数值完全相同，已保存的 v0.1 结果不变；NFCorpus 的 1/2 分级标签使用上式。该修正在神经实验读取任何测试分数前完成，协议修订记录保留在结果目录。[TREC 官方实现](https://github.com/usnistgov/trec_eval/blob/master/m_ndcg_cut.c)
 
 **候选上限。** 将 top 50 候选中全部相关文档理想地排在最前，仍使用全体相关文档的 `IDCG` 作分母，可得候选池内 oracle nDCG@10。它只用于诊断，不能用于线上排序或声称模型效果。若 RRF 与重排器都恰好返回同一批 50 个候选，Recall@50 应完全相同；重排无法找回池外文档。
 

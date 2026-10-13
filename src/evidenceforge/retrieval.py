@@ -25,6 +25,14 @@ def tokenize(text: str) -> list[str]:
     return re.findall(r"(?u)\b\w+\b", text.casefold())
 
 
+def embedding_cache_key(corpus_hash: str, encoder_metadata: dict, text_format: str = "title + newline + text") -> str:
+    return hashlib.sha256(json.dumps({
+        "corpus": corpus_hash,
+        "encoder": {key: value for key, value in encoder_metadata.items() if key != "threads"},
+        "text_format": text_format,
+    }, sort_keys=True).encode()).hexdigest()
+
+
 class RetrievalIndex:
     """Scores the entire corpus; never consults relevance labels during search.
 
@@ -33,7 +41,7 @@ class RetrievalIndex:
     are not cached, so measured latency includes encoding on every call.
     """
 
-    def __init__(self, dataset: Dataset, cache_dir: Path, dense: bool = True, threads: int = 2):
+    def __init__(self, dataset: Dataset, cache_dir: Path, dense: bool = True, threads: int = 2, encoder=None):
         self.dataset = dataset
         self.docs = sorted(dataset.docs, key=lambda doc: str(doc["_id"]))
         self.cache_dir = Path(cache_dir)
@@ -50,6 +58,7 @@ class RetrievalIndex:
             "rrf_zero_bm25_policy": "exclude lexical vote for nonmatching documents",
         }
         self.encoder = None
+        self.encoder_override = encoder
         self.embeddings = None
         self._built = False
 
@@ -79,13 +88,9 @@ class RetrievalIndex:
         self.metadata["vocabulary_size"] = len(self.vocabulary)
         if self.dense_enabled:
             self.cache_dir.mkdir(parents=True, exist_ok=True)
-            self.encoder = MiniLMEncoder(self.cache_dir, threads=self.threads)
+            self.encoder = self.encoder_override or MiniLMEncoder(self.cache_dir, threads=self.threads)
             self.metadata.update(self.encoder.metadata)
-            fingerprint = hashlib.sha256(json.dumps({
-                "corpus": self.dataset.corpus_hash,
-                "encoder": {key: value for key, value in self.encoder.metadata.items() if key != "threads"},
-                "text_format": self.metadata["text_format"],
-            }, sort_keys=True).encode()).hexdigest()
+            fingerprint = embedding_cache_key(self.dataset.corpus_hash, self.encoder.metadata, self.metadata["text_format"])
             cache_path = self.cache_dir / f"embeddings-{fingerprint}.npy"
             if cache_path.exists():
                 vectors = np.load(cache_path, allow_pickle=False)

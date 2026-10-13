@@ -19,3 +19,5 @@ dist/
 *.log
 .DS_Store
 .local_setup/
+results/**/checkpoints/
+results/**/latest.json

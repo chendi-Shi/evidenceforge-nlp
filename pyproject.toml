@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "evidenceforge"
-version = "0.1.0"
-description = "Reproducible scientific evidence retrieval with hard-negative learning to rank"
+version = "0.2.0"
+description = "CPU neural retrieval adaptation, false-negative risk filtering and reproducible evaluation"
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
 license = "MIT"
@@ -17,6 +17,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "httpx>=0.27,<1", "ruff>=0.9,<1"]
+adaptation = ["torch>=2.6,<2.9", "transformers>=4.57,<5", "safetensors>=0.4,<1"]
 
 [project.scripts]
 evidenceforge = "evidenceforge.cli:main"

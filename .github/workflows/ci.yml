@@ -17,3 +17,14 @@ jobs:
       - run: pip install -e '.[dev]'
       - run: ruff check src tests
       - run: pytest -q
+  neural:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install -e '.[dev,adaptation]'
+      - run: pytest -q tests/test_adaptation.py tests/test_neural_experiment.py

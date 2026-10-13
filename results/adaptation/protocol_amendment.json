@@ -1,0 +1,5 @@
+{
+  "reason": "Before any test evaluation, align graded nDCG with trec_eval linear gains and freeze query/test-qrel fingerprints. Training hyperparameters and sampling are unchanged; resume the same optimizer checkpoint.",
+  "initial_spec_sha256": "e70653b9051a1404158ade735ff5235f25fd44b6550e3eaf35b8cab8699e3682",
+  "test_evaluation_existed": false
+}

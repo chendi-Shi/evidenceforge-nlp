@@ -31,7 +31,7 @@ class SearchRequest(BaseModel):
 
 def create_app(data_dir: Path = Path("data/scifact"), cache_dir: Path = Path("cache"),
                model_dir: Path = Path("results/scifact/model"), dense: bool = True,
-               threads: int = 2, index=None, ranker=None) -> FastAPI:
+               threads: int = 2, index=None, ranker=None, adapter_dir: Path | None = None) -> FastAPI:
     """Inject index/ranker for offline contract tests; load real artifacts at startup."""
     @asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -39,9 +39,16 @@ def create_app(data_dir: Path = Path("data/scifact"), cache_dir: Path = Path("ca
         if index is None:
             from evidenceforge.data import load_dataset
             from evidenceforge.retrieval import RetrievalIndex
-            index = RetrievalIndex(load_dataset(data_dir), cache_dir, dense=dense, threads=threads)
+            encoder = None
+            if adapter_dir is not None:
+                if not dense:
+                    raise ValueError("A neural adapter requires dense retrieval")
+                from evidenceforge.adaptation import AdaptedEncoder
+                from evidenceforge.model_assets import download_float_minilm
+                encoder = AdaptedEncoder.load(download_float_minilm(cache_dir), adapter_dir, threads=threads)
+            index = RetrievalIndex(load_dataset(data_dir), cache_dir, dense=dense, threads=threads, encoder=encoder)
             await run_in_threadpool(index.build)
-        if ranker is None and model_dir.exists() and dense:
+        if ranker is None and model_dir.exists() and dense and adapter_dir is None:
             from evidenceforge.ranker import EvidenceRanker
             ranker = EvidenceRanker.load(model_dir)
         if ranker is not None:
@@ -50,7 +57,7 @@ def create_app(data_dir: Path = Path("data/scifact"), cache_dir: Path = Path("ca
         yield
         app.state.ready = False
 
-    app = FastAPI(title="EvidenceForge", version="0.1.0", lifespan=lifespan,
+    app = FastAPI(title="EvidenceForge", version="0.2.0", lifespan=lifespan,
                   description="Scientific evidence search. " + NOTICE)
     app.state.ready = False
     # One active ranking request avoids oversubscribing the small CPU deployment.

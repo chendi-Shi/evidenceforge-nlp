@@ -72,8 +72,8 @@ def read_trec(path: Path, query_ids: set[str], document_ids: set[str]) -> dict[s
 
 def calculate_metrics(ranking: list[str], qrels: dict[str, int]) -> dict[str, float]:
     relevant = {doc: rel for doc, rel in qrels.items() if rel > 0}
-    ideal = sum((2**rel - 1) / math.log2(rank + 1) for rank, rel in enumerate(sorted(relevant.values(), reverse=True)[:10], 1))
-    observed = sum((2**relevant.get(doc, 0) - 1) / math.log2(rank + 1) for rank, doc in enumerate(ranking[:10], 1))
+    ideal = sum(rel / math.log2(rank + 1) for rank, rel in enumerate(sorted(relevant.values(), reverse=True)[:10], 1))
+    observed = sum(relevant.get(doc, 0) / math.log2(rank + 1) for rank, doc in enumerate(ranking[:10], 1))
     first = next((rank for rank, doc in enumerate(ranking[:10], 1) if doc in relevant), None)
     return {
         "ndcg@10": observed / ideal if ideal else 0.0,

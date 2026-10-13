@@ -9,10 +9,12 @@ import re
 import time
 from collections import Counter
 from pathlib import Path
-from typing import Any
+from typing import Any, TYPE_CHECKING
 
-import lightgbm as lgb
 import numpy as np
+
+if TYPE_CHECKING:
+    import lightgbm as lgb
 
 from .evaluation import macro_metrics, query_metrics
 
@@ -169,6 +171,7 @@ class EvidenceRanker:
         return candidates, injected
 
     def fit(self, dataset, index, *, seed: int = SEED, threads: int = 2, include_dense: bool | None = None) -> dict:
+        import lightgbm as lgb
         if include_dense is not None:
             self.include_dense = include_dense
         self.metadata = {"threads": max(1, threads)}
@@ -271,6 +274,7 @@ class EvidenceRanker:
 
     @classmethod
     def load(cls, model_dir: Path) -> "EvidenceRanker":
+        import lightgbm as lgb
         model_dir = Path(model_dir)
         metadata = json.loads((model_dir / "metadata.json").read_text(encoding="utf-8"))
         instance = cls(include_dense=bool(metadata["include_dense"]))

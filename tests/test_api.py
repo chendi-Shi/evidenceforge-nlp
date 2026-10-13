@@ -26,3 +26,11 @@ def test_search_validates_inputs_and_reports_missing_capability():
 def test_ltr_requires_model(tmp_path):
     with TestClient(create_app(index=FakeIndex(), model_dir=tmp_path / "absent")) as client:
         assert client.post("/search", json={"query": "a", "method": "ltr"}).status_code == 409
+
+
+def test_adapter_instance_does_not_load_incompatible_v1_ranker(tmp_path):
+    # An existing v1 path must not cause loading against a changed neural encoder.
+    with TestClient(create_app(index=FakeIndex(), model_dir=tmp_path, adapter_dir=tmp_path / "adapter")) as client:
+        assert client.get("/health").json()["ranker"] is False
+        assert client.post("/search", json={"query": "a", "method": "dense"}).status_code == 200
+        assert client.post("/search", json={"query": "a", "method": "ltr"}).status_code == 409

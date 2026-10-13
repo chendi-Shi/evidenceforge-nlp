@@ -1,0 +1,62 @@
+{
+  "registered_at_utc": "2026-10-13T06:58:17.712950+00:00",
+  "spec_sha256": "782ec47e0f92b917c94b142210e334a34be8953b4178ff511d0e4a69a7295fe0",
+  "spec": {
+    "schema": 2,
+    "training": {
+      "seed": 42,
+      "max_train_queries": 10000,
+      "epochs": 2,
+      "batch_size": 2,
+      "negatives_per_query": 2,
+      "max_length": 128,
+      "lora_rank": 8,
+      "lora_alpha": 16.0,
+      "learning_rate": 0.001,
+      "weight_decay": 0.01,
+      "temperature": 0.05,
+      "max_grad_norm": 1.0,
+      "candidate_pool_size": 50,
+      "filter_margin": 0.05,
+      "threads": 2,
+      "checkpoint_every": 50,
+      "arms": [
+        "random",
+        "retrieved",
+        "filtered"
+      ]
+    },
+    "source_corpus_sha256": "7e9020adc131c4243732a5dea0d1c833114e62b0579f120b5b2ce6dea274dd40",
+    "source_train_qrels_sha256": "99fe09e489e751745982e32b6360036f20861f49826d4aa6e5a096a7d139ee46",
+    "source_queries_sha256": "51c1444b5f7db2b37114215a7a7d8a5ec4b14aa0d0d55f4b0d1160a29b309351",
+    "source_test_qrels_sha256": "536804d3ad87544db56ae1b9c71bad7aef843d6178ee5a0d60c0291306480857",
+    "transfer_corpus_sha256": "3093134956ee7e05c5de30e7faa454bb04c1829c039a1583871ca087a8cab7cb",
+    "ndcg_gain": "Original qrel relevance, linear graded gain (trec_eval ndcg_cut convention)",
+    "base_assets": {
+      "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+      "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "sha256": {
+        "config.json": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+        "model.safetensors": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+        "tokenizer.json": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+        "tokenizer_config.json": "acb92769e8195aabd29b7b2137a9e6d6e25c476a4f15aa4355c233426c61576b",
+        "special_tokens_map.json": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3"
+      },
+      "source": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/tree/1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "license": "Apache-2.0"
+    },
+    "arms": [
+      "base",
+      "random",
+      "retrieved",
+      "filtered"
+    ],
+    "selection": "All predeclared final-epoch adapters are evaluated; no best-test selection",
+    "evaluation": "Full source test and full NFCorpus test, full corpus exact cosine ranking, graded nDCG",
+    "primary_comparison": "filtered minus retrieved nDCG@10; report even when null or negative",
+    "secondary_comparisons": "Each arm minus same-float/same-token-length base",
+    "teacher": "Frozen INT8 MiniLM retrieval encoder; similarity is a risk proxy, not a ground-truth false-negative label",
+    "transfer_scope": "NFCorpus tests query/task distribution transfer within overlapping biomedical subject matter",
+    "seed_scope": "One optimization seed; query bootstrap does not estimate training variance"
+  }
+}

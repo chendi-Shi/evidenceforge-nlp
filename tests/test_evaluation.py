@@ -22,9 +22,9 @@ def test_cutoffs_and_missing_gold_are_not_normalized_away():
     assert oracle["candidate_recall@50"] == 0.5
 
 
-def test_graded_relevance_uses_exponential_gain():
+def test_graded_relevance_uses_trec_linear_gain():
     result = query_metrics(["b", "a"], {"a": 2, "b": 1})
-    assert result["ndcg@10"] == pytest.approx((1 + 3 / math.log2(3)) / (3 + 1 / math.log2(3)))
+    assert result["ndcg@10"] == pytest.approx((1 + 2 / math.log2(3)) / (2 + 1 / math.log2(3)))
 
 
 def test_paired_bootstrap_zero_difference_and_reproducibility():

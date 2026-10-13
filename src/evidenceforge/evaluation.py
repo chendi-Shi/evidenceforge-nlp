@@ -18,8 +18,9 @@ def query_metrics(ranking: Sequence[str | dict], qrels: Mapping[str, int]) -> di
     ids = _unique_ids(ranking)
     relevant = {str(k): int(v) for k, v in qrels.items() if int(v) > 0}
     ideal = sorted(relevant.values(), reverse=True)[:10]
-    idcg = sum((2**rel - 1) / math.log2(i + 2) for i, rel in enumerate(ideal))
-    dcg = sum((2**relevant.get(doc, 0) - 1) / math.log2(i + 2) for i, doc in enumerate(ids[:10]))
+    # trec_eval / BEIR ndcg_cut uses the original relevance grades as gains.
+    idcg = sum(rel / math.log2(i + 2) for i, rel in enumerate(ideal))
+    dcg = sum(relevant.get(doc, 0) / math.log2(i + 2) for i, doc in enumerate(ids[:10]))
     denominator = len(relevant)
     return {
         "ndcg@10": dcg / idcg if idcg else 0.0,
