@@ -227,6 +227,7 @@ class QwenEmbeddingEncoder:
             raise ValueError("A single explicitly enumerated Vulkan device is required")
         self.cache_dir = Path(cache_dir)
         self.threads, self.max_tokens = threads, max_tokens
+        self.context_size = max(256, max_tokens)
         self.backend, self.device = backend, device
         self.instruction, self.append_eos = instruction, append_eos
         self.process = self.log_handle = None
@@ -248,7 +249,8 @@ class QwenEmbeddingEncoder:
             "tokenize_endpoint_add_special": False, "tokenize_endpoint_parse_special": False,
             "eos_policy": ("explicit EOS after body truncation mirrors official automatic TemplateProcessing"
                            if append_eos else "EOS omitted: explicit non-default ablation"),
-            "model_release": "2025-06-05", "context_size": 512,
+            "model_release": "2025-06-05", "context_size": self.context_size,
+            "logical_batch_size": max_tokens, "physical_batch_size": max_tokens,
         }
 
     def start(self):
@@ -265,10 +267,10 @@ class QwenEmbeddingEncoder:
         self.log_path = log_dir / f"server-{self.port}-t{self.threads}.log"
         self.log_handle = self.log_path.open("w", encoding="utf-8")
         command = [str(executable), "--model", str(model_path.resolve()),
-                   "--embedding", "--pooling", "last", "--ctx-size", "512",
-                   "--batch-size", "512", "--ubatch-size", "512", "--parallel", "1",
+                   "--embedding", "--pooling", "last", "--ctx-size", str(self.context_size),
+                   "--batch-size", str(self.max_tokens), "--ubatch-size", str(self.max_tokens), "--parallel", "1",
                    "--threads", str(self.threads), "--threads-batch", str(self.threads),
-                   "--host", "127.0.0.1", "--port", str(self.port), "--no-warmup"]
+                   "--host", "127.0.0.1", "--port", str(self.port), "--no-warmup", "--verbosity", "4"]
         command += (["--device", "none", "--n-gpu-layers", "0", "--no-op-offload"] if self.backend == "cpu"
                     else ["--device", self.device, "--n-gpu-layers", "all"])
         # A public experiment report needs reproducible flags, not the user's
@@ -284,6 +286,8 @@ class QwenEmbeddingEncoder:
                     raise RuntimeError(f"llama.cpp exited; see {self.log_path}")
                 try:
                     if self._request("/health", timeout=2).get("status") == "ok":
+                        self.load_memory = _memory_snapshot(self.process)
+                        LOGGER.info("Qwen model ready; memory=%s", json.dumps(self.load_memory))
                         return self
                 except (OSError, urllib.error.URLError):
                     pass
@@ -362,10 +366,12 @@ class QwenEmbeddingEncoder:
                 # training without loading a second model into scarce RAM.
                 self.start()
                 if self.process is not None:
-                    available = _memory_snapshot().get("available_physical_bytes")
+                    snapshot = _memory_snapshot(self.process)
+                    available = snapshot.get("available_physical_bytes")
                     if available is not None and available < 256 * 1024**2:
+                        LOGGER.error("Qwen runtime memory guard triggered; memory=%s", json.dumps(snapshot))
                         self.close()
-                        raise MemoryError("Stopped owned Qwen process after free physical memory fell below 256 MiB; completed checkpoints remain reusable")
+                        raise MemoryError(f"Stopped owned Qwen process with {available} free bytes (below 256 MiB); completed checkpoints remain reusable")
                 item_started = time.perf_counter()
                 tokens, was_truncated, original_length = self._tokens(text, is_query)
                 response = self._request("/v1/embeddings", {"input": tokens, "encoding_format": "float"})
@@ -460,6 +466,7 @@ def benchmark(data_dir: Path, cache_dir: Path, output_path: Path, max_tokens: in
             vectors = encoder.encode(texts, use_cache=False)
             run = dict(encoder.last_stats, threads=threads, metadata=encoder.metadata,
                        output_shape=list(vectors.shape), memory=_memory_snapshot(encoder.process),
+                       memory_at_load=encoder.load_memory,
                        startup_and_integrity_check_seconds=startup_seconds,
                        official_example={"scores": example_scores.tolist(), "maximum_absolute_error": example_error,
                                          "full_precision_reference": expected.tolist(), "tolerance": 0.08,

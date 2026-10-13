@@ -1,0 +1,25 @@
+{
+  "scope": "Execution provenance; not an amendment to model, sampling, optimization or evaluation settings",
+  "constraints": "Existing Windows laptop only; no paid service or external compute",
+  "events": [
+    {
+      "checkpoint": "random/step-000050",
+      "reason": "Resumed after aligning the graded metric and evaluation data identity before test evaluation; see protocol_amendment.json"
+    },
+    {
+      "checkpoint": "random/step-000550",
+      "checkpoint_logged_at_local": "2026-10-13 15:39:05 Asia/Shanghai",
+      "reason": "Stopped the owned training process after a saved checkpoint to serialize the local Qwen CPU/Vulkan feasibility benchmark under memory pressure"
+    },
+    {
+      "checkpoint": "random/step-000648",
+      "checkpoint_logged_at_local": "2026-10-13 17:47:13 Asia/Shanghai",
+      "reason": "All optimizer steps of the random arm completed; the tool-managed process later disappeared during a session reset before final validation metadata was saved. Its exit cause was not captured."
+    },
+    {
+      "recorded_at_utc": "2026-10-13T10:03:42Z",
+      "reason": "Resumed unchanged training in a detached local process to survive tool-session resets. Pipeline runs adaptation, independent audits and the complete Vulkan Qwen baseline sequentially, with no paid or external model compute."
+    }
+  ],
+  "timing_limitation": "Training metadata elapsed_seconds measures its completing invocation only. Reused optimizer checkpoints retain cumulative steps, losses and parameter updates, but earlier invocation wall time is not included. Do not interpret this field as end-to-end training cost."
+}

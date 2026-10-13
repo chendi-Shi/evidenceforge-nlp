@@ -1,0 +1,25 @@
+[
+  {
+    "time_utc": "2026-10-13T07:43:39.697894+00:00",
+    "required_free_physical_bytes": 1610612736,
+    "available_physical_bytes": 1269084160,
+    "memory_load_percent": 92,
+    "status": "memory_guard_refused"
+  },
+  {
+    "time_utc": "2026-10-13T07:44:49.891139+00:00",
+    "status": "starting_sequential_benchmark",
+    "required_free_physical_bytes": 1610612736,
+    "available_physical_bytes": 2595172352,
+    "memory_load_percent": 84
+  },
+  {
+    "time_utc": "2026-10-13T07:45:32.405034+00:00",
+    "status": "benchmark_stopped",
+    "required_free_physical_bytes": 1610612736,
+    "available_physical_bytes": 673427456,
+    "memory_load_percent": 96,
+    "exception_type": "MemoryError",
+    "message": "Stopped owned Qwen process after free physical memory fell below 256 MiB; completed checkpoints remain reusable"
+  }
+]

@@ -1,10 +1,35 @@
-# EvidenceForge · 科学文献检索与学习排序
+# EvidenceForge · 科学文献检索、负例采样与神经适配
 
 [![Offline tests](https://github.com/chendi-Shi/evidenceforge-nlp/actions/workflows/ci.yml/badge.svg)](https://github.com/chendi-Shi/evidenceforge-nlp/actions/workflows/ci.yml)
 
 面向 NLP 算法实践的可复现实验项目：给定英文研究论断，在完整 SciFact 论文摘要库中检索相关文献，比较稀疏检索、神经语义检索、融合召回与监督学习排序。
 
-项目包含真实公开数据、难负样本挖掘、训练内分组验证、排序消融、逐查询评测、误差分析、命令行与 FastAPI 服务。神经编码器保持冻结；训练的是 LambdaMART 排序模型。检索相关性不能判断论断真假，也不代表文献支持该论断。
+项目包含真实公开数据、难负样本挖掘、训练内分组验证、排序消融、逐查询评测、误差分析、命令行与 FastAPI 服务。v1 训练 LambdaMART；v2 增加真实梯度更新的检索编码器 LoRA、负例采样对照、迁移评测，以及本地 Qwen3-Embedding 基线。检索相关性不能判断论断真假，也不代表文献支持该论断。
+
+## v2：负例采样是否改善神经检索
+
+**完整实验仍在本机执行中；本文后面的数字属于已完成并独立复核的 v1。** v2 的配置和负例计划已先于检索质量评测提交，训练代码、模型身份检查和断点恢复已通过离线测试。
+
+| 组成 | 固定设计 |
+|---|---|
+| 训练 | MiniLM 最后 Transformer 层的 query/value LoRA，rank 8，12,288 个可训练参数；InfoNCE |
+| 数据与预算 | SciFact 训练集内部按论断家族分组；647 条训练、162 条验证；三组均 2 epochs、648 次更新 |
+| 三组对照 | 随机负例、检索难负例、按家族关系与相似度风险过滤的难负例；相同初始化和训练预算 |
+| 主比较 | filtered − retrieved 的 nDCG@10；同时与相同浮点精度、128-token 长度的未适配编码器比较 |
+| 迁移 | 完整 NFCorpus：3,633 篇文献、323 条测试查询；不在该数据集训练或选参 |
+| 现代基线 | 官方 Qwen3-Embedding-0.6B Q8_0；本机 CPU / Iris Xe Vulkan 性能验证和完整 SciFact 评测入口 |
+| 可核查产物 | 固定协议、逐条负例决策、梯度记录、safetensors 适配器、TREC 排名和独立指标复算 |
+
+相似度过滤只是未标注相关性的风险代理；移除高相似度样本也会改变负例难度。此实验不把“被过滤”视为已确认假负例，也不预设过滤一定有效。NFCorpus 与 SciFact 仍共享医学主题，迁移结论限定于任务和查询分布变化。
+
+- [实验协议与边界](docs/ADAPTATION_PROTOCOL.zh-CN.md)
+- [CPU 安装、训练、续跑与服务命令](docs/CPU_ADAPTATION.zh-CN.md)
+- [Qwen 本地基线、实机性能与复现命令](docs/MODERN_BASELINE.zh-CN.md)：同一组 16 篇摘要上 CPU 单线程 0.3085 篇/秒、Iris Xe Vulkan 1.0702 篇/秒；完整检索质量仍待评测，这个小样本速度比不代表普遍硬件加速比。
+- [已冻结训练计划](results/adaptation/training/training_plan.json)、[负例采样审计](results/adaptation/negative_mining_audit.json)
+
+MiniLM 用作当前电脑可训练的学生模型；Qwen3-Embedding 是 2025 年发布的文本嵌入系列。项目不宣称采用截至 2026 年 10 月的“全球最新模型”，也不将 MiniLM 的 LoRA 称作大语言模型微调。[Qwen 官方说明](https://qwenlm.github.io/blog/qwen3-embedding/)
+
+## v1：混合检索与学习排序
 
 ```mermaid
 flowchart LR

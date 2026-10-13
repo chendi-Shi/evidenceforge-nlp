@@ -1,0 +1,474 @@
+{
+  "scope": "Local throughput microbenchmark; not a retrieval quality result",
+  "selection": "16 corpus IDs with smallest SHA256(qwen-cpu-benchmark-v1:ID), no labels",
+  "document_ids": [
+    "9310407",
+    "96222213",
+    "20649735",
+    "14591894",
+    "33684572",
+    "21363424",
+    "7821634",
+    "22767022",
+    "12145359",
+    "4323425",
+    "12805683",
+    "25001628",
+    "29231620",
+    "4820792",
+    "25691541",
+    "24713020"
+  ],
+  "corpus_sha256": "7e9020adc131c4243732a5dea0d1c833114e62b0579f120b5b2ce6dea274dd40",
+  "memory_before": {
+    "available_physical_bytes": 2736435200,
+    "memory_load_percent": 83
+  },
+  "runs": [
+    {
+      "items": 16,
+      "cache_hits": 0,
+      "truncated": 16,
+      "tokens": 2048,
+      "elapsed_seconds": 51.86697809999998,
+      "uncached_item_seconds": [
+        2.9532695999999987,
+        2.9061894000000166,
+        3.2842696999999816,
+        2.7849153999999885,
+        2.9850278000000117,
+        3.63137260000002,
+        2.8278852000000256,
+        3.544733199999996,
+        2.8860310000000027,
+        4.21014660000003,
+        4.61890249999999,
+        2.802106100000003,
+        2.8683391000000142,
+        2.993605900000034,
+        3.537827199999981,
+        2.9819274999999834
+      ],
+      "embedding_fingerprint": "8cafa02e81936d9f6b5a4f5c5706a2c0c3c411de80202c1a485452e8b255457b",
+      "recorded_original_inference_seconds": 51.81654880000008,
+      "recorded_threads_item_counts": {
+        "1": 16
+      },
+      "cache_namespace": "shared",
+      "threads": 1,
+      "metadata": {
+        "model_id": "Qwen/Qwen3-Embedding-0.6B-GGUF",
+        "model_revision": "370f27d7550e0def9b39c1f16d3fbaa13aa67728",
+        "model_file": "Qwen3-Embedding-0.6B-Q8_0.gguf",
+        "model_sha256": "06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439",
+        "model_license": "Apache-2.0",
+        "runtime": "llama.cpp",
+        "runtime_version": "b11580",
+        "runtime_archive_sha256": "430efe5b4f10db617ae0f5732f7e9360fa7be4344d1d97688e09bbd3b5b084da",
+        "runtime_license": "MIT",
+        "backend": "cpu",
+        "threads": 1,
+        "device": "none",
+        "max_tokens": 128,
+        "truncation": "right after instruction formatting, reserving final EOS position when enabled",
+        "pooling": "last",
+        "normalization": "L2",
+        "dimension": 1024,
+        "query_instruction": "Given a scientific claim, retrieve scientific abstracts that provide evidence about the claim.",
+        "document_instruction": null,
+        "append_eos": true,
+        "eos_token_id": 151643,
+        "bos_added": false,
+        "gguf_tokenizer_contract": {
+          "add_eos_token": true,
+          "add_bos_token": false,
+          "eos_token_id": 151643
+        },
+        "tokenize_endpoint_add_special": false,
+        "tokenize_endpoint_parse_special": false,
+        "eos_policy": "explicit EOS after body truncation mirrors official automatic TemplateProcessing",
+        "model_release": "2025-06-05",
+        "context_size": 256,
+        "logical_batch_size": 128,
+        "physical_batch_size": 128,
+        "server_command": [
+          "llama-server.exe",
+          "--model",
+          "Qwen3-Embedding-0.6B-Q8_0.gguf",
+          "--embedding",
+          "--pooling",
+          "last",
+          "--ctx-size",
+          "256",
+          "--batch-size",
+          "128",
+          "--ubatch-size",
+          "128",
+          "--parallel",
+          "1",
+          "--threads",
+          "1",
+          "--threads-batch",
+          "1",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "51383",
+          "--no-warmup",
+          "--verbosity",
+          "4",
+          "--device",
+          "none",
+          "--n-gpu-layers",
+          "0",
+          "--no-op-offload"
+        ]
+      },
+      "output_shape": [
+        16,
+        1024
+      ],
+      "memory": {
+        "available_physical_bytes": 4488298496,
+        "memory_load_percent": 73,
+        "server_working_set_bytes": 893812736,
+        "server_peak_working_set_bytes": 893812736,
+        "server_private_bytes": 302227456
+      },
+      "memory_at_load": {
+        "available_physical_bytes": 2001588224,
+        "memory_load_percent": 88,
+        "server_working_set_bytes": 738131968,
+        "server_peak_working_set_bytes": 738131968,
+        "server_private_bytes": 224882688
+      },
+      "startup_and_integrity_check_seconds": 3.8402812999999583,
+      "official_example": {
+        "scores": [
+          [
+            0.7659573554992676,
+            0.14039576053619385
+          ],
+          [
+            0.1362442672252655,
+            0.5964063405990601
+          ]
+        ],
+        "maximum_absolute_error": 0.0035486221313476562,
+        "full_precision_reference": [
+          [
+            0.7645568251609802,
+            0.14142508804798126
+          ],
+          [
+            0.13549736142158508,
+            0.5999549627304077
+          ]
+        ],
+        "tolerance": 0.08,
+        "source": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B#transformers-usage"
+      },
+      "documents_per_second": 0.3084814382120327,
+      "estimated_5183_document_seconds": 16801.659218268745
+    },
+    {
+      "items": 16,
+      "cache_hits": 0,
+      "truncated": 16,
+      "tokens": 2048,
+      "elapsed_seconds": 54.30959009999998,
+      "uncached_item_seconds": [
+        4.303739300000018,
+        3.6896128000000203,
+        4.128918100000021,
+        4.7688196999999946,
+        7.2179821999999945,
+        3.9413850000000252,
+        2.3902731000000017,
+        2.168695899999989,
+        2.929162500000018,
+        2.6161109000000238,
+        3.5755883999999583,
+        2.3494474999999966,
+        2.1808217999999897,
+        2.318074700000011,
+        3.0982007999999723,
+        2.556617299999971
+      ],
+      "embedding_fingerprint": "8cafa02e81936d9f6b5a4f5c5706a2c0c3c411de80202c1a485452e8b255457b",
+      "recorded_original_inference_seconds": 54.233450000000005,
+      "recorded_threads_item_counts": {
+        "2": 16
+      },
+      "cache_namespace": "shared",
+      "threads": 2,
+      "metadata": {
+        "model_id": "Qwen/Qwen3-Embedding-0.6B-GGUF",
+        "model_revision": "370f27d7550e0def9b39c1f16d3fbaa13aa67728",
+        "model_file": "Qwen3-Embedding-0.6B-Q8_0.gguf",
+        "model_sha256": "06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439",
+        "model_license": "Apache-2.0",
+        "runtime": "llama.cpp",
+        "runtime_version": "b11580",
+        "runtime_archive_sha256": "430efe5b4f10db617ae0f5732f7e9360fa7be4344d1d97688e09bbd3b5b084da",
+        "runtime_license": "MIT",
+        "backend": "cpu",
+        "threads": 2,
+        "device": "none",
+        "max_tokens": 128,
+        "truncation": "right after instruction formatting, reserving final EOS position when enabled",
+        "pooling": "last",
+        "normalization": "L2",
+        "dimension": 1024,
+        "query_instruction": "Given a scientific claim, retrieve scientific abstracts that provide evidence about the claim.",
+        "document_instruction": null,
+        "append_eos": true,
+        "eos_token_id": 151643,
+        "bos_added": false,
+        "gguf_tokenizer_contract": {
+          "add_eos_token": true,
+          "add_bos_token": false,
+          "eos_token_id": 151643
+        },
+        "tokenize_endpoint_add_special": false,
+        "tokenize_endpoint_parse_special": false,
+        "eos_policy": "explicit EOS after body truncation mirrors official automatic TemplateProcessing",
+        "model_release": "2025-06-05",
+        "context_size": 256,
+        "logical_batch_size": 128,
+        "physical_batch_size": 128,
+        "server_command": [
+          "llama-server.exe",
+          "--model",
+          "Qwen3-Embedding-0.6B-Q8_0.gguf",
+          "--embedding",
+          "--pooling",
+          "last",
+          "--ctx-size",
+          "256",
+          "--batch-size",
+          "128",
+          "--ubatch-size",
+          "128",
+          "--parallel",
+          "1",
+          "--threads",
+          "2",
+          "--threads-batch",
+          "2",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "54777",
+          "--no-warmup",
+          "--verbosity",
+          "4",
+          "--device",
+          "none",
+          "--n-gpu-layers",
+          "0",
+          "--no-op-offload"
+        ]
+      },
+      "output_shape": [
+        16,
+        1024
+      ],
+      "memory": {
+        "available_physical_bytes": 1907810304,
+        "memory_load_percent": 88,
+        "server_working_set_bytes": 893915136,
+        "server_peak_working_set_bytes": 893915136,
+        "server_private_bytes": 302342144
+      },
+      "memory_at_load": {
+        "available_physical_bytes": 4628512768,
+        "memory_load_percent": 72,
+        "server_working_set_bytes": 738209792,
+        "server_peak_working_set_bytes": 738209792,
+        "server_private_bytes": 224886784
+      },
+      "startup_and_integrity_check_seconds": 2.7386415000000284,
+      "official_example": {
+        "scores": [
+          [
+            0.7659573554992676,
+            0.14039576053619385
+          ],
+          [
+            0.1362442672252655,
+            0.5964063405990601
+          ]
+        ],
+        "maximum_absolute_error": 0.0035486221313476562,
+        "full_precision_reference": [
+          [
+            0.7645568251609802,
+            0.14142508804798126
+          ],
+          [
+            0.13549736142158508,
+            0.5999549627304077
+          ]
+        ],
+        "tolerance": 0.08,
+        "source": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B#transformers-usage"
+      },
+      "cpu_reference_agreement": {
+        "minimum_cosine": 1.0,
+        "maximum_absolute_difference": 0.0
+      },
+      "documents_per_second": 0.2946072686341267,
+      "estimated_5183_document_seconds": 17592.91284301874
+    },
+    {
+      "items": 16,
+      "cache_hits": 0,
+      "truncated": 16,
+      "tokens": 2048,
+      "elapsed_seconds": 14.95002199999999,
+      "uncached_item_seconds": [
+        3.200328299999967,
+        0.7446261999999706,
+        0.7808494000000223,
+        0.7666863000000035,
+        0.786203300000011,
+        0.7629042000000368,
+        0.8213365000000294,
+        0.7734507999999778,
+        0.7733623999999963,
+        0.7477233000000183,
+        0.7403997999999774,
+        0.7561910999999668,
+        0.7467540999999756,
+        0.7279634999999871,
+        0.8180732000000148,
+        0.8518618999999603
+      ],
+      "embedding_fingerprint": "3239a2ff90cf44c18370b1768453caa4b8fe72faff3599b384d0ad654be9f99d",
+      "recorded_original_inference_seconds": 14.798714299999915,
+      "recorded_threads_item_counts": {
+        "2": 16
+      },
+      "cache_namespace": "shared",
+      "threads": 2,
+      "metadata": {
+        "model_id": "Qwen/Qwen3-Embedding-0.6B-GGUF",
+        "model_revision": "370f27d7550e0def9b39c1f16d3fbaa13aa67728",
+        "model_file": "Qwen3-Embedding-0.6B-Q8_0.gguf",
+        "model_sha256": "06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439",
+        "model_license": "Apache-2.0",
+        "runtime": "llama.cpp",
+        "runtime_version": "b11580",
+        "runtime_archive_sha256": "6e520f0b8bbc6608b53d70065ed80ee90d33acf1636f886d965e0c87f708dff2",
+        "runtime_license": "MIT",
+        "backend": "vulkan",
+        "threads": 2,
+        "device": "Vulkan0",
+        "max_tokens": 128,
+        "truncation": "right after instruction formatting, reserving final EOS position when enabled",
+        "pooling": "last",
+        "normalization": "L2",
+        "dimension": 1024,
+        "query_instruction": "Given a scientific claim, retrieve scientific abstracts that provide evidence about the claim.",
+        "document_instruction": null,
+        "append_eos": true,
+        "eos_token_id": 151643,
+        "bos_added": false,
+        "gguf_tokenizer_contract": {
+          "add_eos_token": true,
+          "add_bos_token": false,
+          "eos_token_id": 151643
+        },
+        "tokenize_endpoint_add_special": false,
+        "tokenize_endpoint_parse_special": false,
+        "eos_policy": "explicit EOS after body truncation mirrors official automatic TemplateProcessing",
+        "model_release": "2025-06-05",
+        "context_size": 256,
+        "logical_batch_size": 128,
+        "physical_batch_size": 128,
+        "server_command": [
+          "llama-server.exe",
+          "--model",
+          "Qwen3-Embedding-0.6B-Q8_0.gguf",
+          "--embedding",
+          "--pooling",
+          "last",
+          "--ctx-size",
+          "256",
+          "--batch-size",
+          "128",
+          "--ubatch-size",
+          "128",
+          "--parallel",
+          "1",
+          "--threads",
+          "2",
+          "--threads-batch",
+          "2",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "59849",
+          "--no-warmup",
+          "--verbosity",
+          "4",
+          "--device",
+          "Vulkan0",
+          "--n-gpu-layers",
+          "all"
+        ]
+      },
+      "output_shape": [
+        16,
+        1024
+      ],
+      "memory": {
+        "available_physical_bytes": 1268518912,
+        "memory_load_percent": 92,
+        "server_working_set_bytes": 1158705152,
+        "server_peak_working_set_bytes": 1192361984,
+        "server_private_bytes": 1202552832
+      },
+      "memory_at_load": {
+        "available_physical_bytes": 2398691328,
+        "memory_load_percent": 85,
+        "server_working_set_bytes": 1043369984,
+        "server_peak_working_set_bytes": 1116512256,
+        "server_private_bytes": 1087909888
+      },
+      "startup_and_integrity_check_seconds": 17.973652600000037,
+      "official_example": {
+        "scores": [
+          [
+            0.7672156691551208,
+            0.14152184128761292
+          ],
+          [
+            0.13638067245483398,
+            0.598861575126648
+          ]
+        ],
+        "maximum_absolute_error": 0.002658843994140625,
+        "full_precision_reference": [
+          [
+            0.7645568251609802,
+            0.14142508804798126
+          ],
+          [
+            0.13549736142158508,
+            0.5999549627304077
+          ]
+        ],
+        "tolerance": 0.08,
+        "source": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B#transformers-usage"
+      },
+      "cpu_reference_agreement": {
+        "minimum_cosine": 0.9996345043182373,
+        "maximum_absolute_difference": 0.008594680577516556
+      },
+      "documents_per_second": 1.0702325387882379,
+      "estimated_5183_document_seconds": 4842.872751624997
+    }
+  ]
+}

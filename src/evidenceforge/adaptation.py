@@ -580,6 +580,7 @@ def train_adaptation(dataset, index, base_model_dir: Path, output_dir: Path, con
         progress = {"completed_steps": 0, "trace": [], "nonzero_gradient_steps": 0}
         if resume:
             progress = _resume_checkpoint(arm_dir, encoder, optimizer, identity) or progress
+        resumed_from_step = progress["completed_steps"]
         if baseline_validation_loss is None:
             # The baseline is measured from the original initialization, even on resume.
             restored = {name: value.detach().clone() for name, value in parameters.items()}
@@ -641,6 +642,8 @@ def train_adaptation(dataset, index, base_model_dir: Path, output_dir: Path, con
             "training_query_count": len(examples), "validation_query_count": len(plan["validation"]),
             "selection_rule": "Use the predeclared final epoch; validation loss is monitoring only",
             "elapsed_seconds": time.perf_counter() - arm_started,
+            "elapsed_seconds_scope": "This invocation only; time spent producing reused checkpoints is excluded",
+            "resumed_from_step": resumed_from_step,
         }
         _write_json(arm_dir / "metadata.json", metadata)
         results[arm] = metadata
@@ -651,6 +654,7 @@ def train_adaptation(dataset, index, base_model_dir: Path, output_dir: Path, con
               "train_query_count": len(plan["train_query_ids"]), "validation_query_count": len(plan["validation_query_ids"]),
               "split": plan["split"], "mining_statistics": plan["mining_statistics"], "teacher": plan["teacher"], "arms": results,
               "elapsed_seconds": time.perf_counter() - started,
+              "elapsed_seconds_scope": "This invocation only; completed arms and checkpoints may be reused",
               "limitations": ["This is a finite-budget parameter-efficient encoder adaptation, not full LLM fine-tuning.",
                               "Teacher similarity filtering is a heuristic for potential false negatives, not verified truth labels.",
                               "Validation loss uses fixed retrieved negatives and is not a full-corpus retrieval metric; evaluate all frozen arms separately.",
