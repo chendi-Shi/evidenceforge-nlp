@@ -158,12 +158,17 @@ def test_full_experiment_freezes_protocol_and_excludes_train_from_quality(tmp_pa
     monkeypatch.setattr(experiment, "EXPECTED_TEST_QUERIES", 1)
     monkeypatch.setattr(experiment, "EXPECTED_TRAIN_QUERIES", 1)
     monkeypatch.setattr(experiment, "load_dataset", lambda _: dataset)
+    cache, output = tmp_path / "cache", tmp_path / "results"
+    monkeypatch.setattr(QwenEmbeddingEncoder, "start", lambda self: pytest.fail("Preparation must not load a model"))
+    prepared = experiment.run_modern_experiment(tmp_path, cache, output, max_tokens=32,
+                                                 encode_extra_train=True, prepare_only=True)
+    assert prepared["spec"]["document_count"] == 2
+    assert not (output / "report.json").exists()
     monkeypatch.setattr(QwenEmbeddingEncoder, "start", lambda self: self)
     monkeypatch.setattr(QwenEmbeddingEncoder, "_request", lambda self, endpoint, payload: (
         {"tokens": [1, 2]} if endpoint == "/tokenize" else
         {"data": [{"embedding": [1.0] + [0.0] * (DIMENSION - 1)}]}
     ))
-    cache, output = tmp_path / "cache", tmp_path / "results"
     result = experiment.run_modern_experiment(tmp_path, cache, output, max_tokens=32, encode_extra_train=True)
     assert result["result"]["query_count"] == 1
     assert result["result"]["per_query"][0]["query_id"] == "test"

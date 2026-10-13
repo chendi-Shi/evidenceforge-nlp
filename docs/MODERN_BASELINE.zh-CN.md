@@ -82,6 +82,15 @@ llama.cpp 的 context/batch 缓冲是运行时容量设置，不会扩大 `--max
 
 ## 4. 完整 SciFact 质量评测
 
+本仓库当前的运行协议已固定为 Vulkan、2 threads、128 tokens，附加编码独立的 809 条训练查询文本，保存于 [protocol.json](../results/modern/scifact-full/protocol.json)。可先只登记/验证协议，再用完全相同参数启动模型：
+
+```bash
+python -m evidenceforge.modern_experiment --output-dir results/modern/scifact-full --backend vulkan --device Vulkan0 --threads 2 --max-tokens 128 --encode-extra-train --prepare-only
+python -m evidenceforge.modern_experiment --output-dir results/modern/scifact-full --backend vulkan --device Vulkan0 --threads 2 --max-tokens 128 --encode-extra-train
+```
+
+`--prepare-only` 不加载模型，不生成质量指标。下方 CPU/其他目录示例是独立配置，不代表本仓库已完成这些额外质量对照。
+
 满足内存条件并通过预检后，运行完整 CPU 入口：
 
 ```bash

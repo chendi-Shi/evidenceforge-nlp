@@ -73,7 +73,7 @@ def _encode_all(encoder, texts: list[str], *, is_query: bool, phase: str,
 
 def run_modern_experiment(data_dir: Path, cache_dir: Path, output_dir: Path,
                           threads: int = 2, max_tokens: int = 128, encode_extra_train: bool = False,
-                          backend: str = "cpu", device: str = "Vulkan0") -> dict:
+                          backend: str = "cpu", device: str = "Vulkan0", prepare_only: bool = False) -> dict:
     """Evaluate all 300 SciFact test queries against all 5,183 documents.
 
     No sampling, candidate restriction, label-based document injection, tuning,
@@ -133,6 +133,8 @@ def run_modern_experiment(data_dir: Path, cache_dir: Path, output_dir: Path,
         # or looking at output rankings.
         write_json(protocol_path, protocol)
     protocol_hash = _sha256(protocol_path)
+    if prepare_only:
+        return protocol
     report = {
         "protocol_sha256": protocol_hash, "spec_sha256": spec_hash,
         "scope": "Complete SciFact test; exact retrieval over complete original corpus",
@@ -205,11 +207,14 @@ def main():
     parser.add_argument("--encode-extra-train", action="store_true")
     parser.add_argument("--backend", choices=("cpu", "vulkan"), default="cpu")
     parser.add_argument("--device", default="Vulkan0")
+    parser.add_argument("--prepare-only", action="store_true", help="Freeze and validate protocol without starting a model")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
     result = run_modern_experiment(args.data_dir, args.cache_dir, args.output_dir, args.threads, args.max_tokens,
-                                   args.encode_extra_train, args.backend, args.device)
-    print(json.dumps({"metrics": result["result"]["metrics"], "report": str(args.output_dir / "report.json")}, indent=2))
+                                   args.encode_extra_train, args.backend, args.device, args.prepare_only)
+    summary = ({"spec_sha256": result["spec_sha256"], "protocol": str(args.output_dir / "protocol.json")}
+               if args.prepare_only else {"metrics": result["result"]["metrics"], "report": str(args.output_dir / "report.json")})
+    print(json.dumps(summary, indent=2))
 
 
 if __name__ == "__main__":
