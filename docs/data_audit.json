@@ -1,0 +1,75 @@
+{
+  "audit_date": "2026-10-13",
+  "method": "Downloaded both upstream release archives into memory; compared normalized string (query_id, document_id) pair sets and exact query texts.",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "sources": [
+    {
+      "url": "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/scifact.zip",
+      "bytes": 2816079,
+      "md5": "5f7d1de60b170fc8027bb7898e2efca1",
+      "sha256": "536e14446a0ba56ed1398ab1055f39fe852686ecad24a6306c80c490fa8e0165"
+    },
+    {
+      "url": "https://scifact.s3-us-west-2.amazonaws.com/release/latest/data.tar.gz",
+      "bytes": 3115079,
+      "md5": "cb7da4d8609e30f2c7483b61aa447f7e",
+      "sha256": "11c621288d41ac144d29b13b0f8503b3820b7d6e8b1f6ff24dff335c196d76be"
+    }
+  ],
+  "beir": {
+    "corpus_documents": 5183,
+    "unique_queries": 1109,
+    "splits": {
+      "train": {
+        "queries": 809,
+        "qrel_rows": 919,
+        "unique_qrel_pairs": 919,
+        "qrel_scores": [
+          1
+        ],
+        "original_split": "train",
+        "query_ids_equal": true,
+        "exact_query_text_equal": true,
+        "qrels_equal_cited_doc_ids": true,
+        "original_cited_pairs": 919,
+        "original_evidence_pairs": 564,
+        "qrel_pairs_also_evidence": 564,
+        "qrel_pairs_not_in_evidence": 355,
+        "evidence_pairs_missing_from_qrels": 0,
+        "queries_with_empty_original_evidence": 304
+      },
+      "test": {
+        "queries": 300,
+        "qrel_rows": 339,
+        "unique_qrel_pairs": 339,
+        "qrel_scores": [
+          1
+        ],
+        "original_split": "dev",
+        "query_ids_equal": true,
+        "exact_query_text_equal": true,
+        "qrels_equal_cited_doc_ids": true,
+        "original_cited_pairs": 339,
+        "original_evidence_pairs": 209,
+        "qrel_pairs_also_evidence": 209,
+        "qrel_pairs_not_in_evidence": 130,
+        "evidence_pairs_missing_from_qrels": 0,
+        "queries_with_empty_original_evidence": 112
+      }
+    }
+  },
+  "original_scifact": {
+    "queries_by_split": {
+      "train": 809,
+      "dev": 300,
+      "test": 300
+    },
+    "original_test_used_by_project": false
+  },
+  "findings": [
+    "BEIR train query IDs and exact texts equal original SciFact train.",
+    "BEIR test query IDs and exact texts equal original SciFact dev, not the original hidden test.",
+    "BEIR qrels equal cited_doc_ids pairs, not evidence-only pairs.",
+    "Retrieval relevance does not imply evidence supports or refutes the claim."
+  ]
+}

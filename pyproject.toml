@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evidenceforge"
+version = "0.1.0"
+description = "Reproducible scientific evidence retrieval with hard-negative learning to rank"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = "MIT"
+dependencies = [
+  "numpy>=2.1,<3", "scipy>=1.14,<2", "scikit-learn>=1.5,<2",
+  "lightgbm>=4.5,<5", "onnxruntime>=1.20,<2", "tokenizers>=0.21,<1",
+  "fastapi>=0.115,<1", "uvicorn>=0.32,<1"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "httpx>=0.27,<1", "ruff>=0.9,<1"]
+
+[project.scripts]
+evidenceforge = "evidenceforge.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
