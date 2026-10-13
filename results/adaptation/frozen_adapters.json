@@ -1,0 +1,9 @@
+{
+  "frozen_at_utc": "2026-10-13T10:16:43.036810+00:00",
+  "adapters": {
+    "random": "ee3430d9f3726256d2a9ef1c023d75029dd64a50a782726ba6ac1b8791586dd2",
+    "retrieved": "d21eae1bfd2dbb180578c6a31fc27d440db5089a44120f3b3baca0005c28856c",
+    "filtered": "50226185843ea294bb08488d84338e4cded34cf83cbb504266fd00efcaf11d1a"
+  },
+  "protocol_sha256": "435a5e5bd6bfdcb1dc7ad013bf726f70981645f2da8765ada8d16a8587c1f196"
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "started_at_utc": "2026-10-13T10:29:25.858504+00:00",
+  "query_ids": [
+    "1",
+    "3",
+    "5"
+  ],
+  "checks": {
+    "verified_local_assets_and_evaluated_corpus_cache": true,
+    "health_ready_dense_without_v1_ranker": true,
+    "metadata_identity_matches_evaluation": true,
+    "three_dense_top5_equal_evaluated_ranks": true,
+    "rrf_success": true,
+    "ltr_without_compatible_ranker_returns_409": true,
+    "empty_and_whitespace_queries_return_422": true,
+    "lifespan_shutdown": true,
+    "four_real_query_encodings_no_corpus_reencoding": true,
+    "corpus_cache_bytes_unchanged": true,
+    "external_network_connections_blocked": true
+  },
+  "queries": [
+    {
+      "query_id": "1",
+      "expected_top5": [
+        "33986200",
+        "17388232",
+        "29638116",
+        "16472469",
+        "3981613"
+      ],
+      "actual_top5": [
+        "33986200",
+        "17388232",
+        "29638116",
+        "16472469",
+        "3981613"
+      ],
+      "exact_order_match": true,
+      "reference_min_adjacent_gap_top6": 0.001469999500000041,
+      "request_wall_seconds": 0.016608700000006138,
+      "api_search_latency_ms": 14.937
+    },
+    {
+      "query_id": "3",
+      "expected_top5": [
+        "14717500",
+        "45200347",
+        "23389795",
+        "41782935",
+        "31902059"
+      ],
+      "actual_top5": [
+        "14717500",
+        "45200347",
+        "23389795",
+        "41782935",
+        "31902059"
+      ],
+      "exact_order_match": true,
+      "reference_min_adjacent_gap_top6": 0.00043821330000004544,
+      "request_wall_seconds": 0.029727100000172868,
+      "api_search_latency_ms": 27.93
+    },
+    {
+      "query_id": "5",
+      "expected_top5": [
+        "3413083",
+        "22194407",
+        "13770184",
+        "581832",
+        "8670178"
+      ],
+      "actual_top5": [
+        "3413083",
+        "22194407",
+        "13770184",
+        "581832",
+        "8670178"
+      ],
+      "exact_order_match": true,
+      "reference_min_adjacent_gap_top6": 0.0035707949999999045,
+      "request_wall_seconds": 0.0158437000000049,
+      "api_search_latency_ms": 13.608
+    }
+  ],
+  "timing_seconds": {
+    "preflight": 2.0705344000000423,
+    "api_lifespan_startup": 12.445258000000194,
+    "total_invocation": 15.834034100000054
+  },
+  "limitations": [
+    "Four sequential requests encode real queries; this is not a load or concurrency test.",
+    "Timing covers this invocation only, including separately reported local preflight and API startup.",
+    "Single-query inference can differ slightly from batched evaluation; exact top-5 order is required, with no tie tolerance.",
+    "External network and non-query encoding guards reject work; they do not replace model, retrieval, or API outputs.",
+    "Loopback sockets remain available for Windows TestClient event-loop internals; no real HTTP server is started."
+  ],
+  "adapter_sha256": "d21eae1bfd2dbb180578c6a31fc27d440db5089a44120f3b3baca0005c28856c",
+  "corpus_sha256": "7e9020adc131c4243732a5dea0d1c833114e62b0579f120b5b2ce6dea274dd40",
+  "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+  "trec_sha256": "89f4e95314456eb52ec9cc31d6a968ecc90f46e3293b1e31fed07211586c3cc6",
+  "embedding_cache_key": "d41402d8616788acd3ce0bb6deaab6b5412998365be1a7979e8d6ed6a9785f65",
+  "embedding_cache_sha256": "9e515f847b5e4b054eee1e2f7cbf60ef1325ce26ddfe25f895e7db54d42478d4",
+  "evaluation_chunks_checked": 81
+}

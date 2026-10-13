@@ -76,7 +76,7 @@ python -m evidenceforge.modern benchmark --data-dir data/scifact --cache-dir cac
 python -m evidenceforge.modern benchmark --data-dir data/scifact --cache-dir cache --output artifacts/modern/cpu_vulkan_benchmark.json --max-tokens 128 --include-vulkan --vulkan-device Vulkan0
 ```
 
-Vulkan 是可选硬件后端，不是 CPU 成绩；需要记录设备、runtime、内存和与 CPU 输出的一致性。当前尚无数据可以断言它更快、占用更少或在这台机器上能完成完整评测。不要与正在运行的学生训练并发执行新模型预检。
+Vulkan 是可选硬件后端，不是 CPU 成绩；需要记录设备、runtime、内存和与 CPU 输出的一致性。本机已完成的 16 篇摘要预检中，Vulkan 比 CPU 单线程快约 3.47 倍；这仅描述该次小样本测量，不能推断其他设备的加速比或完整检索质量。不要与正在运行的学生训练并发执行新模型预检。
 
 llama.cpp 的 context/batch 缓冲是运行时容量设置，不会扩大 `--max-tokens` 指定的实际文本预算；输入仍逐条编码，`--parallel 1`，没有并发提交一批文档。缓冲和日志参数以运行产物保存的 metadata/server command 为准。
 
@@ -155,4 +155,4 @@ Windows 内存保护分两层：启动前要求至少 1.5 GiB 可用物理内存
 
 编码器只终止自己通过 `subprocess.Popen` 创建并持有句柄的 llama.cpp 进程；不会按进程名批量结束程序，不会关闭用户其他应用或学生训练。已完成 checkpoint 保留。等待已有任务结束、内存恢复后再重跑，不降低保护阈值来强行并发。
 
-目前能陈述的是：固定资产和可恢复完整评测入口已就绪，首轮预检被内存保护中止。吞吐、CPU/Vulkan 差异、完整检索质量及其相对学生模型的优劣，都必须等待实际运行产物。
+运行记录同时保留首轮内存保护中止和后续成功的 CPU/Vulkan 预检。已测吞吐见本文开头的实机表；完整检索质量及其相对学生模型的优劣，须以完整评测报告为依据。

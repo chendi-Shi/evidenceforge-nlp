@@ -8,7 +8,7 @@
 
 ## v2：负例采样是否改善神经检索
 
-**完整实验仍在本机执行中；本文后面的数字属于已完成并独立复核的 v1。** v2 的配置和负例计划已先于检索质量评测提交，训练代码、模型身份检查和断点恢复已通过离线测试。
+**三组真实 LoRA 训练和两个数据集的完整评测均已完成，32 项汇总指标通过独立复算。** 配置与负例计划先于质量评测提交；所有最终适配器、梯度记录和排名均公开保存。Qwen 全库推理是另一个正在执行的冻结模型对照。
 
 | 组成 | 固定设计 |
 |---|---|
@@ -21,6 +21,21 @@
 | 可核查产物 | 固定协议、逐条负例决策、梯度记录、safetensors 适配器、TREC 排名和独立指标复算 |
 
 相似度过滤只是未标注相关性的风险代理；移除高相似度样本也会改变负例难度。此实验不把“被过滤”视为已确认假负例，也不预设过滤一定有效。NFCorpus 与 SciFact 仍共享医学主题，迁移结论限定于任务和查询分布变化。
+
+| nDCG@10 | SciFact：300 查询 | NFCorpus：323 查询 |
+|---|---:|---:|
+| 未适配 MiniLM FP32 / 128 tokens | 0.6239 | 0.3149 |
+| 随机负例 LoRA | 0.6291 | 0.3052 |
+| 检索难负例 LoRA | 0.4875 | 0.1891 |
+| 风险过滤负例 LoRA | 0.6395 | 0.3005 |
+
+**过滤缓解了难负例训练退化，但没有证明优于原始模型。** 预设的 filtered − retrieved 差值分别为 `+0.1520 [0.1155, 0.1895]` 和 `+0.1113 [0.0924, 0.1313]`。相对同配置未适配模型，过滤组在 SciFact 为 `+0.0157 [-0.0107, 0.0420]`，区间跨 0；NFCorpus 为 `−0.0144 [−0.0230, −0.0057]`，迁移仍有损失。区间为单次训练下的查询级配对 bootstrap，不估计训练随机性。
+
+![Four encoders on full SciFact and NFCorpus, with paired primary comparisons](results/adaptation/comparison.svg)
+
+- [完整结果、敏感性检查与真实案例](docs/ADAPTATION_RESULTS.zh-CN.md)
+- [机器可读报告](results/adaptation/report.json)、[独立复算](results/adaptation/independent_audit.json)、[逐查询分析](results/adaptation/analysis.json)
+- [真实适配器 API 检查](results/adaptation/service_smoke.json)：三条预定查询的 dense 前五名与评测排名一致；另检查 RRF、模型身份和错误响应，属于集成检查，不是压测。
 
 - [实验协议与边界](docs/ADAPTATION_PROTOCOL.zh-CN.md)
 - [CPU 安装、训练、续跑与服务命令](docs/CPU_ADAPTATION.zh-CN.md)
@@ -120,7 +135,7 @@ RRF 候选集的 oracle nDCG@10 为 0.9461，说明仍存在排序改进空间�
 - [结果解读与具体案例](docs/RESULTS.zh-CN.md)、[可用于简历的表述](docs/RESUME.zh-CN.md)
 - [独立指标复算记录](results/scifact/independent_audit.json)：20 个汇总指标与候选上限均核验一致
 
-本地 Windows Python 3.12 的 **37 项测试通过**，GitHub Actions 的 Linux Python 3.11/3.12 检查通过。训练好的两个 LightGBM 文本模型已随结果保存；原始数据、预训练神经权重与嵌入缓存仍按首次运行命令下载/构建。
+当前版本本地 Windows Python 3.12 的 **97 项测试通过**，GitHub Actions 的 Linux Python 3.11/3.12 基础检查及独立神经测试任务通过。训练好的两个 LightGBM 文本模型及三组 LoRA 适配器已随结果保存；原始数据、预训练神经权重与嵌入缓存仍按首次运行命令下载/构建。
 
 ## 代码入口
 
@@ -132,6 +147,11 @@ src/evidenceforge/
   ranker.py        # 特征、难负样本、分组验证、LambdaMART
   evaluation.py    # 指标、bootstrap
   experiment.py    # 完整实验与报告
+  adaptation.py    # 三组真实 LoRA 训练、采样计划与断点恢复
+  neural_experiment.py # 固定协议、四编码器共享前缀评测、迁移测试
+  modern.py        # 固定 Qwen GGUF、llama.cpp CPU/Vulkan 与逐文本缓存
+  modern_experiment.py # 完整 SciFact Qwen 对照
+  transfer_data.py # NFCorpus 固定数据与校验
   cli.py           # 可复现命令行
   api.py           # FastAPI，使用相同检索/排序代码
 tests/             # 小型合成数据仅用于离线正确性测试
@@ -142,6 +162,7 @@ docs/              # 数据、实验方法与面试材料
 pytest -q
 ruff check src tests
 python scripts/verify_results.py --results-dir results/scifact
+python scripts/verify_adaptation_results.py --output results/adaptation/independent_audit.json
 ```
 
 CI 在 Linux Python 3.11/3.12 上运行离线测试；完整基准需要单独运行。Dockerfile 提供服务打包入口，运行时将本地 `data/`、`cache/`、`results/` 所在目录挂载到 `/artifacts`。本地 API 默认只绑定回环地址；开放公网需要另行配置认证和部署设施。

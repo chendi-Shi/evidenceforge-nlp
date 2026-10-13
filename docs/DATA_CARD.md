@@ -63,6 +63,26 @@
 
 分组使用相关性标签是一种划分策略，应如实披露；它不是与标签无关的随机切分，也不能证明消除了全部语义重叠。原有 BEIR train/test 划分保持不变。
 
+## v2 迁移评测：BEIR NFCorpus
+
+v2 使用 [BEIR 格式 NFCorpus](https://github.com/beir-cellar/beir#available-datasets) 检查查询与任务分布迁移。它包含非专业英语查询与医学文献，和 SciFact 有医学主题重叠。本项目采用的 3,633 篇文档版本不同于原作者发布的 9,964 篇全文版本；不能把两个版本的规模或指标混用。[原始数据说明](https://www.cl.uni-heidelberg.de/statnlpgroup/nfcorpus/)
+
+本地发布包校验后得到以下计数：
+
+| 内容 | 数量 | 本轮用途 |
+| --- | ---: | --- |
+| 候选文档 | 3,633 | 全库精确检索 |
+| 所有查询 | 3,237 | 保留发布包原貌 |
+| train / dev / test 查询 | 2,590 / 324 / 323 | 仅 test 用于迁移评测 |
+| test 相关查询文档对 | 12,334 | 计算检索指标 |
+| test 正相关度等级 | 1、2 | nDCG 保留分级，gain 为原始相关度 |
+
+NFCorpus 的 train/dev 标签不参与本轮训练、负例过滤或超参数选择；三组适配器只在 SciFact 内部训练集上更新。MRR 与 Recall 将正相关度视为相关；nDCG 使用与 `trec_eval ndcg_cut` 一致的线性 graded gain，避免把等级 2 错当成指数增益 3。
+
+发布包 MD5 为 `a89dba18a62ef92f7d323ec890a0d38d`，实际 SHA-256 为 `efe5be03f8c5b86a5870102d0599d227c8c6e2484328e68c6522560385671b0b`；逐文件校验和与加载逻辑在 [transfer_data.py](../src/evidenceforge/transfer_data.py)。程序在本地保存 `data/nfcorpus/manifest.json`，原始语料不上传仓库。
+
+原作者允许学术用途；其他涉及 NutritionFacts.org 数据的用途须遵循原站条款并联系作者。项目的 MIT 代码许可证不改变此条件。引用应署名 Boteva、Gholipour、Sokolov 和 Riezler（ECIR 2016）。[上游使用条款与论文](https://www.cl.uni-heidelberg.de/statnlpgroup/nfcorpus/)
+
 ## 许可与署名
 
 以[原始 SciFact LICENSE.md](https://github.com/allenai/scifact/blob/master/LICENSE.md)对不同组成部分的声明为准：

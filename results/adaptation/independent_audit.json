@@ -1,0 +1,60 @@
+{
+  "ok": true,
+  "errors": [],
+  "verified_metrics": {
+    "scifact": {
+      "base": {
+        "ndcg@10": 0.6238596288000934,
+        "mrr@10": 0.578388888888889,
+        "recall@10": 0.7743333333333333,
+        "recall@50": 0.8853333333333334
+      },
+      "random": {
+        "ndcg@10": 0.629062479574386,
+        "mrr@10": 0.5859021164021164,
+        "recall@10": 0.7832222222222223,
+        "recall@50": 0.8826666666666667
+      },
+      "retrieved": {
+        "ndcg@10": 0.48752383637706886,
+        "mrr@10": 0.46165343915343915,
+        "recall@10": 0.5942777777777778,
+        "recall@50": 0.7802222222222223
+      },
+      "filtered": {
+        "ndcg@10": 0.6395165246001862,
+        "mrr@10": 0.6048439153439154,
+        "recall@10": 0.7665555555555555,
+        "recall@50": 0.8796666666666666
+      }
+    },
+    "nfcorpus": {
+      "base": {
+        "ndcg@10": 0.31485571653624883,
+        "mrr@10": 0.5123077301095876,
+        "recall@10": 0.15369212102238455,
+        "recall@50": 0.25210072676940537
+      },
+      "random": {
+        "ndcg@10": 0.3051897635011529,
+        "mrr@10": 0.4855361442822743,
+        "recall@10": 0.1474874596604383,
+        "recall@50": 0.2488428295292484
+      },
+      "retrieved": {
+        "ndcg@10": 0.18913277821817429,
+        "mrr@10": 0.338812718069684,
+        "recall@10": 0.08099404333030671,
+        "recall@50": 0.13344501771349693
+      },
+      "filtered": {
+        "ndcg@10": 0.3004793510503615,
+        "mrr@10": 0.49691016757580225,
+        "recall@10": 0.1416591516641335,
+        "recall@50": 0.24038962796257754
+      }
+    }
+  },
+  "aggregate_metric_count": 32,
+  "scope": "TREC rankings, all per-query/aggregate relevance metrics, paired mean differences, canonical protocol/plan hashes, matched initialization/config/base identities in training metadata, adapter/run byte hashes and declared training completion; not bootstrap endpoints, model inference, optimizer replay or timing."
+}

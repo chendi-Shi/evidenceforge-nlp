@@ -1,4 +1,6 @@
-# EvidenceForge 实验方法
+# EvidenceForge v1 混合检索与学习排序方法
+
+本文解释 v1 的冻结 MiniLM 与 LambdaMART 实验。v2 已增加可训练的 MiniLM LoRA 编码器和三组负例采样对照，详见 [适配实验协议](ADAPTATION_PROTOCOL.zh-CN.md)；Qwen 的冻结模型对照见 [本地基线说明](MODERN_BASELINE.zh-CN.md)。两轮的模型精度、输入长度和训练预算不同。
 
 项目研究一个明确问题：在固定科学论文摘要库中，词项匹配、冻结语义向量与有监督重排分别能解决哪些检索错误？交付物包括可复现实验、逐查询结果与本地检索 API；论文立场判断、证据句识别和答案生成不在当前任务内。
 
@@ -44,7 +46,7 @@ e(x)=\frac{\operatorname{MeanPool}(h(x),m(x))}
 s_{\text{dense}}(q,d)=e(q)^\top e(d)
 \]
 
-最大长度为 256 tokens，长摘要会被截断。本项目没有训练该 Transformer，也没有从 FP32 自行实施量化；“训练模型”特指后面的排序树。模型 revision、权重及 tokenizer 哈希进入实验元数据。上游结构与使用约定见 [MiniLM 模型卡](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)。
+最大长度为 256 tokens，长摘要会被截断。v1 没有训练该 Transformer，也没有从 FP32 自行实施量化；本节的“训练模型”特指后面的排序树。模型 revision、权重及 tokenizer 哈希进入实验元数据。上游结构与使用约定见 [MiniLM 模型卡](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)。
 
 ### RRF：在排名空间融合
 

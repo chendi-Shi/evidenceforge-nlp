@@ -2,7 +2,7 @@
 
 本指南对应 EvidenceForge v2 的 CPU 编码器适配流程：在 SciFact 上训练三种负例采样方案，在完整 SciFact 和 NFCorpus 测试集上比较，然后通过 CLI 或本地 API 加载适配器。训练和推理都在本机运行，不调用付费模型 API。
 
-本文是使用说明，**不预设 `filtered` 优于 `retrieved`**。下文选择 `filtered` 只是路径示例，训练完成后也可加载 `random` 或 `retrieved`。质量指标将在实际评测完成后写入独立结果说明；Qwen 基线尚未完成吞吐与质量评测。
+本文是使用说明，**不预设 `filtered` 优于 `retrieved`**。下文选择 `filtered` 只是路径示例，训练完成后也可加载 `random` 或 `retrieved`。质量判断应查看完整报告及其配对比较；Qwen 的实机性能与质量评测状态见[本地基线说明](MODERN_BASELINE.zh-CN.md)。
 
 ## 1. 安装 CPU 环境
 
@@ -136,6 +136,22 @@ python scripts/audit_negative_mining.py --plan results/adaptation/training/train
 
 脚本分别统计家族保护、教师相似度过滤及二者交集，记录实际选中负例的分数/排名、替换率和随机补足。缺少独立标签的“假负例准确率”不会被编造成结果。
 
+两个数据集完成后，独立复算指标并生成误差分析：
+
+```bash
+python scripts/verify_adaptation_results.py --output results/adaptation/independent_audit.json
+python scripts/analyze_adaptation_results.py --output results/adaptation/analysis.json
+```
+
+前者核对保存的排名、所有逐查询及汇总指标、训练身份和权重哈希；不重放训练、不验证计时或 bootstrap 区间端点。后者另行计算查询级变化、极端案例及排除 6 条规范化重叠查询后的敏感性结果。这些后验分析不替换预先固定的主评测。
+
+可选绘图只读取结果，不启动模型；需要额外安装 Matplotlib：
+
+```bash
+python -m pip install matplotlib
+python scripts/plot_adaptation_results.py
+```
+
 ## 6. 用训练好的适配器搜索
 
 对应组的 `adapter.safetensors` 与 `metadata.json` 都完成后，就可以使用该组。示例路径可以替换为 `training/random` 或 `training/retrieved`：
@@ -161,4 +177,12 @@ Invoke-RestMethod -Uri http://127.0.0.1:8000/search -Method Post -ContentType 'a
 
 `/health` 显示就绪状态，`/metadata` 提供当前索引和编码器信息。适配器模式不会自动加载不兼容的 v1 LambdaMART；在该实例请求 `ltr` 会返回 409，应使用 `dense`、`rrf` 或 BM25。服务限制同时活动的检索请求，繁忙时返回 429；这是本地演示接口，不是已经验证吞吐或 SLA 的生产部署。
 
-搜索结果只表示文献检索相关性，不自动判定支持、反驳或医疗有效性。跨域质量、过滤是否带来改善以及它为何改善，应依据完整实验与审计结果解释。
+完成完整评测并保留本地缓存后，可执行真实模型的离线集成检查：
+
+```bash
+python scripts/smoke_adapted_service.py
+```
+
+它通过 FastAPI TestClient 加载固定的 `retrieved` 适配器，核对三条预定测试查询的 dense 前五名与保存排名一致，并检查 RRF、错误响应、模型身份及缓存复用。缺少已评测缓存时立即失败，不触发全库重编码；不会启动独立 HTTP 服务。这是少量请求的正确性检查，不是负载测试，不能据此宣称 QPS 或 SLA。
+
+搜索结果只表示文献检索相关性，不自动判定支持、反驳或医疗有效性。迁移质量、过滤是否带来改善以及它为何改善，应依据完整实验与审计结果解释。

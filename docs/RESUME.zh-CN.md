@@ -1,7 +1,10 @@
-# EvidenceForge｜科学文献混合检索与学习排序
+# EvidenceForge｜科学文献检索、负例采样与神经适配
 
-[GitHub 项目](https://github.com/chendi-Shi/evidenceforge-nlp) · [实测报告与案例](RESULTS.zh-CN.md)
+[GitHub 项目](https://github.com/chendi-Shi/evidenceforge-nlp) · [神经适配结果](ADAPTATION_RESULTS.zh-CN.md) · [混合检索结果](RESULTS.zh-CN.md)
 
-- 基于 BEIR SciFact 的 5,183 篇论文摘要构建 BM25、冻结 MiniLM（ONNX INT8）与 RRF 检索管线；从 top 50 候选挖掘难负例，利用 16 维检索及文本匹配特征训练 LambdaMART，809 条训练查询形成 40,512 个查询文档对。
-- 采用共享相关文档与规范化论断的组级内部验证，完成五组对照及重排特征消融；在 300 条公开测试查询上，nDCG@10 从 RRF 的 0.6870 提升至 0.7149（相对 +4.06%），配对 bootstrap 增益 95% 区间为 [0.0117, 0.0445]，Recall@10 从 0.8182 提升至 0.8549，并披露官方划分的 6 个规范化论断重叠。
-- 实现本地 FastAPI 检索接口、固定模型版本与缓存校验、逐查询误差分析和独立指标复核；37 个本地测试及 GitHub Linux Python 3.11/3.12 离线 CI 通过，保留模型、配置、TREC 排名和复现实验记录。
+- 在普通电脑上完成 MiniLM 最后一层 Q/V 的 rank-8 LoRA 训练，更新 12,288 个参数；固定 647/162 组级训练验证划分，以相同初始化和每组 648 步预算对比随机负例、检索难负例与风险过滤负例，在完整 SciFact（5,183 文档／300 查询）及 NFCorpus（3,633 文档／323 查询）上评测。
+- 通过配对 bootstrap、逐查询分析及去重叠敏感性检查，发现并量化难负例训练退化：过滤组相对未过滤组的 nDCG@10 差值为 SciFact +0.1520、NFCorpus +0.1113；同时披露其相对未适配基线的 SciFact 差值区间跨 0、NFCorpus 仍下降，避免把采样对照收益误写为泛化提升。
+- 构建 BM25、MiniLM INT8、RRF 与 LambdaMART 混合检索基线；在 SciFact 300 查询上，监督重排使 nDCG@10 从 0.6870 升至 0.7149（相对 +4.06%，差值 95% 区间 [0.0117, 0.0445]），并完成相同候选池上的重排特征消融。
+- 实现适配器 FastAPI 接口、断点恢复、固定模型与数据身份、TREC 排名及独立指标复算；本地 97 项测试通过，真实模型 API 查询与评测排名一致，发布三组适配器及可复现记录。Qwen3-Embedding-0.6B Q8 的本地冻结对照和实机表现见[基线说明](MODERN_BASELINE.zh-CN.md)。
+
+简历空间有限时，可保留第 1、3、4 条，并在面试中完整解释第 2 条的负结果。v1 的 +4.06% 属于 LambdaMART 重排；它不是 LoRA 或 Qwen 的训练收益。MiniLM LoRA 是编码器适配，不是大语言模型指令微调；Qwen 权重未训练。以上表述只覆盖已经完成的工作及明确标注的对照角色，应在能独立运行和解释后使用。
