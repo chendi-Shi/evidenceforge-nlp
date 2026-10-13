@@ -7,3 +7,5 @@
 *.txt text eol=lf
 *.trec text eol=lf
 *.yml text eol=lf
+# Preserve experiment artifact bytes so recorded SHA256 hashes survive cloning.
+results/** -text

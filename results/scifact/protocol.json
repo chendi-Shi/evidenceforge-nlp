@@ -1,0 +1,45 @@
+{
+  "created_at_utc": "2026-10-13T06:06:57.509159+00:00",
+  "dataset": "BEIR SciFact",
+  "dataset_url": "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/scifact.zip",
+  "primary_metric": "ndcg@10",
+  "secondary_metrics": [
+    "mrr@10",
+    "recall@10",
+    "recall@50"
+  ],
+  "methods": [
+    "bm25",
+    "dense",
+    "rrf",
+    "learned",
+    "learned_no_dense"
+  ],
+  "candidate_pool_size": 50,
+  "seed": 42,
+  "hyperparameter_grid": [
+    {
+      "n_estimators": 100,
+      "learning_rate": 0.05,
+      "min_child_samples": 20,
+      "reg_lambda": 1.0,
+      "num_leaves": 7
+    },
+    {
+      "n_estimators": 100,
+      "learning_rate": 0.05,
+      "min_child_samples": 20,
+      "reg_lambda": 1.0,
+      "num_leaves": 15
+    }
+  ],
+  "selection": "Evidence/normalized-claim grouped 80/20 partition of official train; maximize validation nDCG@10; refit on all official train.",
+  "test_policy": "One frozen-model evaluation of all official test queries. No test-driven model or hyperparameter selection.",
+  "bootstrap": {
+    "unit": "query",
+    "samples": 2000,
+    "seed": 42,
+    "confidence": 0.95,
+    "multiple_comparison_correction": false
+  }
+}

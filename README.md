@@ -1,5 +1,7 @@
 # EvidenceForge · 科学文献检索与学习排序
 
+[![Offline tests](https://github.com/chendi-Shi/evidenceforge-nlp/actions/workflows/ci.yml/badge.svg)](https://github.com/chendi-Shi/evidenceforge-nlp/actions/workflows/ci.yml)
+
 面向 NLP 算法实践的可复现实验项目：给定英文研究论断，在完整 SciFact 论文摘要库中检索相关文献，比较稀疏检索、神经语义检索、融合召回与监督学习排序。
 
 项目包含真实公开数据、难负样本挖掘、训练内分组验证、排序消融、逐查询评测、误差分析、命令行与 FastAPI 服务。神经编码器保持冻结；训练的是 LambdaMART 排序模型。检索相关性不能判断论断真假，也不代表文献支持该论断。
@@ -37,6 +39,8 @@ evidenceforge serve
 
 在浏览器访问 `http://127.0.0.1:8000/docs` 可交互调用 API。首次模型下载/索引需要时间；索引完成后再启动服务。
 
+Windows 上也可以不激活环境，直接运行 `.\.venv\Scripts\python.exe -m evidenceforge serve`。
+
 ```bash
 curl -X POST http://127.0.0.1:8000/search \
   -H "Content-Type: application/json" \
@@ -73,9 +77,25 @@ BEIR 的 `test` 对应原始 SciFact 的公开 `dev`，并非原始隐藏测试�
 
 ## 实测结果
 
-完整运行后，`results/scifact/report.json` 记录实际指标、训练选择和运行元数据，其他同目录文件保存逐查询结果、失败案例与 TREC 排名。结果以实际输出为准，不预设学习排序一定超过基线。
+2026-10-13，在完整 5,183 篇文献、300 条官方 BEIR test 查询上实测。超参数仅由训练集内的分组验证选择，最终用全部 809 条训练查询、40,512 个候选文献对重训。
 
-结果表将在本次完整基准运行后补入。任何尚未实测的能力都不作为已完成的性能结论。
+| 方法 | nDCG@10 | MRR@10 | Recall@10 | Recall@50 |
+|---|---:|---:|---:|---:|
+| BM25 | 0.6634 | 0.6309 | 0.7876 | 0.8704 |
+| MiniLM INT8 dense | 0.6426 | 0.6009 | 0.7806 | 0.8887 |
+| RRF | 0.6870 | 0.6504 | 0.8182 | 0.9447 |
+| **RRF + LambdaMART** | **0.7149** | **0.6741** | **0.8549** | 0.9447 |
+| 重排特征消融：移除 dense/RRF 特征 | 0.6728 | 0.6378 | 0.8074 | 0.9447 |
+
+学习排序相对 RRF 的 nDCG@10 **绝对增加 0.0279，相对增加 4.06%**；2,000 次查询级配对 bootstrap 的差值 95% 区间为 `[0.0117, 0.0445]`。这是单一公开基准的实测差异；区间未按论断家族聚类或进行多重比较校正。官方 train/test 有 6 个规范化论断签名重叠，已在报告中披露。
+
+RRF 候选集的 oracle nDCG@10 为 0.9461，说明仍存在排序改进空间。重排保留相同 50 个候选，所以三个使用相同候选池的方法 Recall@50 一致。
+
+- [完整机器可读报告](results/scifact/report.json)、[逐查询结果](results/scifact/per_query.jsonl)、[错误案例](results/scifact/errors.json)、[TREC 排名](results/scifact/runs)
+- [结果解读与具体案例](docs/RESULTS.zh-CN.md)、[可用于简历的表述](docs/RESUME.zh-CN.md)
+- [独立指标复算记录](results/scifact/independent_audit.json)：20 个汇总指标与候选上限均核验一致
+
+本地 Windows Python 3.12 的 **37 项测试通过**，GitHub Actions 的 Linux Python 3.11/3.12 检查通过。训练好的两个 LightGBM 文本模型已随结果保存；原始数据、预训练神经权重与嵌入缓存仍按首次运行命令下载/构建。
 
 ## 代码入口
 
@@ -96,7 +116,7 @@ docs/              # 数据、实验方法与面试材料
 ```bash
 pytest -q
 ruff check src tests
-python scripts/verify_results.py --help
+python scripts/verify_results.py --results-dir results/scifact
 ```
 
 CI 在 Linux Python 3.11/3.12 上运行离线测试；完整基准需要单独运行。Dockerfile 提供服务打包入口，运行时将本地 `data/`、`cache/`、`results/` 所在目录挂载到 `/artifacts`。本地 API 默认只绑定回环地址；开放公网需要另行配置认证和部署设施。
@@ -107,6 +127,7 @@ CI 在 Linux Python 3.11/3.12 上运行离线测试；完整基准需要单独�
 
 - [实验方法与边界](docs/METHODOLOGY.zh-CN.md)
 - [技术取舍、面试问题与简历模板](docs/INTERVIEW.zh-CN.md)
+- [含实测数字的简历表述](docs/RESUME.zh-CN.md)
 - [数据来源、标注语义与许可证](docs/DATA_CARD.md)
 
 这是有公开数据实验依据的算法工程项目；不要表述为已经上线服务真实用户、训练大模型，或取得未经测量的线上收益。理解并能复现代码、实验和失败原因后，再在简历中描述自己的实际贡献。

@@ -1,0 +1,21 @@
+{
+  "frozen_at_utc": "2026-10-13T06:10:07.913813+00:00",
+  "recommended_method": "learned",
+  "model_sha256": "59f755453a3d953a8e9fba12cb89d4fd76e3989a9d81c1fe1b9a781c6ff3c1cd",
+  "ablation_model_sha256": "14eb8f5f3827186b633b71fb0541d52cd176820fd50b3c1ad79474836d89850c",
+  "selected_config": {
+    "n_estimators": 100,
+    "learning_rate": 0.05,
+    "min_child_samples": 20,
+    "reg_lambda": 1.0,
+    "num_leaves": 7
+  },
+  "ablation_selected_config": {
+    "n_estimators": 100,
+    "learning_rate": 0.05,
+    "min_child_samples": 20,
+    "reg_lambda": 1.0,
+    "num_leaves": 7
+  },
+  "protocol_sha256": "b05eb846ee1124d408f25631f2fdfc2349d28735ac290c41e0d1c649683440a0"
+}

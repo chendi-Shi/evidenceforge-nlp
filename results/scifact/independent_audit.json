@@ -1,0 +1,44 @@
+{
+  "ok": true,
+  "test_query_count": 300,
+  "corpus_size": 5183,
+  "tolerance": 1e-10,
+  "metrics": {
+    "bm25": {
+      "ndcg@10": 0.6634477520519497,
+      "mrr@10": 0.6308915343915344,
+      "recall@10": 0.7876111111111112,
+      "recall@50": 0.8703888888888889
+    },
+    "dense": {
+      "ndcg@10": 0.6425635572403502,
+      "mrr@10": 0.6009285714285715,
+      "recall@10": 0.7805555555555556,
+      "recall@50": 0.8886666666666667
+    },
+    "rrf": {
+      "ndcg@10": 0.6870240269726041,
+      "mrr@10": 0.6503703703703704,
+      "recall@10": 0.8182222222222222,
+      "recall@50": 0.9446666666666665
+    },
+    "learned": {
+      "ndcg@10": 0.7149106023000843,
+      "mrr@10": 0.6741044973544973,
+      "recall@10": 0.8548888888888888,
+      "recall@50": 0.9446666666666665
+    },
+    "learned_no_dense": {
+      "ndcg@10": 0.6727988960353275,
+      "mrr@10": 0.6377804232804233,
+      "recall@10": 0.8074444444444444,
+      "recall@50": 0.9446666666666665
+    }
+  },
+  "candidate_ceiling": {
+    "oracle_ndcg@10": 0.9460593862688785,
+    "candidate_recall@50": 0.9446666666666665
+  },
+  "discrepancies": [],
+  "scope": "Independent aggregate relevance metrics and candidate ceiling from explicit TREC ranks and actual qrels; does not rerun inference or verify timing/bootstrap intervals."
+}
