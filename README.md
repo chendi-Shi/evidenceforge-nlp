@@ -8,7 +8,7 @@
 
 ## v2：负例采样是否改善神经检索
 
-**三组真实 LoRA 训练和两个数据集的完整评测均已完成，32 项汇总指标通过独立复算。** 配置与负例计划先于质量评测提交；所有最终适配器、梯度记录和排名均公开保存。Qwen 全库推理是另一个正在执行的冻结模型对照。
+**三组真实 LoRA 训练、两个数据集的完整评测和 Qwen 全库对照均已完成。** LoRA 的 32 项汇总指标及 Qwen 的 4 项指标通过独立复算。配置先于对应质量评测提交；所有最终适配器、梯度记录和排名均公开保存，模型计算只使用当前电脑。
 
 | 组成 | 固定设计 |
 |---|---|
@@ -17,7 +17,7 @@
 | 三组对照 | 随机负例、检索难负例、按家族关系与相似度风险过滤的难负例；相同初始化和训练预算 |
 | 主比较 | filtered − retrieved 的 nDCG@10；同时与相同浮点精度、128-token 长度的未适配编码器比较 |
 | 迁移 | 完整 NFCorpus：3,633 篇文献、323 条测试查询；不在该数据集训练或选参 |
-| 现代基线 | 官方 Qwen3-Embedding-0.6B Q8_0；本机 CPU / Iris Xe Vulkan 性能验证和完整 SciFact 评测入口 |
+| 现代基线 | 官方 Qwen3-Embedding-0.6B Q8_0；已完成本机 CPU / Iris Xe Vulkan 性能验证及完整 SciFact 评测 |
 | 可核查产物 | 固定协议、逐条负例决策、梯度记录、safetensors 适配器、TREC 排名和独立指标复算 |
 
 相似度过滤只是未标注相关性的风险代理；移除高相似度样本也会改变负例难度。此实验不把“被过滤”视为已确认假负例，也不预设过滤一定有效。NFCorpus 与 SciFact 仍共享医学主题，迁移结论限定于任务和查询分布变化。
@@ -28,6 +28,9 @@
 | 随机负例 LoRA | 0.6291 | 0.3052 |
 | 检索难负例 LoRA | 0.4875 | 0.1891 |
 | 风险过滤负例 LoRA | 0.6395 | 0.3005 |
+| 冻结 Qwen3-Embedding-0.6B Q8_0 | 0.6752 | 未评测 |
+
+Qwen 行是另行冻结的模型配置，其 tokenizer、查询指令、量化与参数量均不同，不属于三组 LoRA 的同初始化控制。它在 SciFact 的 MRR@10 / Recall@10 / Recall@50 为 `0.6410 / 0.8017 / 0.8967`。[完整 Qwen 报告](results/modern/scifact-full/report.json)与[独立复算](results/modern/scifact-full/independent_audit.json)均已保存。
 
 **过滤缓解了难负例训练退化，但没有证明优于原始模型。** 预设的 filtered − retrieved 差值分别为 `+0.1520 [0.1155, 0.1895]` 和 `+0.1113 [0.0924, 0.1313]`。相对同配置未适配模型，过滤组在 SciFact 为 `+0.0157 [-0.0107, 0.0420]`，区间跨 0；NFCorpus 为 `−0.0144 [−0.0230, −0.0057]`，迁移仍有损失。区间为单次训练下的查询级配对 bootstrap，不估计训练随机性。
 
@@ -39,7 +42,7 @@
 
 - [实验协议与边界](docs/ADAPTATION_PROTOCOL.zh-CN.md)
 - [CPU 安装、训练、续跑与服务命令](docs/CPU_ADAPTATION.zh-CN.md)
-- [Qwen 本地基线、实机性能与复现命令](docs/MODERN_BASELINE.zh-CN.md)：同一组 16 篇摘要上 CPU 单线程 0.3085 篇/秒、Iris Xe Vulkan 1.0702 篇/秒；完整检索质量仍待评测，这个小样本速度比不代表普遍硬件加速比。
+- [Qwen 本地基线、实机性能与复现命令](docs/MODERN_BASELINE.zh-CN.md)：完整文档阶段实测约 38.5 分钟，含测试及额外训练查询的整轮约 42.6 分钟；文档与测试查询均无缓存命中。128-token 上限截断了 97.57% 的文档，分数只代表该本地配置。另保留 16 篇样本的 CPU/Vulkan 对照，不能把其速度比推广到其他设备。
 - [已冻结训练计划](results/adaptation/training/training_plan.json)、[负例采样审计](results/adaptation/negative_mining_audit.json)
 
 MiniLM 用作当前电脑可训练的学生模型；Qwen3-Embedding 是 2025 年发布的文本嵌入系列。项目不宣称采用截至 2026 年 10 月的“全球最新模型”，也不将 MiniLM 的 LoRA 称作大语言模型微调。[Qwen 官方说明](https://qwenlm.github.io/blog/qwen3-embedding/)

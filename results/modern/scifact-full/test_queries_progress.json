@@ -1,0 +1,16 @@
+{
+  "protocol_sha256": "052c5a34c19bca9ca39b7cccd8083b71281e8176a940548388e597e4b296e5cf",
+  "phase": "test_queries",
+  "total": 300,
+  "items": 300,
+  "cache_hits": 0,
+  "truncated": 0,
+  "tokens": 12464,
+  "uncached_inference_seconds": 65.313800300004,
+  "recorded_original_inference_seconds": 65.313800300004,
+  "recorded_threads_item_counts": {
+    "2": 300
+  },
+  "wall_seconds_this_invocation": 66.56378490000043,
+  "embedding_fingerprint": "3239a2ff90cf44c18370b1768453caa4b8fe72faff3599b384d0ad654be9f99d"
+}

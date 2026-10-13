@@ -1,8 +1,10 @@
-# Qwen3 Embedding 本地基线：运行协议与当前状态
+# Qwen3 Embedding 本地基线：完整结果与运行协议
 
-**当前状态：模型与运行时资产已校验，14 项相关测试通过，CPU / Iris Xe Vulkan 实机性能预检及官方示例数值检查已完成。完整检索质量评测尚未完成。** 首轮预检曾因可用物理内存低于 256 MiB 退出；缩小符合输入上限的运行缓冲后，第二次顺序测试完成，失败记录保留。
+**2026-10-13 已完成完整 SciFact 检索评测，独立审计为 `ok: true`。** 官方 Qwen3-Embedding-0.6B Q8 权重通过 Iris Xe Vulkan 在本机运行，以全部 5,183 篇文档、300 条测试查询评测，nDCG@10 为 **0.675179**。这是固定指令与 128-token 配置下的冻结模型基线，没有训练或蒸馏 Qwen 权重。[完整机器报告](../results/modern/scifact-full/report.json) · [独立审计](../results/modern/scifact-full/independent_audit.json) · [逐查询结果](../results/modern/scifact-full/runs/qwen3_06b_q8.per_query.json) · [TREC 排名](../results/modern/scifact-full/runs/qwen3_06b_q8.trec)。
 
-2026-10-13，i5-1130G7 / Intel Iris Xe / 16GB 共享电脑上的一次测量如下。三个配置使用同一组按 ID 哈希选择的 16 篇摘要，全部达到 128-token 上限，关闭读取向量缓存；每次仅启动一个本项目模型。
+完整调用耗时 **2,553.13 秒（42.55 分钟）**，包含文档、300 条测试查询及额外 809 条训练查询的编码与本轮后续处理；其中全部文档编码为 **2,309.90 秒（38.50 分钟）**。阶段口径与缓存信息见第 4 节。这些实测值与下方早先的 16 文档时间投影分开记录。
+
+**历史性能预检。** 在同一天的 i5-1130G7 / Intel Iris Xe / 16GB 共享电脑上，三个配置使用同一组按 ID 哈希选择的 16 篇摘要，全部达到 128-token 上限，关闭读取向量缓存；每次仅启动一个本项目模型。首轮预检曾因可用物理内存低于 256 MiB 退出；缩小符合输入上限的运行缓冲后，第二次顺序测试完成，失败记录保留。
 
 | 后端 | CPU threads | 摘要/秒 | 5,183 篇文档时间投影 |
 |---|---:|---:|---:|
@@ -14,7 +16,7 @@ Vulkan 在本次小样本测试中约为 CPU 单线程的 3.47 倍；主机上�
 
 [完整性能记录](../results/modern/cpu_vulkan_benchmark.json) · [首次资源保护记录](../results/modern/benchmark_resource_wait.json)。这些数字只支持输入正确性和本机可行性判断，不能代替检索质量实验。
 
-本模块接入 Qwen 在 2025 年发布的 Qwen3 Embedding 系列，用于补充 MiniLM 之外的预训练编码器对照。“现代基线”是项目中的比较角色，不表示当前全球最新模型、已达到某个榜单成绩或已经优于学生模型。[Qwen 2025 年发布说明](https://qwenlm.github.io/blog/qwen3-embedding/)。
+本模块接入 Qwen 在 2025 年发布的 Qwen3 Embedding 系列，用于补充 MiniLM 之外的预训练编码器对照。“现代基线”是项目中的比较角色，不表示当前全球最新模型或官方榜单成绩；相对其他配置的本轮点估计见第 4 节。[Qwen 2025 年发布说明](https://qwenlm.github.io/blog/qwen3-embedding/)。
 
 ## 1. 固定的模型和本地运行时
 
@@ -50,7 +52,7 @@ Query:<claim>
 
 这对应固定 GGUF/官方 tokenizer 的 `add_eos_token=true`、`add_bos_token=false` 约定。Python 内部接口的 `append_eos=False` 是非默认消融，不是正式基线配方。微型预检使用[官方模型示例](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B#transformers-usage)检查输入、pooling 与归一化是否出现明显偏差；其容差检查不能证明与全精度实现逐值一致。
 
-MiniLM 学生也使用 128-token 上限，但 tokenizer 不同、Qwen 额外消耗查询指令 tokens，**相同 token 数不等于相同文本覆盖率**。未来得出的分数只属于本地 `Q8_0 + 固定指令 + 128 tokens` 配置，不能冒充官方全精度分数或默认长上下文能力。
+MiniLM 学生也使用 128-token 上限，但 tokenizer 不同、Qwen 额外消耗查询指令 tokens，**相同 token 数不等于相同文本覆盖率**。本轮分数只属于本地 `Q8_0 + 固定指令 + 128 tokens` 配置，不能冒充官方全精度分数或默认长上下文能力。完整运行中 **5,057 / 5,183 篇文档被截断（97.569%）**，300 条测试查询和 809 条额外训练查询均未截断；高文档截断率是解释质量的关键边界。
 
 ## 3. 下载与速度预检
 
@@ -82,7 +84,47 @@ llama.cpp 的 context/batch 缓冲是运行时容量设置，不会扩大 `--max
 
 ## 4. 完整 SciFact 质量评测
 
-本仓库当前的运行协议已固定为 Vulkan、2 threads、128 tokens，附加编码独立的 809 条训练查询文本，保存于 [protocol.json](../results/modern/scifact-full/protocol.json)。可先只登记/验证协议，再用完全相同参数启动模型：
+### 4.1 完整质量与项目内参照
+
+完整测试的四项指标如下，全部由[独立审计](../results/modern/scifact-full/independent_audit.json)从保存排名和实际 qrels 重算确认：
+
+| 编码器与配置 | nDCG@10 | MRR@10 | Recall@10 | Recall@50 |
+|---|---:|---:|---:|---:|
+| Qwen3-Embedding-0.6B Q8，128 tokens，Vulkan | 0.675179 | 0.640975 | 0.801722 | 0.896667 |
+
+以下方法都使用同一 SciFact 语料和 300 条测试查询，但其模型、输入与监督预算不同，仅作项目内结果参照：
+
+| 方法 | nDCG@10 | 配置与训练范围 |
+|---|---:|---|
+| v2 MiniLM `base` | 0.623860 | 浮点、128 tokens，无本项目参数更新 |
+| v2 MiniLM `random` | 0.629062 | 浮点、128 tokens，647 条查询的随机负例 LoRA |
+| v2 MiniLM `retrieved` | 0.487524 | 浮点、128 tokens，647 条查询的检索难负例 LoRA |
+| v2 MiniLM `filtered` | 0.639517 | 浮点、128 tokens，647 条查询的风险过滤负例 LoRA |
+| **Qwen3-Embedding-0.6B Q8** | **0.675179** | **冻结 Q8 权重，128 tokens，带查询指令，无本项目参数更新** |
+| v1 BM25 | 0.663448 | 全库词面检索 |
+| v1 RRF | 0.687024 | BM25 + 冻结 MiniLM INT8、256-token 检索融合 |
+| v1 LambdaMART | 0.714911 | v1 RRF 候选，最终使用 809 条训练查询训练排序树 |
+
+来源：[v2 完整适配报告](ADAPTATION_RESULTS.zh-CN.md)、[v1 机器报告](../results/scifact/report.json)。本轮 Qwen 的 nDCG 点估计高于四个 v2 编码器和 BM25，低于 v1 RRF 与 LambdaMART；这张表**不是隔离模型架构的受控对照**，不能将差距全部归因于参数量或模型新旧。Qwen 与 MiniLM 的量化方式、tokenizer、指令和训练来源不同，v1/v2 的最终监督查询数也不同。本节没有计算这些跨配置差值的配对区间，不声称差异具有统计显著性或普遍优势。本轮 Qwen 只评测 SciFact，没有 NFCorpus 质量结果。
+
+### 4.2 本次完整运行的耗时与缓存
+
+本轮后端固定为 `Vulkan0`、CPU 2 threads，输入逐条处理。以下为[机器报告](../results/modern/scifact-full/report.json)中的各阶段墙钟时间，包含相应阶段的缓存/编码路径开销，不是模型纯计算时间：
+
+| 阶段 | 条数 | 缓存命中 | 截断条数 | 本次阶段墙钟秒数 |
+|---|---:|---:|---:|---:|
+| 文档编码 | 5,183 | 0 | 5,057 | 2,309.896668 |
+| 测试查询编码 | 300 | 0 | 0 | 66.563785 |
+| 额外训练查询编码 | 809 | 2 | 0 | 174.631384 |
+| 完整调用 | — | — | — | 2,553.126189 |
+
+文档和测试查询均没有读取已有向量缓存。809 条训练查询有 807 种完全不同的文本，`85/86`、`89/90` 两组 ID 分别共享相同文本，因此在独立的 `train_queries` 命名空间复用两次，记录为 **2 次缓存命中、807 次新编码**；所有 809 个查询 ID 均保留，不是漏算两条查询，也没有跨测试命名空间复用向量。命中项不算作新推理吞吐。完整调用还包含各阶段之外的工作，因此不要求等于三个阶段时间之和。早先 16 文档预检外推的 **80.7 分钟**与这里实测的 **38.50 分钟文档阶段**属于不同测量，不能替换或混用；共享主机负载与样本差异都可能影响这种外推。
+
+300 条测试查询的新编码单项耗时 `p50=0.213553` 秒、`p95=0.244418` 秒。这是**查询编码阶段**的本地路径测量，包含分词和本地模型请求等开销，排除模型加载、后续排名及面向用户的 HTTP 服务链路；不能称为 API 端到端延迟。报告中另有已编码向量的点积排序耗时，不能将它单独写成在线检索延迟。历史缓存的原始耗时、本次新增推理耗时和本次墙钟时间仍分别保留。
+
+### 4.3 协议、复现与独立审计
+
+本轮协议固定为 Vulkan、2 threads、128 tokens，附加编码独立的 809 条训练查询文本，保存于 [protocol.json](../results/modern/scifact-full/protocol.json)。可先只登记/验证协议，再用完全相同参数启动模型：
 
 ```bash
 python -m evidenceforge.modern_experiment --output-dir results/modern/scifact-full --backend vulkan --device Vulkan0 --threads 2 --max-tokens 128 --encode-extra-train --prepare-only
@@ -108,17 +150,26 @@ python -m evidenceforge.modern_experiment --data-dir data/scifact --cache-dir ca
 第一次启动前先登记 `protocol.json`，固定模型、后端、输入身份、token 配置和查询集合。改变 threads、backend、token 上限或其他协议参数时使用新输出目录，避免混合两次实验。查看以下文件区分“已开始”与“已完成”：
 
 ```text
-artifacts/modern/scifact-full/
+results/modern/scifact-full/
   protocol.json
   documents_progress.json
   test_queries_progress.json
   report.json
+  independent_audit.json
   runs/
     qwen3_06b_q8.trec
     qwen3_06b_q8.per_query.json
 ```
 
 只有在全部文档和 test queries 编码、排序与指标计算成功之后才写入本轮最终 `report.json`。进度文件、协议文件或已下载模型都不是质量结果。
+
+从保存排名独立验证完整结果，不加载模型：
+
+```bash
+python scripts/verify_modern_results.py --output results/modern/scifact-full/independent_audit.json
+```
+
+本次审计检查了每条查询的 top-50 显式排名、全部逐查询指标及四个汇总指标、规范化协议与输入数据身份、TREC/逐查询文件字节哈希，以及报告声明的固定模型/runtime metadata 一致性。TREC SHA256 为 `93edb77ed3f7f3523cef0aa664bfcc6b65b007fd3e383b9f448467c0b6c3881a`。审计**不重新执行推理、不检查模型/runtime 二进制、不证明保存排名以外每篇文档都被实际计算、不验证历史协议登记时点，也不验证延迟/吞吐**；这些范围在审计 JSON 中明确记录，不能把 `ok: true` 扩大成所有实现和计时均获独立证明。
 
 ## 5. 中断恢复与可选训练查询向量
 
@@ -132,7 +183,7 @@ artifacts/modern/scifact-full/
 python -m evidenceforge.modern_experiment --data-dir data/scifact --cache-dir cache --output-dir artifacts/modern/scifact-with-train --threads 2 --max-tokens 128 --backend cpu --encode-extra-train
 ```
 
-额外编码全部 809 条官方 train 查询文本。它们使用 `train_queries` 命名空间，与 `test_queries` 分开；导出的 `cache/modern/teacher_vectors/<spec_sha256>/vectors.npz` 包含文档向量和 train-query 向量，**不包含 test-query 向量**。这项导出不会改变 300 条测试查询的质量统计，也不会自动替换当前 LoRA 三组实验中已固定的 MiniLM 教师。
+本轮已额外编码全部 809 条官方 train 查询文本。它们使用 `train_queries` 命名空间，与 `test_queries` 分开；导出的 `cache/modern/teacher_vectors/<spec_sha256>/vectors.npz` 包含 **5,183 篇文档 + 809 条 train-query 的 1,024 维向量，不包含 test-query 向量**。导出记录及 SHA256 保存在完整报告的 `teacher_vector_artifact` 字段。这项导出不会改变 300 条测试查询的质量统计，也没有替换当前 LoRA 三组实验中已固定的 MiniLM 教师。
 
 809 条官方 train 包含内部训练和内部验证查询。后续若沿用 647/162 划分，教师过滤仍只能使用允许参与训练的那 647 条；“导出了训练向量”不代表已经训练了教师、更不代表完成了知识蒸馏。
 
@@ -155,4 +206,4 @@ Windows 内存保护分两层：启动前要求至少 1.5 GiB 可用物理内存
 
 编码器只终止自己通过 `subprocess.Popen` 创建并持有句柄的 llama.cpp 进程；不会按进程名批量结束程序，不会关闭用户其他应用或学生训练。已完成 checkpoint 保留。等待已有任务结束、内存恢复后再重跑，不降低保护阈值来强行并发。
 
-运行记录同时保留首轮内存保护中止和后续成功的 CPU/Vulkan 预检。已测吞吐见本文开头的实机表；完整检索质量及其相对学生模型的优劣，须以完整评测报告为依据。
+运行记录同时保留首轮内存保护中止、后续成功的 CPU/Vulkan 预检和已完成的完整 SciFact 评测。预检速度、完整质量、截断率与阶段耗时分别报告；结论只适用于本轮固定资产、输入预算与测试查询。模型上游预训练污染没有独立审计，完整结果也不等于已经验证生产部署能力。

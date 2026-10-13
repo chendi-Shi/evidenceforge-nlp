@@ -115,6 +115,6 @@ RRF 候选池的 oracle nDCG@10 为 **0.9461**，候选 Recall@50 为 **0.9447**
 
 这些是顺序执行、文档索引已加载时的函数级描述性耗时。Dense/RRF 包含查询编码；重排耗时为同一次 RRF 检索加特征计算和重排；不含模型下载、索引构建、HTTP 传输和并发排队。方法运行顺序固定，因此不能将它们当作受控服务压测，更不能换算为线上 QPS 或 SLA。
 
-本地 **37 个测试通过**；[GitHub Actions](https://github.com/chendi-Shi/evidenceforge-nlp/actions/workflows/ci.yml) 的 Linux Python 3.11/3.12 离线测试通过。[独立指标复核脚本](../scripts/verify_results.py) 从保存的 TREC 排名重算 5 种方法的 4 个指标及候选上限，均与报告一致。CI 验证代码行为，不自动重跑完整模型下载与基准实验。
+v1 交付时本地 **37 个测试通过**；加入 v2 后的当前测试状态见 [README](../README.md)。[GitHub Actions](https://github.com/chendi-Shi/evidenceforge-nlp/actions/workflows/ci.yml) 的 Linux Python 3.11/3.12 离线测试通过。[独立指标复核脚本](../scripts/verify_results.py) 从保存的 TREC 排名重算 5 种方法的 4 个指标及候选上限，均与报告一致。CI 验证代码行为，不自动重跑完整模型下载与基准实验。
 
 科学文献检索相关性不等于支持关系；BEIR qrels 实际对应原始 cited 文档，具体核验见 [数据卡](DATA_CARD.md)。数据规模、未标注负例、长摘要截断与预训练暴露等限制见 [实验方法](METHODOLOGY.zh-CN.md)。

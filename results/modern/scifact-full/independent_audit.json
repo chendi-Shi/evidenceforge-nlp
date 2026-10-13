@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "method": "qwen3_06b_q8",
+  "corpus_size": 5183,
+  "test_query_count": 300,
+  "ranking_depth": 50,
+  "verified_metrics": {
+    "ndcg@10": 0.6751786282587086,
+    "mrr@10": 0.6409748677248678,
+    "recall@10": 0.8017222222222222,
+    "recall@50": 0.8966666666666666
+  },
+  "tolerance": 1e-10,
+  "protocol_sha256": "052c5a34c19bca9ca39b7cccd8083b71281e8176a940548388e597e4b296e5cf",
+  "spec_sha256": "b814b32a705fc0e038eecdad5fdce903ac5b9691b6816f3221f8bee9a0bcc781",
+  "artifact_sha256": {
+    "trec": "93edb77ed3f7f3523cef0aa664bfcc6b65b007fd3e383b9f448467c0b6c3881a",
+    "per_query": "d3dfd588844d6686f76886c3118c14639de8f34753566a19a1f5f8e794ac9ce9"
+  },
+  "scope": "Independent metric arithmetic from saved explicit TREC ranks and actual test qrels, every saved per-query metric and all four aggregates, canonical protocol and data identities, artifact byte hashes, and consistency of declared pinned encoder/runtime metadata. Does not rerun model inference, inspect model/runtime binaries, prove computation over documents outside the saved rankings, verify historical preregistration timing, or validate latency/throughput."
+}
