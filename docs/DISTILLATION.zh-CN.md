@@ -1,6 +1,6 @@
 # v3：资源受限的检索蒸馏与迁移退化
 
-**状态：数据准备与实机预检已完成，完整训练和迁移评测待产出。** v1/v2 的原有成绩保留，不能将它们写成这一轮蒸馏的收益。固定协议与预检产物公开在 [`results/distillation`](../results/distillation/)；预检权重全部丢弃。
+**状态：2026-10-14 已启动全量教师向量生成，完整训练和迁移评测待产出。** 数据准备与实机预检已完成；当日上午第一次启动因低内存退出，内存恢复后于 11:18（Asia/Shanghai）启动，并确认查询向量进度增长。v1/v2 的原有成绩保留，不能将它们写成这一轮蒸馏的收益。固定协议与预检产物公开在 [`results/distillation`](../results/distillation/)；预检权重全部丢弃。
 
 ## 问题
 
@@ -23,6 +23,10 @@
 
 主比较是 SCIDOCS 上 `kd_anchor − kd`，分别报告三个 seed、seed 标准差及每个 seed 的配对查询区间。同时必须看相对冻结 base 的表现、源域验证收益和向量漂移。如果保持项只是让模型几乎不更新，或只超过一个严重退化的组，就不能写成泛化能力提升。四组结果均保留；不把 seed×query 当成独立样本扩大显著性，不承诺正结果。
 
+预设的次要交互比较为 `(kd_anchor − kd) − (anchor − ce)`：它检查表示保持对蒸馏组的影响是否不同于普通监督组，不能用单独的 `kd_anchor − kd` 代替。当前记录的漂移来自**源域验证**的查询与文档，没有测量 SCIDOCS 表示漂移；它只辅助解释训练行为，不能证明目标域几何保持。基础权重固定且 dropout 关闭，各训练 seed 的主要变化来自批次顺序。
+
+结果解释还须保留每组在 250/500/750 步的源域验证记录，作相同步数比较。不同组可能选择不同的 best step，较小的漂移也可能来自较早选模；不能完全归因于保持项。目标测试集只评测预先选定的权重，不能反过来重新挑 checkpoint。即使主差值为正，若仍低于 frozen base，也只能说缓解了该配置下的负迁移；与 base 的差异区间包含 0 不等于证明无损保持。
+
 ## 本机运行
 
 ```powershell
@@ -41,6 +45,19 @@ Get-Content results/distillation/live_status.json
 2026-10-14 的最后一次 [64 查询学生预检](../results/distillation/pilot_student.json) 完成 4 次非零梯度更新，每步完整批次耗时中位数 1.411 秒；8 条文本的缓存/完整前向抽查逐位相同。[教师预检](../results/distillation/pilot_teacher.json) 使用 64 查询和 128 文档，无向量缓存命中。按这些短测外推，源域教师推理约 5.83 小时、12 次学生训练的纯更新约 3.53 小时；尚未计入全量缓存构建、验证、最终 SCIDOCS 编码和持续负载影响。这是预算估计，不是实测整轮耗时，也不是质量成绩。
 
 本地 Windows Python 3.12 的 167 项测试通过，Ruff 检查通过。测试包含完整候选池与微批梯度等价、继续训练与断点恢复一致、冻结前禁止读取目标数据及篡改权重拒绝复用。小模型和合成数据只用于代码正确性检查；[预检记录与预算计算](../results/distillation/preflight.json) 均不作为模型效果证据。
+
+## 完成后的独立复算
+
+[`audit_distillation.py`](../scripts/audit_distillation.py) 不调用模型或生产评测函数，从保存的 TREC 和本地 qrels 复算 13 份排名的四项指标及每个 seed 的主比较区间，核对固定协议、数据身份、12 组训练轨迹和权重文件。所有必需结果尚未齐全时返回 `pending`（退出码 2），不会提前读取 SCIDOCS；一致性通过为 0，失败为 1。文件校验只能证明保存产物之间一致，不能独立证明历史计算过程。
+
+```powershell
+.\.venv\Scripts\python.exe scripts/audit_distillation.py --check
+# 完整复算通过后，显式保存两个单独产物；默认只读输出，不覆盖已有文件。
+.\.venv\Scripts\python.exe scripts/audit_distillation.py --output results/distillation/independent_audit.json
+.\.venv\Scripts\python.exe scripts/analyze_distillation_results.py --output results/distillation/analysis.json
+```
+
+[`analyze_distillation_results.py`](../scripts/analyze_distillation_results.py) 只读取已完成的 JSON 结果，保留每个 seed 的目标基线差值、四组交互量、选中步数及源域验证轨迹。次要比较的区间使用独立的 Python 随机抽样，有限次抽样的端点可能与主比较程序不同；不会替代独立 TREC 复算，也不会自动把正差值解释为普遍泛化提升。两个工具的小型合成测试均只验证程序逻辑。
 
 ## 来源与使用范围
 
