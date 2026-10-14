@@ -21,3 +21,5 @@ dist/
 .local_setup/
 results/**/checkpoints/
 results/**/latest.json
+results/distillation/live_status.json
+results/distillation/launch_history.json

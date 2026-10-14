@@ -1,0 +1,170 @@
+{
+  "purpose": "discarded throughput/gradient smoke, not quality evidence",
+  "examples": 64,
+  "trainable_parameters": 3548928,
+  "prefix": {
+    "items": 192,
+    "cache_hits": 192,
+    "new_entries": 0,
+    "bytes_written": 0,
+    "prefix_and_base_inference_seconds": 0.0,
+    "wall_seconds": 2.681569700005639,
+    "batch_size": 8,
+    "format": "one uncompressed variable-length FP32 NPZ per text/ID, plus immutable base vector; no padding stored"
+  },
+  "prefix_wall_seconds": 2.6817643999966094,
+  "equivalence": {
+    "ok": true,
+    "strict_equal": true,
+    "max_abs_difference": 0.0,
+    "absolute_tolerance": 1e-06,
+    "relative_tolerance": 0.0,
+    "items": 8
+  },
+  "steps": [
+    {
+      "step": 1,
+      "epoch": 0,
+      "loss": 0.6767444610595703,
+      "ce": 0.339701384305954,
+      "kd": 0.3370435833930969,
+      "anchor": -4.7497451305389404e-08,
+      "gradient_l2_before_clip": 7.4610395431518555,
+      "trainable_parameter_count": 3548928,
+      "unique_candidate_count": 32,
+      "mean_valid_candidates": 32.0,
+      "dropout_enabled": false,
+      "query_suffix_forward": {
+        "items": 16,
+        "microbatches": 2,
+        "microbatch_size": 8,
+        "actual_tokens": 144,
+        "padded_tokens": 160,
+        "full_batch_padded_tokens": 192
+      },
+      "candidate_suffix_forward": {
+        "items": 32,
+        "microbatches": 4,
+        "microbatch_size": 8,
+        "actual_tokens": 2356,
+        "padded_tokens": 2992,
+        "full_batch_padded_tokens": 5280
+      },
+      "teacher_distribution_entropy": 0.47619807720184326,
+      "student_distribution_entropy": 0.3213379681110382,
+      "teacher_primary_positive_probability": 0.6641058325767517,
+      "wall_seconds": 1.4385649000032572,
+      "target_preparation_seconds": 0.0007767000060994178
+    },
+    {
+      "step": 2,
+      "epoch": 0,
+      "loss": 1.0659047365188599,
+      "ce": 0.7519659996032715,
+      "kd": 0.3137911558151245,
+      "anchor": 1.4754943549633026e-05,
+      "gradient_l2_before_clip": 8.935968399047852,
+      "trainable_parameter_count": 3548928,
+      "unique_candidate_count": 32,
+      "mean_valid_candidates": 32.0,
+      "dropout_enabled": false,
+      "query_suffix_forward": {
+        "items": 16,
+        "microbatches": 2,
+        "microbatch_size": 8,
+        "actual_tokens": 149,
+        "padded_tokens": 216,
+        "full_batch_padded_tokens": 288
+      },
+      "candidate_suffix_forward": {
+        "items": 32,
+        "microbatches": 4,
+        "microbatch_size": 8,
+        "actual_tokens": 2654,
+        "padded_tokens": 3432,
+        "full_batch_padded_tokens": 6688
+      },
+      "teacher_distribution_entropy": 0.37954357266426086,
+      "student_distribution_entropy": 0.24321463704109192,
+      "teacher_primary_positive_probability": 0.6866381168365479,
+      "wall_seconds": 1.8072469999970053,
+      "target_preparation_seconds": 0.0009257999990950339
+    },
+    {
+      "step": 3,
+      "epoch": 0,
+      "loss": 0.891560435295105,
+      "ce": 0.6688761115074158,
+      "kd": 0.2221291959285736,
+      "anchor": 5.551427602767944e-05,
+      "gradient_l2_before_clip": 6.11721134185791,
+      "trainable_parameter_count": 3548928,
+      "unique_candidate_count": 32,
+      "mean_valid_candidates": 32.0,
+      "dropout_enabled": false,
+      "query_suffix_forward": {
+        "items": 16,
+        "microbatches": 2,
+        "microbatch_size": 8,
+        "actual_tokens": 159,
+        "padded_tokens": 192,
+        "full_batch_padded_tokens": 240
+      },
+      "candidate_suffix_forward": {
+        "items": 32,
+        "microbatches": 4,
+        "microbatch_size": 8,
+        "actual_tokens": 2423,
+        "padded_tokens": 2952,
+        "full_batch_padded_tokens": 4672
+      },
+      "teacher_distribution_entropy": 0.42551103234291077,
+      "student_distribution_entropy": 0.38689669966697693,
+      "teacher_primary_positive_probability": 0.5615341067314148,
+      "wall_seconds": 1.3836061000038171,
+      "target_preparation_seconds": 0.0010017000022344291
+    },
+    {
+      "step": 4,
+      "epoch": 0,
+      "loss": 1.3841750621795654,
+      "ce": 1.0513157844543457,
+      "kd": 0.3317532539367676,
+      "anchor": 0.00011060480028390884,
+      "gradient_l2_before_clip": 8.497340202331543,
+      "trainable_parameter_count": 3548928,
+      "unique_candidate_count": 32,
+      "mean_valid_candidates": 32.0,
+      "dropout_enabled": false,
+      "query_suffix_forward": {
+        "items": 16,
+        "microbatches": 2,
+        "microbatch_size": 8,
+        "actual_tokens": 155,
+        "padded_tokens": 200,
+        "full_batch_padded_tokens": 240
+      },
+      "candidate_suffix_forward": {
+        "items": 32,
+        "microbatches": 4,
+        "microbatch_size": 8,
+        "actual_tokens": 2229,
+        "padded_tokens": 2616,
+        "full_batch_padded_tokens": 4352
+      },
+      "teacher_distribution_entropy": 0.5281771421432495,
+      "student_distribution_entropy": 0.42142045497894287,
+      "teacher_primary_positive_probability": 0.5804333686828613,
+      "wall_seconds": 1.2017735000044922,
+      "target_preparation_seconds": 0.0006283000038820319
+    }
+  ],
+  "median_step_seconds": 1.4110855000035372,
+  "expected_steps_per_full_run": 750,
+  "expected_runs": 12,
+  "memory_after": {
+    "available_physical_bytes": 3159814144,
+    "memory_load_percent": 81
+  },
+  "warning": "Short pilot omits full validation/held-out encoding, thermals, and other machine load"
+}

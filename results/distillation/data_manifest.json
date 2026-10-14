@@ -1,0 +1,81 @@
+{
+  "artifacts": {
+    "train.jsonl": {
+      "bytes": 13639820,
+      "rows": 12000,
+      "sha256": "8181132794235cf2e26629a9793eec16c0ca6d447ec38b1e75879b71c2a76366"
+    },
+    "validation.jsonl": {
+      "bytes": 1140189,
+      "rows": 1000,
+      "sha256": "894c819e961493807c6d4c72b08289a1b96fcbd30c4712dc79b5caa866f53fb6"
+    }
+  },
+  "audit": {
+    "deduplicated_document_occurrences": 185528,
+    "document_normalization_changed_occurrences": 101075,
+    "eligible_triplet_rows": 459022,
+    "eligible_unique_queries": 458950,
+    "identical_positive_negative_rows": 43907,
+    "invalid_triplet_rows": 0,
+    "negative_is_other_known_positive_rows": 2,
+    "queries_with_multiple_known_positives": 68,
+    "repeated_normalized_query_occurrences": 74,
+    "selected_deduplicated_document_occurrences": 323,
+    "selected_document_occurrences": 26000,
+    "selected_unique_document_texts": 25677,
+    "source_rows": 502931,
+    "train_validation_shared_document_texts": 49,
+    "unique_document_texts": 820334,
+    "unique_normalized_queries": 502857,
+    "valid_document_text_occurrences": 1005862,
+    "valid_query_occurrences": 502931
+  },
+  "limitations": [
+    "Validation is a query-disjoint sample of training triplets, not the official MS MARCO benchmark.",
+    "Known positives are limited to this pinned triplet source, not the complete MS MARCO qrels.",
+    "Static upstream BM25 negatives are used; this pipeline does not mine the full 8.8M-passage corpus.",
+    "Query grouping retains digits and punctuation; paraphrases may still cross the split.",
+    "Document normalization preserves case; case variants and semantic duplicates are not merged.",
+    "Documents may appear in both partitions; this is query-disjoint, not document-disjoint validation.",
+    "The data terms differ from the repository code license; do not assume permission to redistribute text."
+  ],
+  "protocol": {
+    "algorithm_version": "msmarco-query-hash-sample-v1",
+    "expected_source_rows": 502931,
+    "n_train": 12000,
+    "n_validation": 1000,
+    "normalization": {
+      "document": "Unicode NFKC; collapse all whitespace; preserve case, punctuation and digits",
+      "document_id": "doc_ + SHA256 of UTF-8 canonical document text",
+      "query_group": "Document normalization then Unicode casefold; preserve punctuation and digits",
+      "query_id": "query_ + SHA256 of UTF-8 normalized query group text"
+    },
+    "representative": "Smallest canonical triplet SHA256, then zero-based source row index",
+    "sampling": "Globally smallest SHA256(version + newline + seed + newline + normalized-query SHA256)",
+    "sampling_seed": 42,
+    "selection_uses_heldout_data": false,
+    "source_bytes": 231262240,
+    "source_metadata": {
+      "config": "triplet",
+      "dataset_card": "https://huggingface.co/datasets/sentence-transformers/msmarco-bm25/blob/ce8a493a65af5e872c3c92f72a89e2e99e175f02/README.md",
+      "dataset_id": "sentence-transformers/msmarco-bm25",
+      "license": {
+        "name": "MS MARCO non-commercial research terms",
+        "note": "Free for non-commercial research; no extension of underlying document IP rights. The dataset card does not declare an SPDX license. Repository code licensing does not apply.",
+        "url": "https://microsoft.github.io/msmarco/#terms-and-conditions"
+      },
+      "revision": "ce8a493a65af5e872c3c92f72a89e2e99e175f02",
+      "source_file": "triplet/train-00000-of-00001.parquet",
+      "split": "train",
+      "url": "https://huggingface.co/datasets/sentence-transformers/msmarco-bm25/resolve/ce8a493a65af5e872c3c92f72a89e2e99e175f02/triplet/train-00000-of-00001.parquet"
+    },
+    "source_sha256": "b624e7bff0654eb1b538e8d7d729b14004e97ef2e5cb1d2656e30a34eb00c5b6"
+  },
+  "protocol_sha256": "99e4de48939a797652b0bccfb5f82ce00d11dfe4c089a702a257a704f61a7226",
+  "selected_query_ids_sha256": "bd2d6eeb1de39fbe386679b1edef6e0c8cef231ddcbb025c5a6c936751768f23",
+  "split_query_ids_sha256": {
+    "train": "46d961e9974ce831d528b8de8d8c8ecb7298c301fb0887c8d6827adc57309213",
+    "validation": "c2f388dd9948475b513fc7d5a51484ecac5638ec3ba2bf3fa52dfe3c16ec89c2"
+  }
+}

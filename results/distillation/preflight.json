@@ -1,0 +1,31 @@
+{
+  "status": "preflight complete; full training and held-out results pending",
+  "date": "2026-10-14",
+  "machine": "Intel i5-1130G7, 16 GB RAM, Iris Xe Vulkan; two CPU threads",
+  "checks": {
+    "pytest": "167 passed in 126.60 seconds on Windows Python 3.12",
+    "ruff": "src tests scripts: all checks passed",
+    "pilot_nonzero_gradient_steps": 4,
+    "pilot_cached_full_forward_strict_equal": true
+  },
+  "pilot_files_sha256": {
+    "pilot_teacher.json": "b863a96d6e41e87b085855405fb4ba386726280f37746de7a0eb7a97cf8c6f22",
+    "pilot_student.json": "dc408464bce4a1e5d8701c4cf2d669d246b0c6f89f6dffdaba02737033dea0fd",
+    "data_manifest.json": "ad1a4f6808ee6e11e0523334dae8f9a1963e88b58069ea22bfd4b8a4bec7b642"
+  },
+  "budget_projection": {
+    "teacher_fresh_inference_hours": 5.833293712230578,
+    "student_update_hours_from_pilot_median": 3.527713750008843,
+    "subtotal_hours": 9.36100746223942,
+    "excluded": [
+      "full prefix/base-vector creation",
+      "source validation",
+      "held-out encoding and ranking",
+      "model loading, thermal throttling, operating-system scheduling and other machine load"
+    ],
+    "warning": "Timing projection from 64 source queries and 128 documents, not measured full-run time or a promise",
+    "single_invocation_budget_hours": 11.5,
+    "budget_enforcement": "Cooperative checks at batch boundaries; normal budget exit preserves completed student steps"
+  },
+  "quality_claim": "None. Pilot weights are discarded; no held-out test data was used in preflight."
+}

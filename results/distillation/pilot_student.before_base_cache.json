@@ -1,0 +1,94 @@
+{
+  "purpose": "discarded throughput/gradient smoke, not quality evidence",
+  "examples": 64,
+  "trainable_parameters": 3548928,
+  "prefix": {
+    "items": 192,
+    "cache_hits": 0,
+    "new_entries": 192,
+    "bytes_written": 16621568,
+    "prefix_and_base_inference_seconds": 8.509862500017334,
+    "wall_seconds": 10.304880700001377,
+    "batch_size": 8,
+    "format": "one uncompressed variable-length FP32 NPZ per text/ID, plus immutable base vector; no padding stored"
+  },
+  "prefix_wall_seconds": 10.30537170000025,
+  "equivalence": {
+    "ok": true,
+    "strict_equal": true,
+    "max_abs_difference": 0.0,
+    "absolute_tolerance": 1e-06,
+    "relative_tolerance": 0.0,
+    "items": 8
+  },
+  "steps": [
+    {
+      "step": 1,
+      "epoch": 0,
+      "loss": 0.6767444610595703,
+      "ce": 0.339701384305954,
+      "kd": 0.3370435833930969,
+      "anchor": -4.7497451305389404e-08,
+      "gradient_l2_before_clip": 7.4610395431518555,
+      "trainable_parameter_count": 3548928,
+      "unique_candidate_count": 32,
+      "mean_valid_candidates": 32.0,
+      "dropout_enabled": false,
+      "wall_seconds": 4.319020499999169,
+      "target_preparation_seconds": 1.5623350999958348
+    },
+    {
+      "step": 2,
+      "epoch": 0,
+      "loss": 1.0659042596817017,
+      "ce": 0.7519656419754028,
+      "kd": 0.31379103660583496,
+      "anchor": 1.4756806194782257e-05,
+      "gradient_l2_before_clip": 8.935966491699219,
+      "trainable_parameter_count": 3548928,
+      "unique_candidate_count": 32,
+      "mean_valid_candidates": 32.0,
+      "dropout_enabled": false,
+      "wall_seconds": 5.066886200002045,
+      "target_preparation_seconds": 1.5218382999955793
+    },
+    {
+      "step": 3,
+      "epoch": 0,
+      "loss": 0.8915606141090393,
+      "ce": 0.6688762307167053,
+      "kd": 0.2221291959285736,
+      "anchor": 5.552265793085098e-05,
+      "gradient_l2_before_clip": 6.117213726043701,
+      "trainable_parameter_count": 3548928,
+      "unique_candidate_count": 32,
+      "mean_valid_candidates": 32.0,
+      "dropout_enabled": false,
+      "wall_seconds": 3.531224899998051,
+      "target_preparation_seconds": 1.38120329999947
+    },
+    {
+      "step": 4,
+      "epoch": 0,
+      "loss": 1.3841744661331177,
+      "ce": 1.0513157844543457,
+      "kd": 0.33175280690193176,
+      "anchor": 0.00011059548705816269,
+      "gradient_l2_before_clip": 8.497340202331543,
+      "trainable_parameter_count": 3548928,
+      "unique_candidate_count": 32,
+      "mean_valid_candidates": 32.0,
+      "dropout_enabled": false,
+      "wall_seconds": 3.291767399998207,
+      "target_preparation_seconds": 1.436816200002795
+    }
+  ],
+  "median_step_seconds": 3.92512269999861,
+  "expected_steps_per_full_run": 750,
+  "expected_runs": 12,
+  "memory_after": {
+    "available_physical_bytes": 3678441472,
+    "memory_load_percent": 78
+  },
+  "warning": "Short pilot omits full validation/held-out encoding, thermals, and other machine load"
+}

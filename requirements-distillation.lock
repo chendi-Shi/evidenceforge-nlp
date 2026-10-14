@@ -1,0 +1,4 @@
+# Extend the tested Windows CPU adaptation environment for v3 data preparation.
+# Install: python -m pip install -c requirements-distillation.lock -e ".[dev,distillation]"
+-c requirements-adaptation.lock
+pyarrow==26.0.0
