@@ -1,0 +1,1722 @@
+{
+  "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+  "runs": {
+    "ce/17": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 17,
+        "arm": "ce",
+        "order_sha256": "52d0f8e0ec82a0508adc42905a1b5689e7560af24b359c9a62b398bbdabef79c"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 500,
+        "best_ndcg": 0.9209618100541639,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.9187558275482456,
+              "mrr@10": 0.8935051587301588,
+              "recall@10": 0.992,
+              "recall@50": 0.998
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.0269126258790493,
+              "document_mean_cosine_distance_to_base": 0.09203756600618362
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.9209618100541639,
+              "mrr@10": 0.8958285714285714,
+              "recall@10": 0.994,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.05541229620575905,
+              "document_mean_cosine_distance_to_base": 0.17334535717964172
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.9204770766447453,
+              "mrr@10": 0.8950313492063492,
+              "recall@10": 0.995,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.09036005288362503,
+              "document_mean_cosine_distance_to_base": 0.23628456890583038
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 17,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 0.0,
+          "anchor_weight": 0.0
+        },
+        "filename": "suffix-78e82c3c5cdc4ce07a11.safetensors",
+        "suffix_sha256": "db30a562718746a2468ef4548b37cf7843d5490876270d7e813fba38d4536ee9",
+        "parameter_sha256": "78e82c3c5cdc4ce07a11703e40c0b176ce517dae10997ab9accbb5fa7fa47c5e",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 1649.3140727999998,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "5c024e59bea4157021bcbcdd167d19ce6278234dc13d323db87d92d0671ce8fb",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    },
+    "kd/17": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 17,
+        "arm": "kd",
+        "order_sha256": "52d0f8e0ec82a0508adc42905a1b5689e7560af24b359c9a62b398bbdabef79c"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 750,
+        "best_ndcg": 0.9084301750324418,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.8950654721565365,
+              "mrr@10": 0.8594444444444443,
+              "recall@10": 0.996,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.10718636959791183,
+              "document_mean_cosine_distance_to_base": 0.12124119699001312
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.9080972421034432,
+              "mrr@10": 0.8768277777777778,
+              "recall@10": 0.997,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.19281606376171112,
+              "document_mean_cosine_distance_to_base": 0.21430803835391998
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.9084301750324418,
+              "mrr@10": 0.877320634920635,
+              "recall@10": 0.997,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.22216759622097015,
+              "document_mean_cosine_distance_to_base": 0.25479233264923096
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 17,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 1.0,
+          "anchor_weight": 0.0
+        },
+        "filename": "suffix-03bf7ea3296d8ddd0d54.safetensors",
+        "suffix_sha256": "41290e083a1d1ffcce09e102e276a3f3ca2bd8e6962403d62f2510c062f29e60",
+        "parameter_sha256": "03bf7ea3296d8ddd0d5482764b5b712772ce5052dfe19cbdbfd33387ba19fac7",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 1665.6409056999983,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "561f447be409245e7f8a22fe38d2da6f9fc07240766cf3033c79fe3bd9d9c08f",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    },
+    "anchor/17": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 17,
+        "arm": "anchor",
+        "order_sha256": "52d0f8e0ec82a0508adc42905a1b5689e7560af24b359c9a62b398bbdabef79c"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 750,
+        "best_ndcg": 0.9254611614966902,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.9199912483122048,
+              "mrr@10": 0.8929250000000001,
+              "recall@10": 0.997,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.0031186339911073446,
+              "document_mean_cosine_distance_to_base": 0.00968227256089449
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.9225632527903135,
+              "mrr@10": 0.8963666666666666,
+              "recall@10": 0.997,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.003085722913965583,
+              "document_mean_cosine_distance_to_base": 0.009577990509569645
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.9254611614966902,
+              "mrr@10": 0.9003472222222223,
+              "recall@10": 0.997,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.004167424980551004,
+              "document_mean_cosine_distance_to_base": 0.01064461749047041
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 17,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 0.0,
+          "anchor_weight": 10.0
+        },
+        "filename": "suffix-88111e5eb1af2300fb30.safetensors",
+        "suffix_sha256": "35c183d12d7a4e45f8a0d7c23f028339671a6778cc0b695dad695b18053f8637",
+        "parameter_sha256": "88111e5eb1af2300fb3065bbaf00b072f8284640c523abe667a2d69722fb3ab4",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 1590.881361599997,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "2288b8d1dd24411bb4fecb1f903ae30819b51d5ee86c3f06656f080c01eba932",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    },
+    "kd_anchor/17": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 17,
+        "arm": "kd_anchor",
+        "order_sha256": "52d0f8e0ec82a0508adc42905a1b5689e7560af24b359c9a62b398bbdabef79c"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 500,
+        "best_ndcg": 0.8970122716512664,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.8929739794895347,
+              "mrr@10": 0.8563194444444444,
+              "recall@10": 0.997,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.0022155940532684326,
+              "document_mean_cosine_distance_to_base": 0.004184441175311804
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.8970122716512664,
+              "mrr@10": 0.8614944444444445,
+              "recall@10": 0.998,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.0025124135427176952,
+              "document_mean_cosine_distance_to_base": 0.005195678677409887
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.8956440465653489,
+              "mrr@10": 0.8596373015873017,
+              "recall@10": 0.998,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.00315505126491189,
+              "document_mean_cosine_distance_to_base": 0.006038087420165539
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 17,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 1.0,
+          "anchor_weight": 10.0
+        },
+        "filename": "suffix-35cb146f63b62521fc86.safetensors",
+        "suffix_sha256": "a662ae3e49e49b580ecd944aeed824510aaf64022c134033aaab41397f5f9cac",
+        "parameter_sha256": "35cb146f63b62521fc86156890f4befde13ee282c6e33a842ab5e16fe1b4f49d",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 1591.4105675000028,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "c1950a292b32682f381d1d8d16e246f1cc2cec7a635e4aee3de9b19c48372d3b",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    },
+    "ce/42": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 42,
+        "arm": "ce",
+        "order_sha256": "c92ff5297270a6fc879b76a83bb31470642d2d647519fcd958d0d6075eaf65ac"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 250,
+        "best_ndcg": 0.9229823578349524,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.9229823578349524,
+              "mrr@10": 0.89865,
+              "recall@10": 0.993,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.024308567866683006,
+              "document_mean_cosine_distance_to_base": 0.09059178084135056
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.9192385424730795,
+              "mrr@10": 0.8945607142857143,
+              "recall@10": 0.991,
+              "recall@50": 0.998
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.055433738976716995,
+              "document_mean_cosine_distance_to_base": 0.17160414159297943
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.9201468799507976,
+              "mrr@10": 0.8948289682539683,
+              "recall@10": 0.994,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.09028419852256775,
+              "document_mean_cosine_distance_to_base": 0.22331571578979492
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 42,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 0.0,
+          "anchor_weight": 0.0
+        },
+        "filename": "suffix-457a8d328f7d78e99321.safetensors",
+        "suffix_sha256": "f7aa9084cbc8e6ba7e7b2507fca6133621493fa282159ee0ce3d3699972c122a",
+        "parameter_sha256": "457a8d328f7d78e993211f7c61780ee893789cb7fde144545a74b8556b83e5e6",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 412.81261559999984,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "79042804dddb96d2e9ae5eec9736be61a61fb9332e85ced1c9a6a0dc4e250528",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    },
+    "kd/42": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 42,
+        "arm": "kd",
+        "order_sha256": "c92ff5297270a6fc879b76a83bb31470642d2d647519fcd958d0d6075eaf65ac"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 750,
+        "best_ndcg": 0.9112718040585196,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.8933974364029663,
+              "mrr@10": 0.8572416666666667,
+              "recall@10": 0.996,
+              "recall@50": 0.998
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.12225121259689331,
+              "document_mean_cosine_distance_to_base": 0.14337727427482605
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.9093932408239263,
+              "mrr@10": 0.8789083333333333,
+              "recall@10": 0.996,
+              "recall@50": 0.998
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.1948414146900177,
+              "document_mean_cosine_distance_to_base": 0.23193879425525665
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.9112718040585196,
+              "mrr@10": 0.8811638888888887,
+              "recall@10": 0.997,
+              "recall@50": 0.998
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.21750704944133759,
+              "document_mean_cosine_distance_to_base": 0.2504275441169739
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 42,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 1.0,
+          "anchor_weight": 0.0
+        },
+        "filename": "suffix-801ed2f1ae277785e0b7.safetensors",
+        "suffix_sha256": "cfcfd4400527c90164fd1330a947e30e218f5bc2dae8f43cf5dd1a95acaadeea",
+        "parameter_sha256": "801ed2f1ae277785e0b7683c6f1e44e8bf49c1d8be5aa983ec931eea03494153",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 2569.5902917999992,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "5a9d559576bf70dc3f0164a4fc174a5e9425b5a09c1644b1c64f62e5821a6f33",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    },
+    "anchor/42": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 42,
+        "arm": "anchor",
+        "order_sha256": "c92ff5297270a6fc879b76a83bb31470642d2d647519fcd958d0d6075eaf65ac"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 750,
+        "best_ndcg": 0.925624394587931,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.9185362166290009,
+              "mrr@10": 0.8909222222222222,
+              "recall@10": 0.997,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.0027494386304169893,
+              "document_mean_cosine_distance_to_base": 0.00782718788832426
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.9238908214616501,
+              "mrr@10": 0.8985,
+              "recall@10": 0.996,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.003322286531329155,
+              "document_mean_cosine_distance_to_base": 0.008963171392679214
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.925624394587931,
+              "mrr@10": 0.9005456349206349,
+              "recall@10": 0.997,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.0040943375788629055,
+              "document_mean_cosine_distance_to_base": 0.01065065898001194
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 42,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 0.0,
+          "anchor_weight": 10.0
+        },
+        "filename": "suffix-43a4b48e6e86d0b5f36e.safetensors",
+        "suffix_sha256": "5c74f08902238f0c601c2f7f9269fb407abf0f067a9710f9a8e7a0ac31234550",
+        "parameter_sha256": "43a4b48e6e86d0b5f36e6eff2fa115774eba69915331d9bc53e664c7967dce8c",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 2377.0061935999984,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "b49adfb0aa25b0332b74155f755b6ad797620428f56639fbd3bc1edcd121f09a",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    },
+    "kd_anchor/42": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 42,
+        "arm": "kd_anchor",
+        "order_sha256": "c92ff5297270a6fc879b76a83bb31470642d2d647519fcd958d0d6075eaf65ac"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 750,
+        "best_ndcg": 0.8993027343226042,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.8900960276995747,
+              "mrr@10": 0.8521261904761904,
+              "recall@10": 0.998,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.002102034166455269,
+              "document_mean_cosine_distance_to_base": 0.004672929644584656
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.8947979427939624,
+              "mrr@10": 0.859075,
+              "recall@10": 0.996,
+              "recall@50": 0.998
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.002537416061386466,
+              "document_mean_cosine_distance_to_base": 0.004868695512413979
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.8993027343226042,
+              "mrr@10": 0.8645916666666666,
+              "recall@10": 0.998,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.0029877678025513887,
+              "document_mean_cosine_distance_to_base": 0.005856920499354601
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 42,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 1.0,
+          "anchor_weight": 10.0
+        },
+        "filename": "suffix-5334fe824865fc86d221.safetensors",
+        "suffix_sha256": "d140c1c15dde403ce5bf7c9683cb6c1dd0ce7a172bb056c3b9f6f84dbc188d94",
+        "parameter_sha256": "5334fe824865fc86d22177d9e7fbe7e711ac257bdc86fb528480a749c0572c97",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 1943.8511116000009,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "63de44be15d44144a12fc7733dfffed2d2a11bcdc37eeab48f67e7bfbc4f39e0",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    },
+    "ce/73": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 73,
+        "arm": "ce",
+        "order_sha256": "29c8a9c351476ae15f51bad0e5b5948a7b448910102be4e35777d7da0f43ea76"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 250,
+        "best_ndcg": 0.9250422803045589,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.9250422803045589,
+              "mrr@10": 0.9011468253968254,
+              "recall@10": 0.994,
+              "recall@50": 0.998
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.025020692497491837,
+              "document_mean_cosine_distance_to_base": 0.0930657833814621
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.9139795926149699,
+              "mrr@10": 0.8881119047619047,
+              "recall@10": 0.989,
+              "recall@50": 0.998
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.054094985127449036,
+              "document_mean_cosine_distance_to_base": 0.1857491433620453
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.9229667915121936,
+              "mrr@10": 0.8981273809523809,
+              "recall@10": 0.995,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.08606565743684769,
+              "document_mean_cosine_distance_to_base": 0.2149048149585724
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 73,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 0.0,
+          "anchor_weight": 0.0
+        },
+        "filename": "suffix-589db605f45f04491307.safetensors",
+        "suffix_sha256": "151c44c1441fc3015f7fca5baea64c07e8785b8006cfd7e4d29e5bac578a68df",
+        "parameter_sha256": "589db605f45f04491307b0179d3c05662e2b69fc95316264cb84c1c8108c48ba",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 1276.3310509000003,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "c6e5ab3fedba8313b66fc21a74240019182ac6938c55d89829bfd56befb201fc",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    },
+    "kd/73": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 73,
+        "arm": "kd",
+        "order_sha256": "29c8a9c351476ae15f51bad0e5b5948a7b448910102be4e35777d7da0f43ea76"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 750,
+        "best_ndcg": 0.9117322415432852,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.8928273316636794,
+              "mrr@10": 0.8564444444444446,
+              "recall@10": 0.996,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.12088711559772491,
+              "document_mean_cosine_distance_to_base": 0.13854169845581055
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.9067031169221034,
+              "mrr@10": 0.8752873015873015,
+              "recall@10": 0.996,
+              "recall@50": 0.998
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.20983003079891205,
+              "document_mean_cosine_distance_to_base": 0.23758947849273682
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.9117322415432852,
+              "mrr@10": 0.8818345238095239,
+              "recall@10": 0.997,
+              "recall@50": 0.998
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.220565527677536,
+              "document_mean_cosine_distance_to_base": 0.25204986333847046
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 73,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 1.0,
+          "anchor_weight": 0.0
+        },
+        "filename": "suffix-55d6aec33cc1a6ca3f73.safetensors",
+        "suffix_sha256": "6c8def2ae4e06f27c785817c1a8943133cc2eb459eb030d4f43a4aefa113c242",
+        "parameter_sha256": "55d6aec33cc1a6ca3f7378c2d4b15ebdcc56d12f2160b961c066e12f33155e6d",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 3183.909615999997,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "ada52d6457c39fc5a3a5919a2c8a03b14fafd7cb7b416508fdde41079b457227",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    },
+    "anchor/73": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 73,
+        "arm": "anchor",
+        "order_sha256": "29c8a9c351476ae15f51bad0e5b5948a7b448910102be4e35777d7da0f43ea76"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 500,
+        "best_ndcg": 0.926013483675171,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.9194962868757102,
+              "mrr@10": 0.8922361111111111,
+              "recall@10": 0.997,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.002973911352455616,
+              "document_mean_cosine_distance_to_base": 0.007871434092521667
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.926013483675171,
+              "mrr@10": 0.9016944444444445,
+              "recall@10": 0.995,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.004026507027447224,
+              "document_mean_cosine_distance_to_base": 0.011445941403508186
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.9255516375705786,
+              "mrr@10": 0.9004583333333334,
+              "recall@10": 0.997,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.0034954568836838007,
+              "document_mean_cosine_distance_to_base": 0.01074644923210144
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 73,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 0.0,
+          "anchor_weight": 10.0
+        },
+        "filename": "suffix-2ce1e32b6ccf080e38c4.safetensors",
+        "suffix_sha256": "c2c10fe6a9bcf00d4a2c9168652736d87c2f178ad4cb9df93c39cde1c497c909",
+        "parameter_sha256": "2ce1e32b6ccf080e38c4ab8aebbc19e3e967f81d80de5ec4af1357a77df20874",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 3524.3358823000017,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "23db7a104d7d63e3336b62d24b83065109ba62f8f41dabbbcc19c57dd3cae3eb",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    },
+    "kd_anchor/73": {
+      "plan": {
+        "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+        "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+        "seed": 73,
+        "arm": "kd_anchor",
+        "order_sha256": "29c8a9c351476ae15f51bad0e5b5948a7b448910102be4e35777d7da0f43ea76"
+      },
+      "progress": {
+        "completed_steps": 750,
+        "nonzero_gradient_steps": 750,
+        "epoch": 0,
+        "row_cursor": 12000
+      },
+      "trainable_parameters": 3548928,
+      "selection": {
+        "best_step": 750,
+        "best_ndcg": 0.8993720577645309,
+        "validations": [
+          {
+            "step": 250,
+            "metrics": {
+              "ndcg@10": 0.8911871531285204,
+              "mrr@10": 0.8538944444444444,
+              "recall@10": 0.997,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.002018856583163142,
+              "document_mean_cosine_distance_to_base": 0.003664391813799739
+            }
+          },
+          {
+            "step": 500,
+            "metrics": {
+              "ndcg@10": 0.8978405995873725,
+              "mrr@10": 0.8626194444444445,
+              "recall@10": 0.998,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.0025873046834021807,
+              "document_mean_cosine_distance_to_base": 0.005322229117155075
+            }
+          },
+          {
+            "step": 750,
+            "metrics": {
+              "ndcg@10": 0.8993720577645309,
+              "mrr@10": 0.864675,
+              "recall@10": 0.998,
+              "recall@50": 0.999
+            },
+            "drift": {
+              "query_mean_cosine_distance_to_base": 0.002873030724003911,
+              "document_mean_cosine_distance_to_base": 0.00616365484893322
+            }
+          }
+        ]
+      },
+      "final_suffix": {
+        "identity": {
+          "schema": 1,
+          "architecture": "BertModel full-parameter Transformer suffix",
+          "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+          "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+          "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+          "max_length": 256,
+          "dimension": 384,
+          "layer_count": 6,
+          "frozen_layers": 4,
+          "trainable_layers": [
+            4,
+            5
+          ],
+          "dtype": "float32",
+          "pooling": "attention-mask-mean",
+          "normalize": true,
+          "training_mode": "eval with gradients; dropout disabled in all blocks",
+          "torch_version": "2.7.1+cpu",
+          "threads": 2,
+          "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+          "forward_microbatch_size": 8
+        },
+        "config": {
+          "suffix_layers": 2,
+          "max_length": 256,
+          "threads": 2,
+          "forward_microbatch_size": 8,
+          "seed": 73,
+          "learning_rate": 2e-05,
+          "weight_decay": 0.01,
+          "max_grad_norm": 1.0,
+          "ce_temperature": 0.05,
+          "kd_temperature": 0.05,
+          "kd_weight": 1.0,
+          "anchor_weight": 10.0
+        },
+        "filename": "suffix-7ecc78b7ba5b989d1c77.safetensors",
+        "suffix_sha256": "b1944c8dc95be175efb0e2f04b6d4f37a27e11bba9102e1355f541331734ccc5",
+        "parameter_sha256": "7ecc78b7ba5b989d1c77ad5ec532f45f46c36ddbf7c931a62bc7cdfa2a7c9b92",
+        "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+        "trainable_parameter_count": 3548928,
+        "trainable_parameter_names": [
+          "encoder.layer.4.attention.self.query.weight",
+          "encoder.layer.4.attention.self.query.bias",
+          "encoder.layer.4.attention.self.key.weight",
+          "encoder.layer.4.attention.self.key.bias",
+          "encoder.layer.4.attention.self.value.weight",
+          "encoder.layer.4.attention.self.value.bias",
+          "encoder.layer.4.attention.output.dense.weight",
+          "encoder.layer.4.attention.output.dense.bias",
+          "encoder.layer.4.attention.output.LayerNorm.weight",
+          "encoder.layer.4.attention.output.LayerNorm.bias",
+          "encoder.layer.4.intermediate.dense.weight",
+          "encoder.layer.4.intermediate.dense.bias",
+          "encoder.layer.4.output.dense.weight",
+          "encoder.layer.4.output.dense.bias",
+          "encoder.layer.4.output.LayerNorm.weight",
+          "encoder.layer.4.output.LayerNorm.bias",
+          "encoder.layer.5.attention.self.query.weight",
+          "encoder.layer.5.attention.self.query.bias",
+          "encoder.layer.5.attention.self.key.weight",
+          "encoder.layer.5.attention.self.key.bias",
+          "encoder.layer.5.attention.self.value.weight",
+          "encoder.layer.5.attention.self.value.bias",
+          "encoder.layer.5.attention.output.dense.weight",
+          "encoder.layer.5.attention.output.dense.bias",
+          "encoder.layer.5.attention.output.LayerNorm.weight",
+          "encoder.layer.5.attention.output.LayerNorm.bias",
+          "encoder.layer.5.intermediate.dense.weight",
+          "encoder.layer.5.intermediate.dense.bias",
+          "encoder.layer.5.output.dense.weight",
+          "encoder.layer.5.output.dense.bias",
+          "encoder.layer.5.output.LayerNorm.weight",
+          "encoder.layer.5.output.LayerNorm.bias"
+        ]
+      },
+      "current_invocation_training_seconds": 1528.9242611999944,
+      "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+      "selected_metadata_sha256": "967b2574fade315cfdc68523f77786187daff9940aec356038e4e2e75b90aca9",
+      "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+    }
+  },
+  "frozen_at_utc": "2026-10-15T10:01:28.569472+00:00"
+}

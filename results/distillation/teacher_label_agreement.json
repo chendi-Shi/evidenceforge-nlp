@@ -1,0 +1,13 @@
+{
+  "rows": 12000,
+  "teacher_vector_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+  "positive_minus_bm25_negative_cosine": {
+    "mean": 0.051453323612435875,
+    "p10": -0.09725928008556366,
+    "p50": 0.0344752985984087,
+    "p90": 0.22453099787235267
+  },
+  "negative_preferred_count": 4458,
+  "ties": 0,
+  "scope": "Fixed source triplets only. Teacher disagreement is not proof of annotation error; no examples removed or thresholds selected."
+}

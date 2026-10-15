@@ -1,0 +1,45 @@
+{
+  "best_step": 500,
+  "best_ndcg": 0.9209618100541639,
+  "validations": [
+    {
+      "step": 250,
+      "metrics": {
+        "ndcg@10": 0.9187558275482456,
+        "mrr@10": 0.8935051587301588,
+        "recall@10": 0.992,
+        "recall@50": 0.998
+      },
+      "drift": {
+        "query_mean_cosine_distance_to_base": 0.0269126258790493,
+        "document_mean_cosine_distance_to_base": 0.09203756600618362
+      }
+    },
+    {
+      "step": 500,
+      "metrics": {
+        "ndcg@10": 0.9209618100541639,
+        "mrr@10": 0.8958285714285714,
+        "recall@10": 0.994,
+        "recall@50": 0.999
+      },
+      "drift": {
+        "query_mean_cosine_distance_to_base": 0.05541229620575905,
+        "document_mean_cosine_distance_to_base": 0.17334535717964172
+      }
+    },
+    {
+      "step": 750,
+      "metrics": {
+        "ndcg@10": 0.9204770766447453,
+        "mrr@10": 0.8950313492063492,
+        "recall@10": 0.995,
+        "recall@50": 0.999
+      },
+      "drift": {
+        "query_mean_cosine_distance_to_base": 0.09036005288362503,
+        "document_mean_cosine_distance_to_base": 0.23628456890583038
+      }
+    }
+  ]
+}

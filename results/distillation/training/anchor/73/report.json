@@ -1,0 +1,143 @@
+{
+  "plan": {
+    "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+    "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+    "seed": 73,
+    "arm": "anchor",
+    "order_sha256": "29c8a9c351476ae15f51bad0e5b5948a7b448910102be4e35777d7da0f43ea76"
+  },
+  "progress": {
+    "completed_steps": 750,
+    "nonzero_gradient_steps": 750,
+    "epoch": 0,
+    "row_cursor": 12000
+  },
+  "trainable_parameters": 3548928,
+  "selection": {
+    "best_step": 500,
+    "best_ndcg": 0.926013483675171,
+    "validations": [
+      {
+        "step": 250,
+        "metrics": {
+          "ndcg@10": 0.9194962868757102,
+          "mrr@10": 0.8922361111111111,
+          "recall@10": 0.997,
+          "recall@50": 0.999
+        },
+        "drift": {
+          "query_mean_cosine_distance_to_base": 0.002973911352455616,
+          "document_mean_cosine_distance_to_base": 0.007871434092521667
+        }
+      },
+      {
+        "step": 500,
+        "metrics": {
+          "ndcg@10": 0.926013483675171,
+          "mrr@10": 0.9016944444444445,
+          "recall@10": 0.995,
+          "recall@50": 0.999
+        },
+        "drift": {
+          "query_mean_cosine_distance_to_base": 0.004026507027447224,
+          "document_mean_cosine_distance_to_base": 0.011445941403508186
+        }
+      },
+      {
+        "step": 750,
+        "metrics": {
+          "ndcg@10": 0.9255516375705786,
+          "mrr@10": 0.9004583333333334,
+          "recall@10": 0.997,
+          "recall@50": 0.999
+        },
+        "drift": {
+          "query_mean_cosine_distance_to_base": 0.0034954568836838007,
+          "document_mean_cosine_distance_to_base": 0.01074644923210144
+        }
+      }
+    ]
+  },
+  "final_suffix": {
+    "identity": {
+      "schema": 1,
+      "architecture": "BertModel full-parameter Transformer suffix",
+      "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+      "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+      "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+      "max_length": 256,
+      "dimension": 384,
+      "layer_count": 6,
+      "frozen_layers": 4,
+      "trainable_layers": [
+        4,
+        5
+      ],
+      "dtype": "float32",
+      "pooling": "attention-mask-mean",
+      "normalize": true,
+      "training_mode": "eval with gradients; dropout disabled in all blocks",
+      "torch_version": "2.7.1+cpu",
+      "threads": 2,
+      "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+      "forward_microbatch_size": 8
+    },
+    "config": {
+      "suffix_layers": 2,
+      "max_length": 256,
+      "threads": 2,
+      "forward_microbatch_size": 8,
+      "seed": 73,
+      "learning_rate": 2e-05,
+      "weight_decay": 0.01,
+      "max_grad_norm": 1.0,
+      "ce_temperature": 0.05,
+      "kd_temperature": 0.05,
+      "kd_weight": 0.0,
+      "anchor_weight": 10.0
+    },
+    "filename": "suffix-2ce1e32b6ccf080e38c4.safetensors",
+    "suffix_sha256": "c2c10fe6a9bcf00d4a2c9168652736d87c2f178ad4cb9df93c39cde1c497c909",
+    "parameter_sha256": "2ce1e32b6ccf080e38c4ab8aebbc19e3e967f81d80de5ec4af1357a77df20874",
+    "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+    "trainable_parameter_count": 3548928,
+    "trainable_parameter_names": [
+      "encoder.layer.4.attention.self.query.weight",
+      "encoder.layer.4.attention.self.query.bias",
+      "encoder.layer.4.attention.self.key.weight",
+      "encoder.layer.4.attention.self.key.bias",
+      "encoder.layer.4.attention.self.value.weight",
+      "encoder.layer.4.attention.self.value.bias",
+      "encoder.layer.4.attention.output.dense.weight",
+      "encoder.layer.4.attention.output.dense.bias",
+      "encoder.layer.4.attention.output.LayerNorm.weight",
+      "encoder.layer.4.attention.output.LayerNorm.bias",
+      "encoder.layer.4.intermediate.dense.weight",
+      "encoder.layer.4.intermediate.dense.bias",
+      "encoder.layer.4.output.dense.weight",
+      "encoder.layer.4.output.dense.bias",
+      "encoder.layer.4.output.LayerNorm.weight",
+      "encoder.layer.4.output.LayerNorm.bias",
+      "encoder.layer.5.attention.self.query.weight",
+      "encoder.layer.5.attention.self.query.bias",
+      "encoder.layer.5.attention.self.key.weight",
+      "encoder.layer.5.attention.self.key.bias",
+      "encoder.layer.5.attention.self.value.weight",
+      "encoder.layer.5.attention.self.value.bias",
+      "encoder.layer.5.attention.output.dense.weight",
+      "encoder.layer.5.attention.output.dense.bias",
+      "encoder.layer.5.attention.output.LayerNorm.weight",
+      "encoder.layer.5.attention.output.LayerNorm.bias",
+      "encoder.layer.5.intermediate.dense.weight",
+      "encoder.layer.5.intermediate.dense.bias",
+      "encoder.layer.5.output.dense.weight",
+      "encoder.layer.5.output.dense.bias",
+      "encoder.layer.5.output.LayerNorm.weight",
+      "encoder.layer.5.output.LayerNorm.bias"
+    ]
+  },
+  "current_invocation_training_seconds": 3524.3358823000017,
+  "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+  "selected_metadata_sha256": "23db7a104d7d63e3336b62d24b83065109ba62f8f41dabbbcc19c57dd3cae3eb",
+  "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+}

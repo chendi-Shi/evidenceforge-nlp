@@ -1,0 +1,109 @@
+{
+  "identity": "7b316cf0778ab22adc3a5be1dbbad5ac460434dffeb8c467120ef1329275f2d0",
+  "sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+  "report": {
+    "purpose": "frozen offline distillation targets",
+    "teacher": {
+      "model_id": "Qwen/Qwen3-Embedding-0.6B-GGUF",
+      "model_revision": "370f27d7550e0def9b39c1f16d3fbaa13aa67728",
+      "model_file": "Qwen3-Embedding-0.6B-Q8_0.gguf",
+      "model_sha256": "06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439",
+      "model_license": "Apache-2.0",
+      "runtime": "llama.cpp",
+      "runtime_version": "b11580",
+      "runtime_archive_sha256": "6e520f0b8bbc6608b53d70065ed80ee90d33acf1636f886d965e0c87f708dff2",
+      "runtime_license": "MIT",
+      "backend": "vulkan",
+      "threads": 2,
+      "device": "Vulkan0",
+      "max_tokens": 512,
+      "truncation": "right after instruction formatting, reserving final EOS position when enabled",
+      "pooling": "last",
+      "normalization": "L2",
+      "dimension": 1024,
+      "query_instruction": "Given a web search query, retrieve relevant passages that answer the query",
+      "document_instruction": null,
+      "append_eos": true,
+      "eos_token_id": 151643,
+      "bos_added": false,
+      "gguf_tokenizer_contract": {
+        "add_eos_token": true,
+        "add_bos_token": false,
+        "eos_token_id": 151643
+      },
+      "tokenize_endpoint_add_special": false,
+      "tokenize_endpoint_parse_special": false,
+      "eos_policy": "explicit EOS after body truncation mirrors official automatic TemplateProcessing",
+      "model_release": "2025-06-05",
+      "context_size": 512,
+      "logical_batch_size": 512,
+      "physical_batch_size": 512,
+      "server_command": [
+        "llama-server.exe",
+        "--model",
+        "Qwen3-Embedding-0.6B-Q8_0.gguf",
+        "--embedding",
+        "--pooling",
+        "last",
+        "--ctx-size",
+        "512",
+        "--batch-size",
+        "512",
+        "--ubatch-size",
+        "512",
+        "--parallel",
+        "1",
+        "--threads",
+        "2",
+        "--threads-batch",
+        "2",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "59887",
+        "--no-warmup",
+        "--verbosity",
+        "4",
+        "--device",
+        "Vulkan0",
+        "--n-gpu-layers",
+        "all"
+      ]
+    },
+    "unique_queries": 13000,
+    "unique_documents": 25677,
+    "memory_before": {
+      "available_physical_bytes": 6279032832,
+      "memory_load_percent": 62
+    },
+    "phases": {
+      "queries": {
+        "items": 13000,
+        "cache_hits": 676,
+        "truncated": 0,
+        "tokens": 351229,
+        "fresh_inference_seconds": 2551.671153400428,
+        "wall_seconds": 2646.827698199995,
+        "fresh_latency_p50_seconds": 0.20226445000298554,
+        "fresh_latency_p95_seconds": 0.23419367500246147
+      },
+      "documents": {
+        "items": 25677,
+        "cache_hits": 128,
+        "truncated": 0,
+        "tokens": 2084218,
+        "fresh_inference_seconds": 8764.219429601464,
+        "wall_seconds": 8941.454775899998,
+        "fresh_latency_p50_seconds": 0.35384029999841005,
+        "fresh_latency_p95_seconds": 0.5623863999993773
+      }
+    },
+    "memory_at_end": {
+      "available_physical_bytes": 3045744640,
+      "memory_load_percent": 81,
+      "server_working_set_bytes": 1547747328,
+      "server_peak_working_set_bytes": 1756676096,
+      "server_private_bytes": 1603604480
+    }
+  }
+}

@@ -1,12 +1,42 @@
-# EvidenceForge · 科学文献检索、负例采样与神经适配
+# EvidenceForge · 检索蒸馏、表示保持与迁移评测
 
 [![Offline tests](https://github.com/chendi-Shi/evidenceforge-nlp/actions/workflows/ci.yml/badge.svg)](https://github.com/chendi-Shi/evidenceforge-nlp/actions/workflows/ci.yml)
 
-面向 NLP 算法实践的可复现实验项目：给定英文研究论断，在完整 SciFact 论文摘要库中检索相关文献，比较稀疏检索、神经语义检索、融合召回与监督学习排序。
+面向 NLP 算法实践的可复现实验项目：研究有限本地算力下，检索编码器学习新任务时如何保留原有迁移能力。最新 v3 已完成 Qwen3 到 MiniLM 的离线蒸馏、四组目标对照、三个训练顺序种子及完整 BEIR SCIDOCS 评测。
 
-项目包含真实公开数据、难负样本挖掘、训练内分组验证、排序消融、逐查询评测、误差分析、命令行与 FastAPI 服务。v1 训练 LambdaMART；v2 增加真实梯度更新的检索编码器 LoRA、负例采样对照、迁移评测，以及本地 Qwen3-Embedding 基线。检索相关性不能判断论断真假，也不代表文献支持该论断。
+项目保留三个阶段的完整结果：v1 为混合检索与 LambdaMART；v2 为 LoRA 负例采样对照及 NFCorpus 迁移；v3 为蒸馏与原始表示保持。检索相关性不能判断论断真假，也不代表文献支持该论断。
 
-**v3 已于 2026-10-14 启动本机长实验，完整结果待产出：** [资源受限的检索蒸馏与迁移退化](docs/DISTILLATION.zh-CN.md)。已固定独立 MS MARCO 来源的 12,000 条训练查询、1,000 条验证查询和 25,677 篇去重文档；Qwen3 教师向 MiniLM 最后两层的 354.9 万参数蒸馏，四组目标 × 三个 seed，之后在新的完整 SCIDOCS 上检验迁移收益与退化。当前启动的是全量教师向量生成；预检只验证真实梯度与可运行性，尚无 v3 完整训练成绩；下方均为已经完成的 v1/v2 实验。
+## v3：蒸馏中的表示保持能否缓解负迁移？
+
+**2026-10-15 完成全部 12 组训练及独立产物复算。** 从固定 MS MARCO 三元组来源抽取 12,000 条训练查询、1,000 条验证查询和 25,677 篇去重文档；冻结 Qwen3-Embedding-0.6B Q8 教师，更新 MiniLM 最后两层全部 **3,548,928 个参数**。四组为监督 CE、CE+教师 KL（KD）、CE+原始表示保持（anchor）、CE+KL+表示保持（KD+anchor）。每组使用三个批次顺序种子，每次 750 步，共 **9,000 次有效优化器更新**。
+
+模型仅按源域验证 nDCG@10 选择 checkpoint，全部封存后评测 SCIDOCS 的 **25,657 篇文档、1,000 条查询**。下表为选中模型的结果；三种子标准差仅作描述。
+
+| 方法 | SCIDOCS nDCG@10（均值 ± 种子标准差） | 源域验证 nDCG@10 较 base 的平均差值 |
+|---|---:|---:|
+| 冻结 MiniLM base | **0.216406**（单一固定模型） | — |
+| CE | 0.205354 ± 0.003755 | +0.035870 |
+| KD | 0.209372 ± 0.000835 | +0.023352 |
+| anchor | 0.212952 ± 0.000875 | +0.038574 |
+| KD+anchor | 0.215630 ± 0.000490 | +0.011437 |
+
+预设主比较 `KD+anchor − KD` 平均为 **+0.006258**，相对 KD 均值约 **+2.99%**；三个种子的配对查询 bootstrap 95% 区间均大于 0。但 KD+anchor 的每个种子仍低于冻结 base，支持的结论是**缓解本配置下的负迁移**。次要交互量 `(KD+anchor − KD) − (anchor − CE)` 的均值为 −0.001340，三个区间均跨 0，不能据此声称保持项与蒸馏具有特殊协同。源域验证使用抽样文档池，不是官方全库 MS MARCO 成绩；三个种子只改变训练顺序，查询区间也不覆盖全部训练不确定性。
+
+- [完整结果与边界](docs/DISTILLATION_RESULTS.zh-CN.md)、[实验设计、运行与权重身份](docs/DISTILLATION.zh-CN.md)
+- [主报告](results/distillation/report.json)、[次要分析](results/distillation/analysis.json)、[独立审计](results/distillation/independent_audit.json)：从保存的 TREC 复算 13 份排名的四项指标、主比较区间，并检查协议、训练轨迹及权重 SHA256；不重新推理或认证历史耗时。
+- [冻结记录](results/distillation/frozen_students.json)、[训练产物](results/distillation/training)、[产物清单](results/distillation/artifact_manifest.json)：测试使用各组 `selected/metadata.json` 指向的权重；`final/metadata.json` 指向第 750 步权重，两者不一定相同。公开文件只包含当前 selected/final 引用的 24 个权重，不包括本地旧候选与优化器断点。
+- [执行账本](results/distillation/execution_summary.json)：本机 CPU 学生训练与 Iris Xe/Vulkan 教师推理，无付费 API 或云算力；累计调用墙钟计费 **15.5736 小时**。其中一次关机按系统关闭时间作保守上界，存在 **115.74 秒**不确定量；恢复后重算的 44 步不计入 9,000 步有效轨迹。预检、数据准备和调用间等待不在该账本范围内。
+
+在已有数据和权重的环境中，可只读复查已完成实验：
+
+```bash
+python scripts/audit_distillation.py --check
+python scripts/analyze_distillation_results.py
+```
+
+从零准备、分段运行及恢复命令见 [v3 运行说明](docs/DISTILLATION.zh-CN.md)。以下 v1/v2 成绩作为历史对照保留，不能归入 v3 蒸馏收益。
+
+最终发布前本地 **213 项测试通过**，`ruff check src tests scripts` 通过；测试检查代码正确性，模型效果由完整排名与报告提供证据。
 
 ## v2：负例采样是否改善神经检索
 
@@ -65,7 +95,7 @@ flowchart LR
     H --> L
 ```
 
-## 运行
+## v1 检索服务运行
 
 Python 3.11–3.13，建议 3.12。支持 CPU，不需要 API Key 或付费服务。首次运行需要联网下载公开语料与固定版本的模型；后续复用本地缓存。
 
@@ -102,7 +132,7 @@ evidenceforge --data-dir data/scifact --cache-dir cache --threads 2 experiment -
 
 复现本仓库记录的版本时，用 Python 3.12 执行 `pip install -c requirements.lock -e ".[dev]"`。锁文件不包含本机路径或模型权重。
 
-## 实验协议
+## v1 实验协议
 
 | 项目 | 设计 |
 |---|---|
@@ -120,7 +150,7 @@ evidenceforge --data-dir data/scifact --cache-dir cache --threads 2 experiment -
 
 BEIR 的 `test` 对应原始 SciFact 的公开 `dev`，并非原始隐藏测试集。其相关性标注源于 cited document IDs；“相关文献”与“有标注支持/反驳证据的文献”并不等价。详见 [数据说明](docs/DATA_CARD.md)。
 
-## 实测结果
+## v1 实测结果
 
 2026-10-13，在完整 5,183 篇文献、300 条官方 BEIR test 查询上实测。超参数仅由训练集内的分组验证选择，最终用全部 809 条训练查询、40,512 个候选文献对重训。
 
@@ -157,6 +187,10 @@ src/evidenceforge/
   modern.py        # 固定 Qwen GGUF、llama.cpp CPU/Vulkan 与逐文本缓存
   modern_experiment.py # 完整 SciFact Qwen 对照
   transfer_data.py # NFCorpus 固定数据与校验
+  distill_data.py  # 固定 MS MARCO 来源、去重与查询分组抽样
+  distill_student.py # 后两层训练、CE/KL/表示保持、前缀缓存与断点
+  distill_experiment.py # 固定协议、源域选模、封存后目标评测
+  distill_eval.py  # SCIDOCS 固定数据、完整语料排序与多种子汇总
   cli.py           # 可复现命令行
   api.py           # FastAPI，使用相同检索/排序代码
 tests/             # 小型合成数据仅用于离线正确性测试
@@ -168,6 +202,8 @@ pytest -q
 ruff check src tests
 python scripts/verify_results.py --results-dir results/scifact
 python scripts/verify_adaptation_results.py --output results/adaptation/independent_audit.json
+python scripts/audit_distillation.py --check
+python scripts/analyze_distillation_results.py
 ```
 
 CI 在 Linux Python 3.11/3.12 上运行离线测试；完整基准需要单独运行。Dockerfile 提供服务打包入口，运行时将本地 `data/`、`cache/`、`results/` 所在目录挂载到 `/artifacts`。本地 API 默认只绑定回环地址；开放公网需要另行配置认证和部署设施。
@@ -185,9 +221,11 @@ CI 在 Linux Python 3.11/3.12 上运行离线测试；完整基准需要单独�
 
 ## 来源与许可证
 
-项目原创代码采用 MIT。数据和模型保持各自许可证，不随本仓库重新授权；原始语料、模型权重与缓存不提交 Git。
+项目原创代码采用 MIT。数据和模型保持各自许可证，不随本仓库重新授权；原始语料、上游完整模型权重与缓存不提交 Git。项目训练产物及身份记录见相应结果目录。
 
 - [BEIR](https://github.com/beir-cellar/beir) / [BEIR paper](https://arxiv.org/abs/2104.08663)
 - [SciFact 原始项目](https://github.com/allenai/scifact) / [数据许可证](https://github.com/allenai/scifact/blob/master/LICENSE.md)
 - [MiniLM 模型卡](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
+- [MS MARCO 数据条款](https://microsoft.github.io/msmarco/#terms-and-conditions)、[Qwen 官方模型](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B)
+- [v3 数据与许可说明](docs/DISTILLATION.zh-CN.md)
 - [LightGBM LambdaRank 参数](https://lightgbm.readthedocs.io/en/stable/Parameters.html)

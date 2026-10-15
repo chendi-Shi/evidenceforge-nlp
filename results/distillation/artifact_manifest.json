@@ -1,0 +1,1327 @@
+{
+  "schema_version": 1,
+  "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+  "scope": "Public experiment artifact inventory; paths are relative to the repository root. The inventory excludes itself.",
+  "weight_policy": "Exactly the current selected and final metadata.filename references for every arm and seed. No old weight generations or optimizer state.",
+  "excluded": [
+    "source and target raw datasets",
+    "pretrained weights",
+    "optimizer checkpoints",
+    "runtime logs and local monitoring files",
+    "unreferenced weight generations"
+  ],
+  "file_count": 218,
+  "total_bytes": 780479527,
+  "weight_file_count": 24,
+  "weight_file_bytes": 340780416,
+  "files": [
+    {
+      "path": "results/distillation/analysis.json",
+      "bytes": 65460,
+      "sha256": "f26337a9b284d2c64bdad60e352b790a942c7f1821ec0ef45c704a2531fe027c",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/data_manifest.json",
+      "bytes": 4217,
+      "sha256": "ad1a4f6808ee6e11e0523334dae8f9a1963e88b58069ea22bfd4b8a4bec7b642",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/execution_summary.json",
+      "bytes": 3290,
+      "sha256": "b857470afc764f490febe0ed53e418cad17551c243728bc7ed5541c1d82f292f",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/failure_cases.json",
+      "bytes": 29292,
+      "sha256": "e97fec389ae55e51ea6376662c28a0f3f07699ed2590f6f6c38558040d565f5f",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/frozen_students.json",
+      "bytes": 74044,
+      "sha256": "950b49fd4f2a78b7f8e1794eb435cd15a017a4ab454947872a61f0981cb0677b",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/independent_audit.json",
+      "bytes": 7218,
+      "sha256": "3035a030f1aa68511b72b44f5b520ae4b48ab8158ece84074536fa161d3e048a",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/pilot_student.before_base_cache.json",
+      "bytes": 3048,
+      "sha256": "a85036cfba4a580de4fb31eb660b16892d95a22d47d6fef87783dc95719587c8",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/pilot_student.before_length_buckets.json",
+      "bytes": 3043,
+      "sha256": "cf2b027a2840cd443b2b8a47f520a027f4bad6725229686d389cb3ca0a99d015",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/pilot_student.json",
+      "bytes": 5634,
+      "sha256": "dc408464bce4a1e5d8701c4cf2d669d246b0c6f89f6dffdaba02737033dea0fd",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/pilot_teacher.json",
+      "bytes": 3559,
+      "sha256": "b863a96d6e41e87b085855405fb4ba386726280f37746de7a0eb7a97cf8c6f22",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/pilot_teacher_documents_progress.json",
+      "bytes": 130,
+      "sha256": "b3e13bb4caae8f353b6c6488248c78052e4a0890ebf0b20ca1fbbd4b4561f294",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/pilot_teacher_queries_progress.json",
+      "bytes": 129,
+      "sha256": "7ddec15e348e57669b3f0f6809dc7d29edfbae67db2e96a424b863da048940de",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/prefix_report.json",
+      "bytes": 1607,
+      "sha256": "cfe98af9006d1a9c3803cd7df35690e181c25b6ba14991be7dd4d89bd373a8a7",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/preflight.json",
+      "bytes": 1557,
+      "sha256": "40775d068e0ce398aaeb9354ca8b7b4296481396444858a79741e88ec7da152c",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/protocol.json",
+      "bytes": 6621,
+      "sha256": "f1442d7dc08b334db82d14e70e593eb42c93eb99b807913c285fad8f08531f85",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/report.json",
+      "bytes": 2982768,
+      "sha256": "b540128daeabe38bdc83f7a2f9ae622e3238ba657b9cea891058b97f95108ab0",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/anchor/17/ranking.per_query.json",
+      "bytes": 170307,
+      "sha256": "78ba9c72d8e8e2ea96b582ea1c7af58b24829d90bbe9c8d9d61ccf631f49b821",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/anchor/17/ranking.trec",
+      "bytes": 5885297,
+      "sha256": "5cba981e5aaf5b3417be75e5ac5b6b91eb27c2c1d9342f6b81ca445fd3ad3021",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/anchor/17/report.json",
+      "bytes": 186371,
+      "sha256": "1a47f2552864054abcb948a29003c6245b52369c56ea61ee649d7d6e5c166b96",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/anchor/42/ranking.per_query.json",
+      "bytes": 170375,
+      "sha256": "196ee767e997d1eae0b8c05966324a07fc67d673883b43d26e66d02fae6b0959",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/anchor/42/ranking.trec",
+      "bytes": 5885234,
+      "sha256": "7bf3103bcd23c2d083df5cf13ded0df13979eda42fc28ac4afd66281c5c2c2b7",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/anchor/42/report.json",
+      "bytes": 186438,
+      "sha256": "9f0a1910390c0952cac6adfb4857d3caa97992f6192fd0fe208813d199bef9e5",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/anchor/73/ranking.per_query.json",
+      "bytes": 170199,
+      "sha256": "68d5fad5b03f1e925c36b876dcb9d38d7867a09b3f9f33e18b85a1b46f68a5ba",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/anchor/73/ranking.trec",
+      "bytes": 5885318,
+      "sha256": "790814e0dc5636c34e1cc6e64e3737e9d5fa5abe2270f776007bfee7cb01ed49",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/anchor/73/report.json",
+      "bytes": 186248,
+      "sha256": "c3166357e9a2158980cbf7ae6c492561b3e2b56fe221dfe0d362fe55a9fe15fa",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/base/frozen/ranking.per_query.json",
+      "bytes": 170405,
+      "sha256": "0b722f31a8c8ab113300c807fe8f63435df267e1d3f1d165d0ca923e7b6db60c",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/base/frozen/ranking.trec",
+      "bytes": 5985433,
+      "sha256": "1a8b65709d8de6b280af1f05521c0984af019a1c2d191a4e64ae854800d6d42f",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/base/frozen/report.json",
+      "bytes": 186409,
+      "sha256": "b894e6a08e0fab8134f514920d3a529c3742c91870cd34b934e3b302bfd24331",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/ce/17/ranking.per_query.json",
+      "bytes": 170284,
+      "sha256": "cf6c1d5244705041d3696b468ad2320fc643ef370b0cc4a473218a4912c43c70",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/ce/17/ranking.trec",
+      "bytes": 5685471,
+      "sha256": "a9f5ccb6537e2f7051e5a9fb262283f1725bd641f01a2cdb108bb35293680047",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/ce/17/report.json",
+      "bytes": 186345,
+      "sha256": "4018de80d1d7b0af5f3291f7a92dd0224ad6420939b462eb43f6b62b7e06fafe",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/ce/42/ranking.per_query.json",
+      "bytes": 170505,
+      "sha256": "19802053b60851f8e327f97f1388b16b3b67ff1c54c7896c84a2a1404e4684ce",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/ce/42/ranking.trec",
+      "bytes": 5685550,
+      "sha256": "f806ed3fb75793395ebcb7911fb5764af1fc26ba70a0906ca0d3f03123c6ce12",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/ce/42/report.json",
+      "bytes": 186552,
+      "sha256": "295e52f3a75cebc37d62e33a2a1e3dbb7260c88592a9f5522ce97320b2ffc4da",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/ce/73/ranking.per_query.json",
+      "bytes": 170280,
+      "sha256": "c12600c1a216c62ddeee664c5344b83717effbffd150c12d2a85d18e60a05c5d",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/ce/73/ranking.trec",
+      "bytes": 5685504,
+      "sha256": "529669769f8e6ea0988f76e24a86cd732e630d2cab9cb92e9af195d2624974c2",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/ce/73/report.json",
+      "bytes": 186328,
+      "sha256": "237ffcca876e7628f136101fe13ca62361d751af50681dcbd7a1276159a89833",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd/17/ranking.per_query.json",
+      "bytes": 169805,
+      "sha256": "b08fe38d475cc9cfcd048865a7d2283f08e77040e84d6246f7c483a86eb83061",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd/17/ranking.trec",
+      "bytes": 5685389,
+      "sha256": "676370e17a3e6f53373541a9ae5dc04b8f5d5b7c5e7840a7ef3fb75b17685be0",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd/17/report.json",
+      "bytes": 185864,
+      "sha256": "65a16c4dfcd080bedaa010abb9631d0d7887afe62b57033c1f92ddb655911420",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd/42/ranking.per_query.json",
+      "bytes": 170176,
+      "sha256": "a2e38caffc80be901276115922524d813c8bee20880fda11c542d2470afe9889",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd/42/ranking.trec",
+      "bytes": 5685316,
+      "sha256": "ce220b7f959de47c7d88bcce0bfeb0aac91f14a39591c94937cf67c732ad9b30",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd/42/report.json",
+      "bytes": 186225,
+      "sha256": "f0c3188b9eb2164ab7990c85e0ba6c64a504dbf98c2f17aa827b773f6a201c22",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd/73/ranking.per_query.json",
+      "bytes": 169964,
+      "sha256": "ae2004659fb6741a833b317beb65b407f7e9c4be2abe8539203c5fa5f11a14e1",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd/73/ranking.trec",
+      "bytes": 5685553,
+      "sha256": "4f5939da46d4bfada297833d1c5c5d57190ae0438c5be9a0fb6ed215a5e4d440",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd/73/report.json",
+      "bytes": 186025,
+      "sha256": "20014006e6378e478a2a67b34e89b6e5264b9d6cda1879f9522f5134797de993",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd_anchor/17/ranking.per_query.json",
+      "bytes": 170476,
+      "sha256": "54d61a6a4d6958203d0ef5143634e47e3cdf6fd0d090d0f547a9807b5a16b25e",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd_anchor/17/ranking.trec",
+      "bytes": 6035424,
+      "sha256": "3d77535f7abde1bd06f0157b57286586902649e7447b18a41511348a8a8bc8b7",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd_anchor/17/report.json",
+      "bytes": 186544,
+      "sha256": "346da6524021a012c820272539d21fb79654fc392d05ff6d844ff239c67bb7fc",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd_anchor/42/ranking.per_query.json",
+      "bytes": 170515,
+      "sha256": "8a4327a56d4be3246a2b4ae3328fa15d6e1610ea6bb91ce874ad9c56c248a9ec",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd_anchor/42/ranking.trec",
+      "bytes": 6035470,
+      "sha256": "71d2ebae598303390f0d87dddd81852dcc695af84362e034b99f7d8d402358ac",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd_anchor/42/report.json",
+      "bytes": 186571,
+      "sha256": "9cfbb7bf9460ead1094deba0436d1508f547e672ad11eea9d26ce3bda05716e4",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd_anchor/73/ranking.per_query.json",
+      "bytes": 170595,
+      "sha256": "28c2ce5e06867357b65dd55ec26023742853cc63cbd0f6ce01f9bb5ae89afbd4",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd_anchor/73/ranking.trec",
+      "bytes": 6035370,
+      "sha256": "78550102a48500653fa2af88134bb4c04cfa87cbc92a6eee0b3e381b045bfe33",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/scidocs/kd_anchor/73/report.json",
+      "bytes": 186651,
+      "sha256": "bfcc4e62f989a4322fd61d9173039ca19bc17cd448b990c54058e3d10fddc18a",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/source_validation_base.json",
+      "bytes": 208087,
+      "sha256": "56c63445a67dd54975386f6049f054464cfdd802b2088a17aecb3dee669caee1",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/teacher_documents_progress.json",
+      "bytes": 136,
+      "sha256": "ed563aee91dc83e31d562b041457801489c7c18468b8f09b774b578bf71019a2",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/teacher_label_agreement.json",
+      "bytes": 495,
+      "sha256": "09ac084f6c61016d1a35ff2a04410cbb65883903207092abcbe5efa8108f6314",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/teacher_queries_progress.json",
+      "bytes": 135,
+      "sha256": "b819aa7bff9cc0f0d220b3e5938ac4672eec6fdea28a37e5d7bae5113f4f226f",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/teacher_report.json",
+      "bytes": 3578,
+      "sha256": "cc6394f733311190bc18663abf003f1672fcef3bd1bdb13d2e8633bd9332ec6f",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/final/metadata.json",
+      "bytes": 3254,
+      "sha256": "2288b8d1dd24411bb4fecb1f903ae30819b51d5ee86c3f06656f080c01eba932",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/final/suffix-88111e5eb1af2300fb30.safetensors",
+      "bytes": 14199184,
+      "sha256": "35c183d12d7a4e45f8a0d7c23f028339671a6778cc0b695dad695b18053f8637",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/report.json",
+      "bytes": 5579,
+      "sha256": "e0bc7b0d844a77311410df7603dbcb813d049634ee6db43015094b72fa196830",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/selected/metadata.json",
+      "bytes": 3254,
+      "sha256": "2288b8d1dd24411bb4fecb1f903ae30819b51d5ee86c3f06656f080c01eba932",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/selected/suffix-88111e5eb1af2300fb30.safetensors",
+      "bytes": 14199184,
+      "sha256": "35c183d12d7a4e45f8a0d7c23f028339671a6778cc0b695dad695b18053f8637",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/selection.json",
+      "bytes": 1190,
+      "sha256": "6c6a8fdd1126468e4e947140dbf5b584a85d9b2dc157dcd355473b53e946eb79",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/trace.json",
+      "bytes": 725389,
+      "sha256": "58b2eaa0027148a85624fdc0852f4bd93b904100c22e5521bd9a3483b923d561",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/validation/step-250.per_query.json",
+      "bytes": 191058,
+      "sha256": "83600066a76ed283488ab3522ba3f0605e82033de16858e044d298b19c739ad0",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/validation/step-250.trec",
+      "bytes": 9185206,
+      "sha256": "a8d614293e0d272aec3f92d48d216ec8ede7c01593697ef4c53f5b6369cce32b",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/validation/step-500.per_query.json",
+      "bytes": 190969,
+      "sha256": "34641c2d2d02ac28e782051e1ac80d2f0eee207a034c9611665e885a9e4898a5",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/validation/step-500.trec",
+      "bytes": 9185433,
+      "sha256": "8a3aaa5a9b0c28d3f299487be75402526bd21fcdc36f056974e268304cf57442",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/validation/step-750.per_query.json",
+      "bytes": 190858,
+      "sha256": "216badc008b7e8216be82c311b517a3562ca658d0e7d0575d9f2b6a4a4969087",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/17/validation/step-750.trec",
+      "bytes": 9185396,
+      "sha256": "b03b8e2fa51362316920960debf255be40529e7acf793ce0cd373bb1ad30b20a",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/final/metadata.json",
+      "bytes": 3254,
+      "sha256": "b49adfb0aa25b0332b74155f755b6ad797620428f56639fbd3bc1edcd121f09a",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/final/suffix-43a4b48e6e86d0b5f36e.safetensors",
+      "bytes": 14199184,
+      "sha256": "5c74f08902238f0c601c2f7f9269fb407abf0f067a9710f9a8e7a0ac31234550",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/report.json",
+      "bytes": 5567,
+      "sha256": "f364519c55e9211656cbee2969de83721a7426a5e888373aa74417bb625fad78",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/selected/metadata.json",
+      "bytes": 3254,
+      "sha256": "b49adfb0aa25b0332b74155f755b6ad797620428f56639fbd3bc1edcd121f09a",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/selected/suffix-43a4b48e6e86d0b5f36e.safetensors",
+      "bytes": 14199184,
+      "sha256": "5c74f08902238f0c601c2f7f9269fb407abf0f067a9710f9a8e7a0ac31234550",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/selection.json",
+      "bytes": 1177,
+      "sha256": "e24515ef4ce254d88ae47e66d4fd39f87b27f1de6a500e6d502c418c6901c2f8",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/trace.json",
+      "bytes": 725398,
+      "sha256": "b2ed9cf3b5a63f1821aa36c08328b14b14a6c46b0a27c237a52d2ddc7b701fb4",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/validation/step-250.per_query.json",
+      "bytes": 191160,
+      "sha256": "afb60587a0a000c136597f12e2b273fc69e2c0371e7bc829e86692860931d87a",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/validation/step-250.trec",
+      "bytes": 9185444,
+      "sha256": "2033c57254be265144b08b2560534eb81ba134090fb71d2c1b69660fe52bdc53",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/validation/step-500.per_query.json",
+      "bytes": 190878,
+      "sha256": "02813d64c46c6cd905c6d219e682c191b26b40710add0086dbe360edbc835397",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/validation/step-500.trec",
+      "bytes": 9185479,
+      "sha256": "c9f8547b5f8865897f3f501f38b2d753144dff7ec445a794341c037865d3d8e0",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/validation/step-750.per_query.json",
+      "bytes": 190859,
+      "sha256": "a6df93b97a5df35b8c457a439b76de8d652c20dd23b031caf0485ad80d64b894",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/42/validation/step-750.trec",
+      "bytes": 9185442,
+      "sha256": "c0e06d63ee4d70794c01f3a2a1faf195b11bfa4c044343f005e14518c3eb2f17",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/final/metadata.json",
+      "bytes": 3254,
+      "sha256": "07e51aafa24591ae8166ecd73954cc20ba24457733d4597878de458349da8553",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/final/suffix-2ce1e32b6ccf080e38c4.safetensors",
+      "bytes": 14199184,
+      "sha256": "c2c10fe6a9bcf00d4a2c9168652736d87c2f178ad4cb9df93c39cde1c497c909",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/report.json",
+      "bytes": 5579,
+      "sha256": "4757f33b59389104e5ca07680b3623b9e2fb473c7a12a4bea9689af1e6f45125",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/selected/metadata.json",
+      "bytes": 3254,
+      "sha256": "23db7a104d7d63e3336b62d24b83065109ba62f8f41dabbbcc19c57dd3cae3eb",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/selected/suffix-5485f237aed679325b93.safetensors",
+      "bytes": 14199184,
+      "sha256": "b689dbcd6a5815ca670f94ed87568c8a127e49c3c82fbac5912b8a64e3e455ab",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/selection.json",
+      "bytes": 1189,
+      "sha256": "78aa12c173419768d50d3ebda7d905c601fda331a9734ec537298fd1fd54311d",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/trace.json",
+      "bytes": 725368,
+      "sha256": "88bf48d52fa23dc4482e1e7309d92ca130a9a1564429309a2b3e91a9d9ff44a4",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/validation/step-250.per_query.json",
+      "bytes": 191118,
+      "sha256": "7568c952ab73103c877de06375701c4803127eb33395bb95b9b1681c9785d561",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/validation/step-250.trec",
+      "bytes": 9185353,
+      "sha256": "f131671c1463f6bf66f14b4490da0c8f800e68609c1c70616651ad3c38dc906c",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/validation/step-500.per_query.json",
+      "bytes": 190767,
+      "sha256": "bd9202b6104a255ba90bfe5446e904464e2dd04e835857aa1e341a5524add947",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/validation/step-500.trec",
+      "bytes": 9185582,
+      "sha256": "02379242846d7faef1af0e7101d68328ee846808c2d206dc18a89f20929afb73",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/validation/step-750.per_query.json",
+      "bytes": 190836,
+      "sha256": "19d2eaf785f4dff0f8eaabd9e491fbb9fd606156c2dbfbe2b6fad9583809740d",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/anchor/73/validation/step-750.trec",
+      "bytes": 9185319,
+      "sha256": "48915602a652d6d6e03f281a627bc8bf25887b202265ba6d250908c3774d6cbb",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/17/final/metadata.json",
+      "bytes": 3253,
+      "sha256": "dea8244e84cb86d3e385b57c4db9659e0e3e0a79a92a75e16955376ff106cd56",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/17/final/suffix-78e82c3c5cdc4ce07a11.safetensors",
+      "bytes": 14199184,
+      "sha256": "db30a562718746a2468ef4548b37cf7843d5490876270d7e813fba38d4536ee9",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/ce/17/report.json",
+      "bytes": 5569,
+      "sha256": "c2d31c6d974b2973afde1585b194b8ab172016a0923a840ad3d262a1718b4b81",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/17/selected/metadata.json",
+      "bytes": 3253,
+      "sha256": "5c024e59bea4157021bcbcdd167d19ce6278234dc13d323db87d92d0671ce8fb",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/17/selected/suffix-2b92665af824c6c1e73a.safetensors",
+      "bytes": 14199184,
+      "sha256": "9ad47964735e2477a1290cf50ba76222ce16d237f6f5f46034b6e55a107cc936",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/ce/17/selection.json",
+      "bytes": 1184,
+      "sha256": "7a577e4f7d59b032c0f2b2a2c905d57a2670ac0d847c6ae04129a366827a715a",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/17/trace.json",
+      "bytes": 712864,
+      "sha256": "156038f5291638c4cf09aa55b20d6262559b1548e5e34dc10bfeb02aef2a6549",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/17/validation/step-250.per_query.json",
+      "bytes": 190831,
+      "sha256": "03b9f46aa09592e67646291a948442c27f01f7900a1672eb31e2ea97d1000bb6",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/17/validation/step-250.trec",
+      "bytes": 9185575,
+      "sha256": "d42415725c7eca1961de1361c14175e6257f82f0e9f9ecc80a6e03211ab13a00",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/17/validation/step-500.per_query.json",
+      "bytes": 190789,
+      "sha256": "740f9d8a3c62d8db5a0f025bd5795efa2e64905489608a179584de7ee6721d92",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/17/validation/step-500.trec",
+      "bytes": 9185522,
+      "sha256": "f5146f83660a7928fb9e02ce7e33b945f8765ad5e4a8cdafa22efd84777a12df",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/17/validation/step-750.per_query.json",
+      "bytes": 190836,
+      "sha256": "35389189b04aeaada66ef4bbc42d0ca90cf7a21788d61fe29ae91a722d71153b",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/17/validation/step-750.trec",
+      "bytes": 9185361,
+      "sha256": "6438dd2b77e3c0af84e0d6001e8f9521d7678e0d000b40823656c656d8c04ce6",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/42/final/metadata.json",
+      "bytes": 3253,
+      "sha256": "27b39b6cce0fa63fb7f2bddc9cc16862da08cbeb665d0e8c0796f93da6f5c622",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/42/final/suffix-457a8d328f7d78e99321.safetensors",
+      "bytes": 14199184,
+      "sha256": "f7aa9084cbc8e6ba7e7b2507fca6133621493fa282159ee0ce3d3699972c122a",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/ce/42/report.json",
+      "bytes": 5561,
+      "sha256": "5a566b6b869b6b07b1f9a3822f9d130b648db5f42031cdf6d3684a900f504928",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/42/selected/metadata.json",
+      "bytes": 3253,
+      "sha256": "79042804dddb96d2e9ae5eec9736be61a61fb9332e85ced1c9a6a0dc4e250528",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/42/selected/suffix-6ef1c2366330a77e6bd0.safetensors",
+      "bytes": 14199184,
+      "sha256": "09606c752ae1b304fb044ed69d4970c8952123befb6ffad67e2992577a29ea0f",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/ce/42/selection.json",
+      "bytes": 1176,
+      "sha256": "fc217f4696cda5f0a60654b0c248ff718c3f5462465ad7c324898e6abae53b8c",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/42/trace.json",
+      "bytes": 712846,
+      "sha256": "35d24214abfb495164ce051798aad994ed2146f571482ddec33a4a48b3e2a273",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/42/validation/step-250.per_query.json",
+      "bytes": 190743,
+      "sha256": "ac559b9a4f5d2f8f95164f4cc74fa33954aef527be91e9346d4e17fe155925b0",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/42/validation/step-250.trec",
+      "bytes": 9185484,
+      "sha256": "2cdaa8f2296a26ddd2e1b448613b7e34ae9ad07d87d4d69261240c750b3ea83d",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/42/validation/step-500.per_query.json",
+      "bytes": 190745,
+      "sha256": "87221848f6ca88342389ce1554d99033427708122fcaf84f1fcb0a295f43c82c",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/42/validation/step-500.trec",
+      "bytes": 9185352,
+      "sha256": "14911a55734e5d8687df751995d209206b5a87020f9388327f2fe65160eee14c",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/42/validation/step-750.per_query.json",
+      "bytes": 190793,
+      "sha256": "1a0c493b8996ec4351046aecc16da5d23a45dba2ee8dd3660ccec3a6baa1d127",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/42/validation/step-750.trec",
+      "bytes": 9185488,
+      "sha256": "e9a00383ca770ea9b6bbb4b16b8d20a0d1e35093057dbae4e28e085bb555e56c",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/73/final/metadata.json",
+      "bytes": 3253,
+      "sha256": "0fb3e6031a04fd960f1276cf03b59bfd782070f375c27e51582deef2aca69c97",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/73/final/suffix-589db605f45f04491307.safetensors",
+      "bytes": 14199184,
+      "sha256": "151c44c1441fc3015f7fca5baea64c07e8785b8006cfd7e4d29e5bac578a68df",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/ce/73/report.json",
+      "bytes": 5569,
+      "sha256": "cded592f53e23811ddb00c84d197fd86e94fc70522104212369ca556ada4df85",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/73/selected/metadata.json",
+      "bytes": 3253,
+      "sha256": "c6e5ab3fedba8313b66fc21a74240019182ac6938c55d89829bfd56befb201fc",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/73/selected/suffix-367bee40aabdd334921a.safetensors",
+      "bytes": 14199184,
+      "sha256": "142235bf00efcd545fb29536d2762de5a5d4df56bfcf47e88b0798cff3b6f12f",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/ce/73/selection.json",
+      "bytes": 1184,
+      "sha256": "7a96364b55625ae0f67a6059121850da810254bf602af57fa51edcde7a9692d6",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/73/trace.json",
+      "bytes": 712893,
+      "sha256": "99013bcdd7e4da9737ee19f05282a7c4a1d9a67b9203d5e91e97ceff3163d831",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/73/validation/step-250.per_query.json",
+      "bytes": 190708,
+      "sha256": "7d3b5722d824e9d3c87edf6a7fa5d18db77d7434831a52c980a8f119566e62bf",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/73/validation/step-250.trec",
+      "bytes": 9185435,
+      "sha256": "74bdae7f470063016b1cdb1197c184686290668f3dadeba7ad1c890808b4b2fe",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/73/validation/step-500.per_query.json",
+      "bytes": 190859,
+      "sha256": "a6a0dc02433e4a8bb8caaa1c37d062aa7fd29340d1a30913fa9bd9578c5a958f",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/73/validation/step-500.trec",
+      "bytes": 9185529,
+      "sha256": "f26e6d1da0cd0841f554d81f2fa94730e45b1dbc896002f04226fbbe7918d9a2",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/73/validation/step-750.per_query.json",
+      "bytes": 190778,
+      "sha256": "69f12adbdd6fb924cd70a694171a53d597ea8c2fff08c4cb611383a377f2ab88",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/ce/73/validation/step-750.trec",
+      "bytes": 9185363,
+      "sha256": "0c8daffae2ccf32763e327671bbceef1248f6c1d6eff6da6d9af2f23630f2be9",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/17/final/metadata.json",
+      "bytes": 3253,
+      "sha256": "561f447be409245e7f8a22fe38d2da6f9fc07240766cf3033c79fe3bd9d9c08f",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/17/final/suffix-03bf7ea3296d8ddd0d54.safetensors",
+      "bytes": 14199184,
+      "sha256": "41290e083a1d1ffcce09e102e276a3f3ca2bd8e6962403d62f2510c062f29e60",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd/17/report.json",
+      "bytes": 5569,
+      "sha256": "cd584493cc6a1f0ca7fcd199d97cb40a5ab6966e55ca4c181c38a17da263a278",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/17/selected/metadata.json",
+      "bytes": 3253,
+      "sha256": "561f447be409245e7f8a22fe38d2da6f9fc07240766cf3033c79fe3bd9d9c08f",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/17/selected/suffix-03bf7ea3296d8ddd0d54.safetensors",
+      "bytes": 14199184,
+      "sha256": "41290e083a1d1ffcce09e102e276a3f3ca2bd8e6962403d62f2510c062f29e60",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd/17/selection.json",
+      "bytes": 1184,
+      "sha256": "f7f37b64761b4a06e42220e244b18a8694d8082e7e2b5bdd700df7db422cfade",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/17/trace.json",
+      "bytes": 723897,
+      "sha256": "40a4ca9932013a64454225ba3a00ea668b2eafffa71187e998709449c9fdee78",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/17/validation/step-250.per_query.json",
+      "bytes": 192063,
+      "sha256": "6bc95cd11f9b579b85b131823d9b69c987446d93cac9a257f19b26b229de15bb",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/17/validation/step-250.trec",
+      "bytes": 9185388,
+      "sha256": "a62280fe1b674bf0c57987d0d210b920d9f80a0856cef81d31d79d9a68c01eba",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/17/validation/step-500.per_query.json",
+      "bytes": 191552,
+      "sha256": "3cd124e38c45d44b52ddd1c1bbd5b885aa73176c61f41c59d7b6e79768bf4d55",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/17/validation/step-500.trec",
+      "bytes": 9185310,
+      "sha256": "c91bf2738696027969715a3da312860feac47c05ccb3ba182e9727dd56ac6fc7",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/17/validation/step-750.per_query.json",
+      "bytes": 191553,
+      "sha256": "add269866fe34970d76ce5462acf81ae22e885909f28ca510569679d8f524038",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/17/validation/step-750.trec",
+      "bytes": 9185308,
+      "sha256": "e67c21831211d75457393e82397d1f24afad71cb088d03a0fd9f7a8747bc22f9",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/42/final/metadata.json",
+      "bytes": 3253,
+      "sha256": "5a9d559576bf70dc3f0164a4fc174a5e9425b5a09c1644b1c64f62e5821a6f33",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/42/final/suffix-801ed2f1ae277785e0b7.safetensors",
+      "bytes": 14199184,
+      "sha256": "cfcfd4400527c90164fd1330a947e30e218f5bc2dae8f43cf5dd1a95acaadeea",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd/42/report.json",
+      "bytes": 5568,
+      "sha256": "445267a58b8e6e2b5858a1fb1a280b0d31f657ea7987dd8dba8c284c760d7fd3",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/42/selected/metadata.json",
+      "bytes": 3253,
+      "sha256": "5a9d559576bf70dc3f0164a4fc174a5e9425b5a09c1644b1c64f62e5821a6f33",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/42/selected/suffix-801ed2f1ae277785e0b7.safetensors",
+      "bytes": 14199184,
+      "sha256": "cfcfd4400527c90164fd1330a947e30e218f5bc2dae8f43cf5dd1a95acaadeea",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd/42/selection.json",
+      "bytes": 1183,
+      "sha256": "31d9df9546854f654a4a5a428390b2e76532fe382974b8873fd02fd5dcc20fd0",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/42/trace.json",
+      "bytes": 723978,
+      "sha256": "fe4ccbf54f4cf894d2c77d6f77c62cce1fa9c23f964be23111104688052bdb4d",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/42/validation/step-250.per_query.json",
+      "bytes": 192099,
+      "sha256": "d6bf27ef2b737720307a68fe03280a9568ab47bb1bbe87aa9c0f858d80a4ee27",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/42/validation/step-250.trec",
+      "bytes": 9185682,
+      "sha256": "9c4aa8a3b16b4314f14b76a9aa3af6d07b9e4cfcc3c651d32512be22b0ae4482",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/42/validation/step-500.per_query.json",
+      "bytes": 191466,
+      "sha256": "2dd719ce41247ec1d6001453f032579321460bf601ec6c56427ac016aa6b6212",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/42/validation/step-500.trec",
+      "bytes": 9185471,
+      "sha256": "ff9c41759f12e91f795b46ee494a28c178e02c2c02def2c013779834715e3175",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/42/validation/step-750.per_query.json",
+      "bytes": 191432,
+      "sha256": "bf8a3a79b67878484a3f9e812d35167538d66993dac49de718491c7a7b23f0b9",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/42/validation/step-750.trec",
+      "bytes": 9185398,
+      "sha256": "110120143b62c5dd0372ad620f3e77328acbcf387de2d7559ed6596a1e7cd3b1",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/73/final/metadata.json",
+      "bytes": 3253,
+      "sha256": "ada52d6457c39fc5a3a5919a2c8a03b14fafd7cb7b416508fdde41079b457227",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/73/final/suffix-55d6aec33cc1a6ca3f73.safetensors",
+      "bytes": 14199184,
+      "sha256": "6c8def2ae4e06f27c785817c1a8943133cc2eb459eb030d4f43a4aefa113c242",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd/73/report.json",
+      "bytes": 5567,
+      "sha256": "bdd517e971c971c9e662003c5762b0fe2620908c493d8fe5fd9d9fc57955c20a",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/73/selected/metadata.json",
+      "bytes": 3253,
+      "sha256": "ada52d6457c39fc5a3a5919a2c8a03b14fafd7cb7b416508fdde41079b457227",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/73/selected/suffix-55d6aec33cc1a6ca3f73.safetensors",
+      "bytes": 14199184,
+      "sha256": "6c8def2ae4e06f27c785817c1a8943133cc2eb459eb030d4f43a4aefa113c242",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd/73/selection.json",
+      "bytes": 1183,
+      "sha256": "ca7d5f609936ba018e4477e66476b7ce9fadec1d91361d1a44620ce68b38feda",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/73/trace.json",
+      "bytes": 723939,
+      "sha256": "5edf17b4e0c35d8cae6390ae799318be84495d6a47a5a6837329589bd3559da0",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/73/validation/step-250.per_query.json",
+      "bytes": 192138,
+      "sha256": "3c57ccd1fa2f31b92746944711a9742e669758570d3db467ed87977a0a976e2e",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/73/validation/step-250.trec",
+      "bytes": 9185374,
+      "sha256": "325604741dd68e82e288463b440eb16177797f1feac407b838fe2d75d2b13f06",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/73/validation/step-500.per_query.json",
+      "bytes": 191585,
+      "sha256": "d920abb384392ee7a8aa0d1c3936f6435d0970ab3d05b7aa7a8ddb3b93d4812f",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/73/validation/step-500.trec",
+      "bytes": 9185445,
+      "sha256": "898ed75c883c362c9d471e13363268d175ea05ad6ee838ea56afe12fdd1965d0",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/73/validation/step-750.per_query.json",
+      "bytes": 191389,
+      "sha256": "7f4700f535f5bbdc044914a26fa7e7a4eb48b4554e643a020750d0f7ec32e90d",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd/73/validation/step-750.trec",
+      "bytes": 9185362,
+      "sha256": "a0ccd3808b4254e6f5a03dc34aa70d32d21d2d66d3aa50ff44ee8c5901fa2a03",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/final/metadata.json",
+      "bytes": 3254,
+      "sha256": "7a897ec4388ab2d05d81277f54d216bdf5aed8b95648beb3ee8b5de8816c111e",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/final/suffix-35cb146f63b62521fc86.safetensors",
+      "bytes": 14199184,
+      "sha256": "a662ae3e49e49b580ecd944aeed824510aaf64022c134033aaab41397f5f9cac",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/report.json",
+      "bytes": 5585,
+      "sha256": "82084795b8cd32afa886da82c7901fc4608664d9fd0c7d7895d9609072f104a5",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/selected/metadata.json",
+      "bytes": 3254,
+      "sha256": "c1950a292b32682f381d1d8d16e246f1cc2cec7a635e4aee3de9b19c48372d3b",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/selected/suffix-56088c97fcbd2452fe9f.safetensors",
+      "bytes": 14199184,
+      "sha256": "d29b8423379deeea1ba0e050a2d0817b821cd0eeee20fac6ae04f6140b8ff824",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/selection.json",
+      "bytes": 1192,
+      "sha256": "8c19679168902951ad2f4892b20bd16959b866d62ee44ebea322f56b8cfdd554",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/trace.json",
+      "bytes": 736764,
+      "sha256": "34a9e9843bf381a7b61585577a9064f07b0517c06a7ff1d06f72a4a6b832f1d9",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/validation/step-250.per_query.json",
+      "bytes": 192169,
+      "sha256": "65293bd8bd65f4dd0db0e957be0808cf479063a021cbc66539dc5ec8af962e29",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/validation/step-250.trec",
+      "bytes": 9185321,
+      "sha256": "5fcda7e4664b8469efe488bd8fff67f0e2b9d8a396b66e38f35bcac91fac67c7",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/validation/step-500.per_query.json",
+      "bytes": 192048,
+      "sha256": "dedabfbd8818c6fa3f583d28dc9202710b2b693b13faaeec858748581e6589d7",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/validation/step-500.trec",
+      "bytes": 9185300,
+      "sha256": "5cd2f24e54ba50b5201ad16acfd3dda23bf9247bfe4df86da1dc31b9b1740345",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/validation/step-750.per_query.json",
+      "bytes": 192108,
+      "sha256": "6504fd08fe906524a57bd39c7052711744e13de9a716b3ad1d9087ee6bda21d8",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/17/validation/step-750.trec",
+      "bytes": 9185218,
+      "sha256": "b9d86dda2148108031c3f07403dba85cb4cab98b9b9a8ef60c312b76fa29259d",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/final/metadata.json",
+      "bytes": 3254,
+      "sha256": "63de44be15d44144a12fc7733dfffed2d2a11bcdc37eeab48f67e7bfbc4f39e0",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/final/suffix-5334fe824865fc86d221.safetensors",
+      "bytes": 14199184,
+      "sha256": "d140c1c15dde403ce5bf7c9683cb6c1dd0ce7a172bb056c3b9f6f84dbc188d94",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/report.json",
+      "bytes": 5575,
+      "sha256": "7188ce1d39cda91f62c5684ef3db3cc545d73fd52f1b084bad7a2e0786fcc32b",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/selected/metadata.json",
+      "bytes": 3254,
+      "sha256": "63de44be15d44144a12fc7733dfffed2d2a11bcdc37eeab48f67e7bfbc4f39e0",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/selected/suffix-5334fe824865fc86d221.safetensors",
+      "bytes": 14199184,
+      "sha256": "d140c1c15dde403ce5bf7c9683cb6c1dd0ce7a172bb056c3b9f6f84dbc188d94",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/selection.json",
+      "bytes": 1182,
+      "sha256": "d1c99022ed12a7d1d6aa7978db889ef5b8903089cac9cbdf20b51ec393d2a6f8",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/trace.json",
+      "bytes": 736836,
+      "sha256": "151819925d064616be906887d98c95628da8f2c144a652f3b3d39a6b44deea96",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/validation/step-250.per_query.json",
+      "bytes": 192318,
+      "sha256": "8fa1a5f1d20f98f1b0acfe962041bfc72d039429ffe8a14c7335fdeb0bcd2a1c",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/validation/step-250.trec",
+      "bytes": 9185415,
+      "sha256": "afb3b4d467166f85ed4e91bd99f55dfef0540a97fbd602a63b7c7768cb5cfe3a",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/validation/step-500.per_query.json",
+      "bytes": 192065,
+      "sha256": "028dbb86f2ddfa89fbeecc45d166b20600c5ec0c1d3d671ff8949028fb529b22",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/validation/step-500.trec",
+      "bytes": 9185273,
+      "sha256": "b28496f8d9bede0d0a74ef20b1f5c2077e6bb38d3c303f2115a366bd244c77b6",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/validation/step-750.per_query.json",
+      "bytes": 191948,
+      "sha256": "acfaaad27f0cfdeb1a4d73e3131969eb69598ec024a82b041bec9cbe072596e0",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/42/validation/step-750.trec",
+      "bytes": 9185460,
+      "sha256": "ea80b277e8401d549b60e253c2d52d27b069fdccee6fc233dd492dc8cadd1d1f",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/final/metadata.json",
+      "bytes": 3254,
+      "sha256": "967b2574fade315cfdc68523f77786187daff9940aec356038e4e2e75b90aca9",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/final/suffix-7ecc78b7ba5b989d1c77.safetensors",
+      "bytes": 14199184,
+      "sha256": "b1944c8dc95be175efb0e2f04b6d4f37a27e11bba9102e1355f541331734ccc5",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/report.json",
+      "bytes": 5574,
+      "sha256": "4509b6c945a1bdf765e308f5b17cdd7c4d70369989365be6050e7dac8ccdd5bd",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/selected/metadata.json",
+      "bytes": 3254,
+      "sha256": "967b2574fade315cfdc68523f77786187daff9940aec356038e4e2e75b90aca9",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/selected/suffix-7ecc78b7ba5b989d1c77.safetensors",
+      "bytes": 14199184,
+      "sha256": "b1944c8dc95be175efb0e2f04b6d4f37a27e11bba9102e1355f541331734ccc5",
+      "kind": "trainable_suffix_weights"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/selection.json",
+      "bytes": 1181,
+      "sha256": "18bebc190b3baca99e00449ad7495286d52dc1f8b5837967476d088440652b9d",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/trace.json",
+      "bytes": 736806,
+      "sha256": "ae77e8aa81dc6742706a141bfa6dab959918b9bf57a7e69b2a0d138b3bf500b8",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/validation/step-250.per_query.json",
+      "bytes": 192258,
+      "sha256": "1ffa0fc57877a45c7cf6f8e42e9db28abd51bce77967d8620f234c17426490b7",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/validation/step-250.trec",
+      "bytes": 9185455,
+      "sha256": "e288613840dff4637bdfb79325834a300785f7e5449025a6486c69a8b641f2dd",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/validation/step-500.per_query.json",
+      "bytes": 192005,
+      "sha256": "88a07ec64c913aef9eefe90d367d1417ed32dfc72ced55da5be90b8d8b50ee6a",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/validation/step-500.trec",
+      "bytes": 9185437,
+      "sha256": "c6aa62f658434d7cd3420e4d7366061582e72a73d8934e05d4f7bd90d6d5edfe",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/validation/step-750.per_query.json",
+      "bytes": 191946,
+      "sha256": "4ea4f2172a5dcee3813aa663401e657f01bb33cebab3f920efe6e873aa85a2eb",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/training/kd_anchor/73/validation/step-750.trec",
+      "bytes": 9185283,
+      "sha256": "ddb8c2d152455f08d014a35c6e0174b562a61267f61a9b92356c8570f2437735",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/validation/base.per_query.json",
+      "bytes": 192440,
+      "sha256": "652385ac3fe0b9f05bbe5a3126543c73d8f44015e3704755933e02663a390268",
+      "kind": "record_or_ranking"
+    },
+    {
+      "path": "results/distillation/validation/base.trec",
+      "bytes": 9185318,
+      "sha256": "e6c6ef92b485c24421185d68ae598e784d3bc080d8f6ef127b1f604b800b0879",
+      "kind": "record_or_ranking"
+    }
+  ]
+}

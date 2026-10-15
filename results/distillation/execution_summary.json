@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "experiment_status": "complete",
+  "completed_at_utc": "2026-10-15T14:46:33.514550+00:00",
+  "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+  "execution": "Local Windows laptop only; no paid API or cloud compute",
+  "completed_training_runs": 12,
+  "optimizer_steps_in_final_traces": 9000,
+  "examples_per_run": 12000,
+  "source_validation_queries": 1000,
+  "target_documents": 25657,
+  "target_queries": 1000,
+  "elapsed_hours_charged": 15.573627352222221,
+  "compute_budget_hours": 23.0,
+  "remaining_compute_hours": 7.426372647777779,
+  "invocations": [
+    {
+      "kind": "startup_memory_failure",
+      "compute_hours_charged": 0,
+      "invocation_number": 1,
+      "started_at_utc": "2026-10-14T03:03:00.334884+00:00",
+      "maximum_hours": 11.5
+    },
+    {
+      "kind": "runtime_memory_guard",
+      "ended_at_utc": "2026-10-14T03:26:37.990175+00:00",
+      "compute_hours_charged": 0.14516504416666667,
+      "invocation_number": 2,
+      "started_at_utc": "2026-10-14T03:17:55.396016+00:00",
+      "maximum_hours": 11.5
+    },
+    {
+      "kind": "memory_failure_after_cached_resume",
+      "ended_at_utc": "2026-10-14T03:34:01.827323+00:00",
+      "compute_hours_charged": 0.032891695,
+      "invocation_number": 3,
+      "started_at_utc": "2026-10-14T03:32:03.417221+00:00",
+      "maximum_hours": 11.5
+    },
+    {
+      "kind": "windows_update_reboot",
+      "started_at_utc": "2026-10-14T12:19:05.245840+00:00",
+      "ended_at_utc": "2026-10-14T18:16:08.512916+00:00",
+      "compute_hours_charged": 5.9509075211111115,
+      "end_time_basis": "Conservative upper bound from EventLog 6006 shutdown; exact process exit time unavailable.",
+      "confirmed_progress_hours": 5.918757193888889,
+      "shutdown_uncertainty_seconds": 115.741178,
+      "invocation_number": 4,
+      "maximum_hours": 11.5
+    },
+    {
+      "kind": "complete",
+      "started_at_utc": "2026-10-15T05:19:52.727419+00:00",
+      "ended_at_utc": "2026-10-15T14:46:33.514550+00:00",
+      "compute_hours_charged": 9.444663091944443,
+      "end_time_basis": "Pipeline complete timestamp; process absence independently confirmed",
+      "invocation_number": 5,
+      "maximum_hours": 11.5
+    }
+  ],
+  "notes": [
+    "Wall-clock invocation accounting, not summed CPU/GPU utilization; idle waiting between invocations is excluded.",
+    "The first failed startup was charged zero under the registered monitoring rule; preflight pilots and data setup precede this 23-hour long-run budget.",
+    "One Windows Update reboot interrupted ce/42. Its last checkpoint was step 600; 44 observed steps (601-644) were repeated on resume. Final traces contain 9000 unique effective optimizer steps, not all attempted computations.",
+    "Reboot billing uses system-shutdown time as a conservative upper bound, adding up to 115.741178 seconds beyond the last confirmed progress. It is not an exact worker-exit timestamp.",
+    "Completion and timing are local records, not independently authenticated execution-history evidence.",
+    "Artifact audit recomputes metrics and verifies saved records/weight identities; it does not rerun inference or certify wall-clock timing."
+  ]
+}

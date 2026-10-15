@@ -1,0 +1,197 @@
+{
+  "status": "passed",
+  "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+  "protocol_sha256": "f1442d7dc08b334db82d14e70e593eb42c93eb99b807913c285fad8f08531f85",
+  "training": {
+    "ce/17": {
+      "steps": 750,
+      "selected_step": 500,
+      "trace_sha256": "156038f5291638c4cf09aa55b20d6262559b1548e5e34dc10bfeb02aef2a6549",
+      "selected_weight_sha256": "9ad47964735e2477a1290cf50ba76222ce16d237f6f5f46034b6e55a107cc936"
+    },
+    "kd/17": {
+      "steps": 750,
+      "selected_step": 750,
+      "trace_sha256": "40a4ca9932013a64454225ba3a00ea668b2eafffa71187e998709449c9fdee78",
+      "selected_weight_sha256": "41290e083a1d1ffcce09e102e276a3f3ca2bd8e6962403d62f2510c062f29e60"
+    },
+    "anchor/17": {
+      "steps": 750,
+      "selected_step": 750,
+      "trace_sha256": "58b2eaa0027148a85624fdc0852f4bd93b904100c22e5521bd9a3483b923d561",
+      "selected_weight_sha256": "35c183d12d7a4e45f8a0d7c23f028339671a6778cc0b695dad695b18053f8637"
+    },
+    "kd_anchor/17": {
+      "steps": 750,
+      "selected_step": 500,
+      "trace_sha256": "34a9e9843bf381a7b61585577a9064f07b0517c06a7ff1d06f72a4a6b832f1d9",
+      "selected_weight_sha256": "d29b8423379deeea1ba0e050a2d0817b821cd0eeee20fac6ae04f6140b8ff824"
+    },
+    "ce/42": {
+      "steps": 750,
+      "selected_step": 250,
+      "trace_sha256": "35d24214abfb495164ce051798aad994ed2146f571482ddec33a4a48b3e2a273",
+      "selected_weight_sha256": "09606c752ae1b304fb044ed69d4970c8952123befb6ffad67e2992577a29ea0f"
+    },
+    "kd/42": {
+      "steps": 750,
+      "selected_step": 750,
+      "trace_sha256": "fe4ccbf54f4cf894d2c77d6f77c62cce1fa9c23f964be23111104688052bdb4d",
+      "selected_weight_sha256": "cfcfd4400527c90164fd1330a947e30e218f5bc2dae8f43cf5dd1a95acaadeea"
+    },
+    "anchor/42": {
+      "steps": 750,
+      "selected_step": 750,
+      "trace_sha256": "b2ed9cf3b5a63f1821aa36c08328b14b14a6c46b0a27c237a52d2ddc7b701fb4",
+      "selected_weight_sha256": "5c74f08902238f0c601c2f7f9269fb407abf0f067a9710f9a8e7a0ac31234550"
+    },
+    "kd_anchor/42": {
+      "steps": 750,
+      "selected_step": 750,
+      "trace_sha256": "151819925d064616be906887d98c95628da8f2c144a652f3b3d39a6b44deea96",
+      "selected_weight_sha256": "d140c1c15dde403ce5bf7c9683cb6c1dd0ce7a172bb056c3b9f6f84dbc188d94"
+    },
+    "ce/73": {
+      "steps": 750,
+      "selected_step": 250,
+      "trace_sha256": "99013bcdd7e4da9737ee19f05282a7c4a1d9a67b9203d5e91e97ceff3163d831",
+      "selected_weight_sha256": "142235bf00efcd545fb29536d2762de5a5d4df56bfcf47e88b0798cff3b6f12f"
+    },
+    "kd/73": {
+      "steps": 750,
+      "selected_step": 750,
+      "trace_sha256": "5edf17b4e0c35d8cae6390ae799318be84495d6a47a5a6837329589bd3559da0",
+      "selected_weight_sha256": "6c8def2ae4e06f27c785817c1a8943133cc2eb459eb030d4f43a4aefa113c242"
+    },
+    "anchor/73": {
+      "steps": 750,
+      "selected_step": 500,
+      "trace_sha256": "88bf48d52fa23dc4482e1e7309d92ca130a9a1564429309a2b3e91a9d9ff44a4",
+      "selected_weight_sha256": "b689dbcd6a5815ca670f94ed87568c8a127e49c3c82fbac5912b8a64e3e455ab"
+    },
+    "kd_anchor/73": {
+      "steps": 750,
+      "selected_step": 750,
+      "trace_sha256": "ae77e8aa81dc6742706a141bfa6dab959918b9bf57a7e69b2a0d138b3bf500b8",
+      "selected_weight_sha256": "b1944c8dc95be175efb0e2f04b6d4f37a27e11bba9102e1355f541331734ccc5"
+    }
+  },
+  "corpus_size": 25657,
+  "test_query_count": 1000,
+  "metrics": {
+    "base": {
+      "frozen": {
+        "ndcg@10": 0.21640561375981276,
+        "mrr@10": 0.3594198412698412,
+        "recall@10": 0.23086666666666666,
+        "recall@50": 0.42505000000000004
+      }
+    },
+    "ce": {
+      "17": {
+        "ndcg@10": 0.2010183162236059,
+        "mrr@10": 0.33929166666666666,
+        "recall@10": 0.2175,
+        "recall@50": 0.40035000000000004
+      },
+      "42": {
+        "ndcg@10": 0.20753826194696612,
+        "mrr@10": 0.34824563492063493,
+        "recall@10": 0.22346666666666667,
+        "recall@50": 0.40465
+      },
+      "73": {
+        "ndcg@10": 0.2075063364635032,
+        "mrr@10": 0.3493222222222222,
+        "recall@10": 0.22225,
+        "recall@50": 0.4077
+      }
+    },
+    "kd": {
+      "17": {
+        "ndcg@10": 0.20840868162977344,
+        "mrr@10": 0.349559126984127,
+        "recall@10": 0.22148333333333334,
+        "recall@50": 0.40498333333333336
+      },
+      "42": {
+        "ndcg@10": 0.20984146410021642,
+        "mrr@10": 0.35405039682539685,
+        "recall@10": 0.22223333333333334,
+        "recall@50": 0.40475
+      },
+      "73": {
+        "ndcg@10": 0.20986649675944838,
+        "mrr@10": 0.35294404761904763,
+        "recall@10": 0.22336666666666669,
+        "recall@50": 0.4057
+      }
+    },
+    "anchor": {
+      "17": {
+        "ndcg@10": 0.21362505130194862,
+        "mrr@10": 0.3566539682539682,
+        "recall@10": 0.22791666666666668,
+        "recall@50": 0.41945
+      },
+      "42": {
+        "ndcg@10": 0.21326879024804726,
+        "mrr@10": 0.3570027777777778,
+        "recall@10": 0.22726666666666667,
+        "recall@50": 0.41919999999999996
+      },
+      "73": {
+        "ndcg@10": 0.2119631500401425,
+        "mrr@10": 0.3547575396825397,
+        "recall@10": 0.2256166666666667,
+        "recall@50": 0.41885
+      }
+    },
+    "kd_anchor": {
+      "17": {
+        "ndcg@10": 0.2155291028922532,
+        "mrr@10": 0.35661587301587305,
+        "recall@10": 0.23081666666666667,
+        "recall@50": 0.42340000000000005
+      },
+      "42": {
+        "ndcg@10": 0.21519884515714569,
+        "mrr@10": 0.35674761904761904,
+        "recall@10": 0.22956666666666667,
+        "recall@50": 0.42195
+      },
+      "73": {
+        "ndcg@10": 0.2161630692710126,
+        "mrr@10": 0.3574654761904762,
+        "recall@10": 0.2314166666666667,
+        "recall@50": 0.42215
+      }
+    }
+  },
+  "primary_paired_bootstrap": {
+    "17": {
+      "delta": 0.00712042126247973,
+      "ci95_low": 0.003196180370575296,
+      "ci95_high": 0.0112089875252799,
+      "samples": 2000,
+      "seed": 42
+    },
+    "42": {
+      "delta": 0.005357381056929247,
+      "ci95_low": 0.0010478957510165583,
+      "ci95_high": 0.00964346421715861,
+      "samples": 2000,
+      "seed": 42
+    },
+    "73": {
+      "delta": 0.006296572511564188,
+      "ci95_low": 0.0022330545360141054,
+      "ci95_high": 0.01023208345594483,
+      "samples": 2000,
+      "seed": 42
+    }
+  },
+  "ok": true,
+  "scope": "Independent saved-ranking metrics and per-seed paired-query bootstrap; canonical protocol, source/target identities, 12 declared training traces, checkpoint selection and weight-file SHA256. Does not rerun inference/training, prove computation outside saved top-50 rankings, authenticate historical preregistration/freeze times, validate timing, inspect tensor values, or establish model quality from synthetic tests. Query intervals are conditional on each pair of fitted models, not training-seed uncertainty or a multiple-comparison correction. Local hashes establish consistency, not authenticity.",
+  "tolerance": 1e-10
+}

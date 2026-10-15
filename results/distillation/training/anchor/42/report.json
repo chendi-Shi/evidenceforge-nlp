@@ -1,0 +1,143 @@
+{
+  "plan": {
+    "spec_sha256": "f8ec0a4a8ed16e2bc387bb7ac2f09194da8663256c253c0d984278f28b9cb549",
+    "teacher_sha256": "53134dc24edc820de970e4437b2b5be6dd26df507a138407678b9e6e4ac1252f",
+    "seed": 42,
+    "arm": "anchor",
+    "order_sha256": "c92ff5297270a6fc879b76a83bb31470642d2d647519fcd958d0d6075eaf65ac"
+  },
+  "progress": {
+    "completed_steps": 750,
+    "nonzero_gradient_steps": 750,
+    "epoch": 0,
+    "row_cursor": 12000
+  },
+  "trainable_parameters": 3548928,
+  "selection": {
+    "best_step": 750,
+    "best_ndcg": 0.925624394587931,
+    "validations": [
+      {
+        "step": 250,
+        "metrics": {
+          "ndcg@10": 0.9185362166290009,
+          "mrr@10": 0.8909222222222222,
+          "recall@10": 0.997,
+          "recall@50": 0.999
+        },
+        "drift": {
+          "query_mean_cosine_distance_to_base": 0.0027494386304169893,
+          "document_mean_cosine_distance_to_base": 0.00782718788832426
+        }
+      },
+      {
+        "step": 500,
+        "metrics": {
+          "ndcg@10": 0.9238908214616501,
+          "mrr@10": 0.8985,
+          "recall@10": 0.996,
+          "recall@50": 0.999
+        },
+        "drift": {
+          "query_mean_cosine_distance_to_base": 0.003322286531329155,
+          "document_mean_cosine_distance_to_base": 0.008963171392679214
+        }
+      },
+      {
+        "step": 750,
+        "metrics": {
+          "ndcg@10": 0.925624394587931,
+          "mrr@10": 0.9005456349206349,
+          "recall@10": 0.997,
+          "recall@50": 0.999
+        },
+        "drift": {
+          "query_mean_cosine_distance_to_base": 0.0040943375788629055,
+          "document_mean_cosine_distance_to_base": 0.01065065898001194
+        }
+      }
+    ]
+  },
+  "final_suffix": {
+    "identity": {
+      "schema": 1,
+      "architecture": "BertModel full-parameter Transformer suffix",
+      "base_model_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+      "config_sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+      "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+      "max_length": 256,
+      "dimension": 384,
+      "layer_count": 6,
+      "frozen_layers": 4,
+      "trainable_layers": [
+        4,
+        5
+      ],
+      "dtype": "float32",
+      "pooling": "attention-mask-mean",
+      "normalize": true,
+      "training_mode": "eval with gradients; dropout disabled in all blocks",
+      "torch_version": "2.7.1+cpu",
+      "threads": 2,
+      "suffix_forward_strategy": "stable length-descending microbatches; inverse permutation before shared loss",
+      "forward_microbatch_size": 8
+    },
+    "config": {
+      "suffix_layers": 2,
+      "max_length": 256,
+      "threads": 2,
+      "forward_microbatch_size": 8,
+      "seed": 42,
+      "learning_rate": 2e-05,
+      "weight_decay": 0.01,
+      "max_grad_norm": 1.0,
+      "ce_temperature": 0.05,
+      "kd_temperature": 0.05,
+      "kd_weight": 0.0,
+      "anchor_weight": 10.0
+    },
+    "filename": "suffix-43a4b48e6e86d0b5f36e.safetensors",
+    "suffix_sha256": "5c74f08902238f0c601c2f7f9269fb407abf0f067a9710f9a8e7a0ac31234550",
+    "parameter_sha256": "43a4b48e6e86d0b5f36e6eff2fa115774eba69915331d9bc53e664c7967dce8c",
+    "initial_parameter_sha256": "9eb9e795dd738d4655a86537c83d5b1781accefea3188d69eaefaccb7273d28d",
+    "trainable_parameter_count": 3548928,
+    "trainable_parameter_names": [
+      "encoder.layer.4.attention.self.query.weight",
+      "encoder.layer.4.attention.self.query.bias",
+      "encoder.layer.4.attention.self.key.weight",
+      "encoder.layer.4.attention.self.key.bias",
+      "encoder.layer.4.attention.self.value.weight",
+      "encoder.layer.4.attention.self.value.bias",
+      "encoder.layer.4.attention.output.dense.weight",
+      "encoder.layer.4.attention.output.dense.bias",
+      "encoder.layer.4.attention.output.LayerNorm.weight",
+      "encoder.layer.4.attention.output.LayerNorm.bias",
+      "encoder.layer.4.intermediate.dense.weight",
+      "encoder.layer.4.intermediate.dense.bias",
+      "encoder.layer.4.output.dense.weight",
+      "encoder.layer.4.output.dense.bias",
+      "encoder.layer.4.output.LayerNorm.weight",
+      "encoder.layer.4.output.LayerNorm.bias",
+      "encoder.layer.5.attention.self.query.weight",
+      "encoder.layer.5.attention.self.query.bias",
+      "encoder.layer.5.attention.self.key.weight",
+      "encoder.layer.5.attention.self.key.bias",
+      "encoder.layer.5.attention.self.value.weight",
+      "encoder.layer.5.attention.self.value.bias",
+      "encoder.layer.5.attention.output.dense.weight",
+      "encoder.layer.5.attention.output.dense.bias",
+      "encoder.layer.5.attention.output.LayerNorm.weight",
+      "encoder.layer.5.attention.output.LayerNorm.bias",
+      "encoder.layer.5.intermediate.dense.weight",
+      "encoder.layer.5.intermediate.dense.bias",
+      "encoder.layer.5.output.dense.weight",
+      "encoder.layer.5.output.dense.bias",
+      "encoder.layer.5.output.LayerNorm.weight",
+      "encoder.layer.5.output.LayerNorm.bias"
+    ]
+  },
+  "current_invocation_training_seconds": 2377.0061935999984,
+  "timing_note": "Includes validation in this invocation only; resumed earlier time is not reconstructed",
+  "selected_metadata_sha256": "b49adfb0aa25b0332b74155f755b6ad797620428f56639fbd3bc1edcd121f09a",
+  "source_validation": "Fixed shared pool; step zero not selectable; no target labels used"
+}
